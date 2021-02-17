@@ -1,0 +1,13 @@
+namespace SurveySolutionsClient.Models
+{
+    public class QuestionAnswerView
+    {
+        public int Answer { get; set;}
+        public string Text { get; set; }
+
+        /// <summary>
+        /// Column name in API
+        /// </summary>
+        public string Column { get; set; }
+    }
+}

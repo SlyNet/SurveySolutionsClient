@@ -3,7 +3,25 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31005.135
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SurveySolutionsClient", "SurveySolutionsClient\SurveySolutionsClient.csproj", "{36D2AAF9-4E27-4259-A468-1AF20130A274}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SurveySolutionsClient.Tests", "SurveySolutionsClient.Tests\SurveySolutionsClient.Tests.csproj", "{5383EDFB-C8BE-44C9-86CB-07FCE6062051}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{36D2AAF9-4E27-4259-A468-1AF20130A274}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{36D2AAF9-4E27-4259-A468-1AF20130A274}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{36D2AAF9-4E27-4259-A468-1AF20130A274}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{36D2AAF9-4E27-4259-A468-1AF20130A274}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5383EDFB-C8BE-44C9-86CB-07FCE6062051}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5383EDFB-C8BE-44C9-86CB-07FCE6062051}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5383EDFB-C8BE-44C9-86CB-07FCE6062051}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5383EDFB-C8BE-44C9-86CB-07FCE6062051}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
