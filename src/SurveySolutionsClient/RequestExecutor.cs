@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -21,24 +22,55 @@ namespace SurveySolutionsClient
         public async Task<T> GetAsync<T>(string baseUrl, string path, Credentials credentials,
             CancellationToken cancellationToken)
         {
-            if (credentials == null)
-            {
-                throw new ArgumentNullException(nameof(credentials));
-            }
+            var responseObject = await SendRequest(baseUrl, path, credentials, null, cancellationToken, HttpMethod.Get.Method);
 
+            return await DeserializeResponse<T>(cancellationToken, responseObject);
+        }
+
+        private static async Task<T> DeserializeResponse<T>(CancellationToken cancellationToken, Stream responseObject)
+        {
+            var result = await JsonSerializer.DeserializeAsync<T>(responseObject, cancellationToken: cancellationToken)
+                .ConfigureAwait(false);
+            return result ?? throw new Exception("Failed to deserialize");
+        }
+
+        public async Task PatchAsync(string baseUrl, string path, object jsonBody,
+            Credentials credentials, CancellationToken cancellationToken)
+        {
+            await SendRequest(baseUrl, path, credentials, jsonBody, cancellationToken, "PATCH");
+        }
+
+        public async Task<T> PatchAsync<T>(string baseUrl, string path, object? jsonBody,
+            Credentials credentials, CancellationToken cancellationToken)
+        {
+            var response = await SendRequest(baseUrl, path, credentials, jsonBody, cancellationToken, "PATCH");
+            return await DeserializeResponse<T>(cancellationToken, response);
+        }
+
+        private async Task<Stream> SendRequest(string baseUrl, string path, Credentials credentials,
+            object? jsonBody,
+            CancellationToken cancellationToken, string httpMethod)
+        {
             var fullUrl = new Uri(new Uri(baseUrl), path);
 
             var request = new HttpRequestMessage
             {
                 RequestUri = fullUrl,
-                Method = HttpMethod.Get
+                Method = new HttpMethod(httpMethod)
             };
-            
-            string base64String = Convert.ToBase64String(Encoding.UTF8.GetBytes($"{credentials.UserName}:{credentials.Password}"));
+
+            string base64String =
+                Convert.ToBase64String(Encoding.UTF8.GetBytes($"{credentials.UserName}:{credentials.Password}"));
             request.Headers.Authorization = new AuthenticationHeaderValue("Basic", base64String);
             request.Headers.Accept.Add(MediaTypeWithQualityHeaderValue.Parse("application/json"));
-            
-            HttpResponseMessage serverResponse = await httpClient.SendAsync(request, cancellationToken).ConfigureAwait(false);
+
+            if (jsonBody != null)
+            {
+                request.Content = new StringContent(JsonSerializer.Serialize(jsonBody));
+                request.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+            }
+
+            HttpResponseMessage serverResponse = await this.httpClient.SendAsync(request, cancellationToken).ConfigureAwait(false);
 
             if (!serverResponse.IsSuccessStatusCode)
             {
@@ -46,9 +78,7 @@ namespace SurveySolutionsClient
             }
 
             var responseObject = await serverResponse.Content.ReadAsStreamAsync().ConfigureAwait(false);
-
-            var result = await JsonSerializer.DeserializeAsync<T>(responseObject, cancellationToken: cancellationToken).ConfigureAwait(false);
-            return result ?? throw new Exception("Failed to deserialize");
+            return responseObject;
         }
     }
 }
