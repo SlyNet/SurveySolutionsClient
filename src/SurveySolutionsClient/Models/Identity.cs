@@ -59,5 +59,13 @@ namespace SurveySolutionsClient.Models
         public static bool operator !=(Identity a, Identity b) => !(a == b);
 
         public override string ToString() => $"{this.Id:N}{this.RosterVector}";
+
+        public static Identity Parse(string value)
+        {
+            var id = Guid.Parse(value.Substring(0, 32));
+            var rosterVector = RosterVector.Parse(value.Substring(32));
+
+            return new(id, rosterVector);
+        }
     }
 }

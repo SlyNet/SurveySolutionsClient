@@ -1,10 +1,14 @@
 ﻿using System.Collections.Generic;
-using System.Runtime.Serialization;
 
 namespace SurveySolutionsClient.Models
 {
     public class AssignmentDetails : AssignmentViewItem
     {
-        [DataMember] public List<AssignmentIdentifyingDataItem> IdentifyingData { get; set; }
+        public AssignmentDetails()
+        {
+            IdentifyingData = new List<AssignmentIdentifyingDataItem>();
+        }
+
+        public List<AssignmentIdentifyingDataItem> IdentifyingData { get; set; }
     }
 }

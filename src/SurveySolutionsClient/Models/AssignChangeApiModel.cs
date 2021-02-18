@@ -14,6 +14,6 @@ namespace SurveySolutionsClient.Models
         /// <summary>
         /// New responsible name
         /// </summary>
-        public string ResponsibleName { set; get; }
+        public string? ResponsibleName { set; get; }
     }
 }

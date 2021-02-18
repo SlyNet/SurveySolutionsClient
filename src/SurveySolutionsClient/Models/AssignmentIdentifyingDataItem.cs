@@ -1,21 +1,29 @@
-﻿using System.Runtime.Serialization;
+﻿using System;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace SurveySolutionsClient.Models
 {
-    public class AssignmentIdentifyingDataItem
+    public record AssignmentIdentifyingDataItem
     {
-        /// <summary>
-        /// Question identity
-        /// Expected format: GuidWithoutDashes_Int1-Int2, where _Int1-Int2 - codes of parent rosters (empty if question is not inside any roster).
-        /// For example: 11111111111111111111111111111111_0-1 should be used for question on the second level
-        /// </summary>
-        [DataMember]
-        public string Identity { get; set; }
+        [JsonConverter(typeof(IdentityJsonConverter))]
+        public Identity Identity { get; set; }
 
-        [DataMember]
         public string Variable { get; set; }
 
-        [DataMember]
         public string Answer { get; set; }
+    }
+
+    public class IdentityJsonConverter :  JsonConverter<Identity>
+    {
+        public override Identity Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+        {
+            return Identity.Parse(reader.GetString());
+        }
+
+        public override void Write(Utf8JsonWriter writer, Identity value, JsonSerializerOptions options)
+        {
+            writer.WriteStringValue(value.ToString());
+        }
     }
 }

@@ -13,16 +13,13 @@ namespace SurveySolutionsClient.Exceptions
         /// <summary>
         /// Initializes a new instance of the <see cref="ApiCallException"/> class.
         /// </summary>
-        public ApiCallException() { }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ApiCallException"/> class.
-        /// </summary>
         /// <param name="message">The message.</param>
+        /// <param name="responseBody">Server response body.</param>
         /// <param name="serverResponse">The Headquarters server response.</param>
-        public ApiCallException(string message, HttpResponseMessage serverResponse) : base(message)
+        public ApiCallException(string message, string responseBody, HttpResponseMessage serverResponse) : base(message)
         {
             this.ServerResponse = serverResponse;
+            this.ResponseBody = responseBody;
         }
 
         /// <summary>
@@ -32,5 +29,13 @@ namespace SurveySolutionsClient.Exceptions
         /// The server response.
         /// </value>
         public HttpResponseMessage ServerResponse { get; }
+
+        /// <summary>
+        /// Gets or sets the response body.
+        /// </summary>
+        /// <value>
+        /// The response body.
+        /// </value>
+        public string? ResponseBody { get;}
     }
 }

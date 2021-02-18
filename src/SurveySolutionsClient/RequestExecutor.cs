@@ -34,21 +34,48 @@ namespace SurveySolutionsClient
             return result ?? throw new Exception("Failed to deserialize");
         }
 
-        public async Task PatchAsync(string baseUrl, string path, object jsonBody,
+        public Task PatchAsync(string baseUrl, string path, object jsonBody,
             Credentials credentials, CancellationToken cancellationToken)
         {
-            await SendRequest(baseUrl, path, credentials, jsonBody, cancellationToken, "PATCH");
+            return SendRequest(baseUrl, path, credentials, jsonBody, cancellationToken, "PATCH");
         }
 
         public async Task<T> PatchAsync<T>(string baseUrl, string path, object? jsonBody,
             Credentials credentials, CancellationToken cancellationToken)
         {
-            var response = await SendRequest(baseUrl, path, credentials, jsonBody, cancellationToken, "PATCH");
-            return await DeserializeResponse<T>(cancellationToken, response);
+            var response = await SendRequest(baseUrl, path, credentials, jsonBody, cancellationToken, "PATCH").ConfigureAwait(false);
+            return await DeserializeResponse<T>(cancellationToken, response).ConfigureAwait(false);
+        }
+
+        public Task<HttpResponseMessage> PostAsync(string baseUrl, string path, object jsonBody, Credentials credentials, CancellationToken cancellationToken)
+        {
+            return ReceiveResponse(baseUrl, path, credentials, jsonBody, cancellationToken, HttpMethod.Post.Method);
+        }
+
+        public async Task<T> PostAsync<T>(string baseUrl, string path, object jsonBody, Credentials credentials, CancellationToken cancellationToken)
+        {
+            var response = await SendRequest(baseUrl, path, credentials, jsonBody, cancellationToken, HttpMethod.Post.Method).ConfigureAwait(false);
+            return await DeserializeResponse<T>(cancellationToken, response).ConfigureAwait(false);
         }
 
         private async Task<Stream> SendRequest(string baseUrl, string path, Credentials credentials,
-            object? jsonBody,
+            object? jsonBody, 
+            CancellationToken cancellationToken, 
+            string httpMethod)
+        {
+            var serverResponse = await ReceiveResponse(baseUrl, path, credentials, jsonBody, cancellationToken, httpMethod);
+
+            if (!serverResponse.IsSuccessStatusCode)
+            {
+                string responseBody = await serverResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+                throw new ApiCallException($"Server responded with {serverResponse.StatusCode} status code", responseBody, serverResponse);
+            }
+
+            var responseObject = await serverResponse.Content.ReadAsStreamAsync().ConfigureAwait(false);
+            return responseObject;
+        }
+
+        private async Task<HttpResponseMessage> ReceiveResponse(string baseUrl, string path, Credentials credentials, object? jsonBody,
             CancellationToken cancellationToken, string httpMethod)
         {
             var fullUrl = new Uri(new Uri(baseUrl), path);
@@ -70,15 +97,9 @@ namespace SurveySolutionsClient
                 request.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
             }
 
-            HttpResponseMessage serverResponse = await this.httpClient.SendAsync(request, cancellationToken).ConfigureAwait(false);
-
-            if (!serverResponse.IsSuccessStatusCode)
-            {
-                throw new ApiCallException($"Server responded with {serverResponse.StatusCode} status code", serverResponse);
-            }
-
-            var responseObject = await serverResponse.Content.ReadAsStreamAsync().ConfigureAwait(false);
-            return responseObject;
+            HttpResponseMessage serverResponse =
+                await this.httpClient.SendAsync(request, cancellationToken).ConfigureAwait(false);
+            return serverResponse;
         }
     }
 }

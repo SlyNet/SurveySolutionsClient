@@ -12,15 +12,15 @@ namespace SurveySolutionsClient.Models
         private int? cachedHashCode;
         private readonly int[] coordinates;
 
-        public RosterVector(IEnumerable<int> coordinates)
+        public RosterVector(params int[] coordinates)
         {
             if (coordinates == null) throw new ArgumentNullException(nameof(coordinates));
 
             var asArray = coordinates as int[];
-            this.coordinates = asArray ?? coordinates.ToArray();
+            this.coordinates = asArray;
         }
 
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
@@ -32,6 +32,44 @@ namespace SurveySolutionsClient.Models
                 return this.coordinates.SequenceEqual((int[])obj);
 
             return false;
+        }
+
+        public static RosterVector Parse(string value)
+        {
+            value = value.Trim('_');
+
+            if (string.IsNullOrWhiteSpace(value))
+            {
+                return new RosterVector(Array.Empty<int>());
+            }
+
+            return new RosterVector(ParseMinusDelimitedIntArray(value));
+        }
+
+        static int[] ParseMinusDelimitedIntArray(string arrayString)
+        {
+            if (string.IsNullOrWhiteSpace(arrayString) || string.IsNullOrWhiteSpace(arrayString.Trim('_'))) return null;
+
+            //"-1-2--3".Split('-') => string[5] { "", "1", "2", "", "3" }
+            // every empty space mean that we encounter negative number
+            var items = arrayString.Split('-');
+            var result = new List<int>();
+
+            for (int i = 0; i < items.Length; i++)
+            {
+                if (string.IsNullOrWhiteSpace(items[i]))
+                {
+                    if (i == items.Length - 1) // if this is last item in array
+                        continue;
+
+                    // parse next item and increment index
+                    result.Add(-int.Parse(items[++i]));
+                }
+                else
+                    result.Add(int.Parse(items[i]));
+            }
+
+            return result.ToArray();
         }
 
         public override int GetHashCode()
@@ -52,13 +90,14 @@ namespace SurveySolutionsClient.Models
             return this.cachedHashCode.Value;
         }
 
-        public static bool operator ==(RosterVector a, RosterVector b)
+        public static bool operator ==(RosterVector? a, RosterVector? b)
             => ReferenceEquals(a, b)
                || (a?.Equals(b) ?? false);
 
-        public static bool operator !=(RosterVector a, RosterVector b)
+        public static bool operator !=(RosterVector? a, RosterVector? b)
             => !(a == b);
 
+        /// <inheritdoc />
         public override string ToString()
         {
             if (this.coordinates.Length > 0)

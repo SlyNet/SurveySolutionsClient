@@ -2,24 +2,25 @@
 
 namespace SurveySolutionsClient.Models
 {
+    /// <summary>
+    /// Verification details on assignment creation.
+    /// </summary>
     public class ImportDataVerificationState
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ImportDataVerificationState"/> class.
+        /// </summary>
         public ImportDataVerificationState()
         {
-            this.WasResponsibleProvided = false;
-            this.Errors = new List<PanelImportVerificationError>();
+            this.Errors = new List<AssignmentVerificationError>();
         }
 
-        public List<PanelImportVerificationError> Errors { set; get; }
-
-        public bool WasResponsibleProvided { set; get; }
-
-        public int EntitiesCount { get; set; }
-
-        public int EnumeratorsCount { get; set; }
-
-        public int SupervisorsCount { get; set; }
-
-        public string FileName { get; set; }
+        /// <summary>
+        /// Gets or sets the errors.
+        /// </summary>
+        /// <value>
+        /// The errors.
+        /// </value>
+        public List<AssignmentVerificationError> Errors { set; get; }
     }
 }

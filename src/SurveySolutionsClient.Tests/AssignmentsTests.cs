@@ -1,6 +1,11 @@
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.Net.Http;
+using System.Text.Json;
 using System.Threading.Tasks;
 using NUnit.Framework;
+using SurveySolutionsClient.Exceptions;
 using SurveySolutionsClient.Models;
 
 namespace SurveySolutionsClient.Tests
@@ -9,12 +14,14 @@ namespace SurveySolutionsClient.Tests
     {
         private HttpClient httpClient;
         private ISurveySolutionsApi service;
+        private QuestionnaireIdentity questionnaireIdentity;
 
         [OneTimeSetUp]
         public void OneTimeSetup()
         {
             httpClient = new HttpClient();
             service = new SurveySolutionsApi(httpClient, ClientSettings.GetConfiguration());
+            questionnaireIdentity = new QuestionnaireIdentity(Guid.Parse("1949c957-f891-4b93-be78-37cf41baa0a9"), 1);
         }
 
         [Test]
@@ -79,10 +86,7 @@ namespace SurveySolutionsClient.Tests
         [Test]
         public async Task can_assign()
         {
-            var archiveAsync = await this.service.Assignments.AssignAsync(1, new AssignmentAssignRequest
-            {
-                Responsible = "inter1"
-            });
+            var archiveAsync = await this.service.Assignments.AssignAsync(1, new AssignmentResponsible("inter1"));
 
             Assert.That(archiveAsync.ResponsibleName, Is.EqualTo("inter1"));
         }
@@ -101,6 +105,94 @@ namespace SurveySolutionsClient.Tests
             var archiveAsync = await this.service.Assignments.CloseAsync(1);
 
             Assert.That(archiveAsync.Quantity, Is.EqualTo(0));
+        }
+
+        [Test]
+        public void should_be_able_to_receive_validation_errors_during_assignment_creation()
+        {
+          
+            var exception = Assert.ThrowsAsync<AssignmentCreationException>(() => 
+                this.service.Assignments.CreateAsync(new CreateAssignmentApiRequest
+                {
+                    QuestionnaireId = questionnaireIdentity.ToString(),
+                    Comments = "comment",
+                    Email = "test@test.com",
+                    IsAudioRecordingEnabled = true,
+                    Password = "pwd123411",
+                    ProtectedVariables = new List<string> {"yn1"},
+                    Quantity = 5,
+                    Responsible = "inter",
+                    WebMode = true
+                }));
+
+            Assert.That(exception.CreationResult.VerificationStatus.Errors, Is.Not.Empty);
+        }
+
+        [Test]
+        public async Task should_be_able_to_create_assignment_without_values()
+        {
+            var creationResult = await this.service.Assignments.CreateAsync(new CreateAssignmentApiRequest
+                {
+                    QuestionnaireId = questionnaireIdentity.ToString(),
+                    Comments = "comment",
+                    IsAudioRecordingEnabled = true,
+                    ProtectedVariables = new List<string> {"yn1"},
+                    Quantity = 5,
+                    Responsible = "inter",
+                });
+
+            Assert.That(creationResult.Assignment, Is.Not.Null);
+        }
+
+        [Test]
+        public async Task should_be_able_to_create_assignment_with_answer()
+        {
+            var creationResult = await this.service.Assignments.CreateAsync(new CreateAssignmentApiRequest
+            {
+                QuestionnaireId = questionnaireIdentity.ToString(),
+                Quantity = 5,
+                Responsible = "inter",
+                IdentifyingData = new List<AssignmentIdentifyingDataItem>
+                {
+                    new AssignmentIdentifyingDataItem // text question
+                    {
+                        Answer = "text question",
+                        Variable = "text6"
+                    },
+                    new AssignmentIdentifyingDataItem // numeric question
+                    {
+                        Answer = "1",
+                        Variable = "numeric7"
+                    },
+                    new AssignmentIdentifyingDataItem // list question
+                    {
+                        Answer = JsonSerializer.Serialize(new []{ "one", "two", "three" }),
+                        Variable = "listR1"
+                    },
+                    new AssignmentIdentifyingDataItem // gps question
+                    {
+                        Variable = "gps",
+                        Answer = "48.7630568$30.1807397"
+                    },
+                    new AssignmentIdentifyingDataItem // multiple choice question
+                    {
+                        Variable = "ms16",
+                        Answer =  JsonSerializer.Serialize(new []{ "-2", "3" }),
+                    },
+                    new AssignmentIdentifyingDataItem // question in roster
+                    {
+                        Answer = "test answer inside roster",
+                        Identity = new Identity(Guid.Parse("7cc0482b99db1f48a4aff9e04fbd2f71"), new RosterVector(-2))
+                    },
+                    new AssignmentIdentifyingDataItem // yes no question
+                    {
+                        Variable = "yn1",
+                        Answer = JsonSerializer.Serialize(new [] { "20 -> yes", "30 -> no" })
+                    }
+                }
+            });
+
+            Assert.That(creationResult.Assignment, Is.Not.Null);
         }
 
         [OneTimeTearDown]

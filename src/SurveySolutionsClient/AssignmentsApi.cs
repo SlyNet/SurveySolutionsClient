@@ -1,6 +1,11 @@
-﻿using System.Net.Http;
+﻿using System;
+using System.Net;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
+using SurveySolutionsClient.Exceptions;
 using SurveySolutionsClient.Models;
 
 namespace SurveySolutionsClient
@@ -67,6 +72,7 @@ namespace SurveySolutionsClient
                 .PatchAsync<AssignmentDetails>(options.BaseUrl, $"api/v1/assignments/{id}/archive", null, options.Credentials, cancellationToken);
         }
 
+        /// <inheritdoc />
         public Task<AssignmentDetails> UnArchiveAsync(int id, CancellationToken cancellationToken = default)
         {
             return this.requestExecutor
@@ -74,22 +80,48 @@ namespace SurveySolutionsClient
         }
 
         /// <inheritdoc />
-        public Task<AssignmentDetails> AssignAsync(int id, AssignmentAssignRequest assigneeRequest, CancellationToken cancellationToken = default)
+        public Task<AssignmentDetails> AssignAsync(int id, AssignmentResponsible assigneeRequest, CancellationToken cancellationToken = default)
         {
             return this.requestExecutor
                 .PatchAsync<AssignmentDetails>(options.BaseUrl, $"api/v1/assignments/{id}/assign", assigneeRequest, options.Credentials, cancellationToken);
         }
 
+        /// <inheritdoc />
         public Task<AssignmentDetails> ChangeQuantityAsync(int id, int quantity, CancellationToken cancellationToken = default)
         {
             return this.requestExecutor
                 .PatchAsync<AssignmentDetails>(options.BaseUrl, $"api/v1/assignments/{id}/changeQuantity", quantity, options.Credentials, cancellationToken);
         }
 
+        /// <inheritdoc />
         public Task<AssignmentDetails> CloseAsync(int id, CancellationToken cancellationToken = default)
         {
             return this.requestExecutor
                 .PatchAsync<AssignmentDetails>(options.BaseUrl, $"api/v1/assignments/{id}/close", null, options.Credentials, cancellationToken);
+        }
+
+        /// <inheritdoc />
+        public async Task<CreateAssignmentResult> CreateAsync(CreateAssignmentApiRequest createItem, CancellationToken cancellationToken = default)
+        {
+            var response = await this.requestExecutor
+                .PostAsync(options.BaseUrl, "api/v1/assignments", createItem, options.Credentials, cancellationToken)
+                .ConfigureAwait(false);
+            var responseBody = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+            if (response.StatusCode == HttpStatusCode.BadRequest)
+            {
+                if ("application/json".Equals(response.Content.Headers.ContentType.MediaType, StringComparison.OrdinalIgnoreCase))
+                {
+                    var createAssignmentResult = JsonSerializer.Deserialize<CreateAssignmentResult>(responseBody);
+                    throw new AssignmentCreationException("Assignment was not created", createAssignmentResult);
+                }
+            }
+
+            if (!response.IsSuccessStatusCode || responseBody == null)
+            {
+                throw new ApiCallException("Assignment was not created", responseBody, response);
+            }
+
+            return JsonSerializer.Deserialize<CreateAssignmentResult>(responseBody);
         }
     }
 }

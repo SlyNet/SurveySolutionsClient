@@ -82,7 +82,7 @@ namespace SurveySolutionsClient
         /// <param name="assigneeRequest">The assignee details.</param>
         /// <param name="cancellationToken">The cancellation token.</param>
         /// <returns>Updated assignment details</returns>
-        Task<AssignmentDetails> AssignAsync(int id, AssignmentAssignRequest assigneeRequest,
+        Task<AssignmentDetails> AssignAsync(int id, AssignmentResponsible assigneeRequest,
             CancellationToken cancellationToken = default);
 
         /// <summary>
@@ -102,5 +102,13 @@ namespace SurveySolutionsClient
         /// <returns>Updated assignment details</returns>
         /// <remarks>Works properly only with survey solutions version newer than 20.03</remarks>
         Task<AssignmentDetails> CloseAsync(int id, CancellationToken cancellationToken = default);
+
+
+        /// <summary>
+        /// Creates new assignment.
+        /// </summary>
+        /// <param name="createItem">Assignment details.</param>
+        /// <returns>Created assignment information</returns>
+        Task<CreateAssignmentResult> CreateAsync(CreateAssignmentApiRequest createItem, CancellationToken cancellationToken = default);
     }
 }
