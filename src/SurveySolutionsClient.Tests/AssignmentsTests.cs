@@ -21,7 +21,7 @@ namespace SurveySolutionsClient.Tests
         {
             httpClient = new HttpClient();
             service = new SurveySolutionsApi(httpClient, ClientSettings.GetConfiguration());
-            questionnaireIdentity = new QuestionnaireIdentity(Guid.Parse("1949c957-f891-4b93-be78-37cf41baa0a9"), 1);
+            questionnaireIdentity = ClientSettings.Questionnaire;
         }
 
         [Test]

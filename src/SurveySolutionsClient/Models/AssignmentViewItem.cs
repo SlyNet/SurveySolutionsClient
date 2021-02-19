@@ -48,9 +48,9 @@ namespace SurveySolutionsClient.Models
         /// </summary>
         public DateTime UpdatedAtUtc { get; set; }
 
-        public string Email { get; set; }
+        public string? Email { get; set; }
 
-        public string Password { get; set; }
+        public string? Password { get; set; }
 
         public bool? WebMode { get; set; }
 

@@ -22,5 +22,8 @@ namespace SurveySolutionsClient
 
         /// <inheritdoc />
         public virtual IAssignments Assignments => new AssignmentsApi(httpClient, options);
+
+        /// <inheritdoc />
+        public virtual IExport Export => new ExportApi(this.httpClient, options);
     }
 }

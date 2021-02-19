@@ -101,5 +101,27 @@ namespace SurveySolutionsClient.Models
         }
 
         public static bool operator !=(QuestionnaireIdentity? a, QuestionnaireIdentity? b) => !(a == b);
+
+        public static QuestionnaireIdentity Parse(string id)
+        {
+            if (string.IsNullOrEmpty(id))
+                throw new ArgumentNullException(nameof(id), "the id is null or empty string");
+
+            var idParameters = id.Split('$');
+            if (idParameters.Length != 2)
+                throw new FormatException($"id value '{id}' is not in the correct format.");
+
+            try
+            {
+                var questionnaireId = Guid.Parse(idParameters[0]);
+                var version = long.Parse(idParameters[1]);
+
+                return new QuestionnaireIdentity(questionnaireId, version);
+            }
+            catch (Exception e)
+            {
+                throw new FormatException($"id value '{id}' is not in the correct format.", e);
+            }
+        }
     }
 }

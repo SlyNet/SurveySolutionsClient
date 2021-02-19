@@ -55,7 +55,17 @@ namespace SurveySolutionsClient
         public async Task<T> PostAsync<T>(string baseUrl, string path, object jsonBody, Credentials credentials, CancellationToken cancellationToken)
         {
             var response = await SendRequest(baseUrl, path, credentials, jsonBody, cancellationToken, HttpMethod.Post.Method).ConfigureAwait(false);
-            return await DeserializeResponse<T>(cancellationToken, response).ConfigureAwait(false);
+            try
+            {
+                return await DeserializeResponse<T>(cancellationToken, response).ConfigureAwait(false);
+            }
+            catch (JsonException)
+            {
+                response.Seek(0, SeekOrigin.Begin);
+                using var streamReader = new StreamReader(response);
+                var stringContent = await streamReader.ReadToEndAsync().ConfigureAwait(false);
+                throw;
+            }
         }
 
         private async Task<Stream> SendRequest(string baseUrl, string path, Credentials credentials,
@@ -89,7 +99,7 @@ namespace SurveySolutionsClient
             string base64String =
                 Convert.ToBase64String(Encoding.UTF8.GetBytes($"{credentials.UserName}:{credentials.Password}"));
             request.Headers.Authorization = new AuthenticationHeaderValue("Basic", base64String);
-            request.Headers.Accept.Add(MediaTypeWithQualityHeaderValue.Parse("application/json"));
+            request.Headers.Accept.Add(MediaTypeWithQualityHeaderValue.Parse("text/json"));
 
             if (jsonBody != null)
             {
@@ -100,6 +110,12 @@ namespace SurveySolutionsClient
             HttpResponseMessage serverResponse =
                 await this.httpClient.SendAsync(request, cancellationToken).ConfigureAwait(false);
             return serverResponse;
+        }
+
+        public async Task<T> DeleteAsync<T>(string baseUrl, string path, Credentials credentials, CancellationToken cancellationToken)
+        {
+            var response = await SendRequest(baseUrl, path, credentials, null, cancellationToken, HttpMethod.Delete.Method).ConfigureAwait(false);
+            return await DeserializeResponse<T>(cancellationToken, response).ConfigureAwait(false);
         }
     }
 }
