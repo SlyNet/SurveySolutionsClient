@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace SurveySolutionsClient.Models
 {
-    public class WorkspacesApiView : BaseApiView
+    public class WorkspacesList : BaseList
     {
-        public WorkspacesApiView(int offset, int limit, int totalCount, IEnumerable<WorkspaceApiView> workspaces)
+        public WorkspacesList(int offset, int limit, int totalCount, IEnumerable<WorkspaceApiView> workspaces)
         {
             Offset = offset;
             Limit = limit;

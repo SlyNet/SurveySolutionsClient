@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Text.Json.Serialization;
 
 namespace SurveySolutionsClient.Models
 {
@@ -12,6 +13,7 @@ namespace SurveySolutionsClient.Models
         private int? cachedHashCode;
         private readonly int[] coordinates;
 
+        [JsonConstructor]
         public RosterVector(params int[] coordinates)
         {
             if (coordinates == null) throw new ArgumentNullException(nameof(coordinates));
@@ -20,6 +22,7 @@ namespace SurveySolutionsClient.Models
             this.coordinates = asArray;
         }
 
+        /// <inheritdoc />
         public override bool Equals(object? obj)
         {
             if (ReferenceEquals(null, obj)) return false;

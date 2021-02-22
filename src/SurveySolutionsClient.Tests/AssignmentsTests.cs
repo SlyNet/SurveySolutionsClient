@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -110,11 +109,10 @@ namespace SurveySolutionsClient.Tests
         [Test]
         public void should_be_able_to_receive_validation_errors_during_assignment_creation()
         {
-          
             var exception = Assert.ThrowsAsync<AssignmentCreationException>(() => 
-                this.service.Assignments.CreateAsync(new CreateAssignmentApiRequest
+                this.service.Assignments.CreateAsync(new CreateAssignmentRequest
                 {
-                    QuestionnaireId = questionnaireIdentity.ToString(),
+                    QuestionnaireId = questionnaireIdentity,
                     Comments = "comment",
                     Email = "test@test.com",
                     IsAudioRecordingEnabled = true,
@@ -131,9 +129,9 @@ namespace SurveySolutionsClient.Tests
         [Test]
         public async Task should_be_able_to_create_assignment_without_values()
         {
-            var creationResult = await this.service.Assignments.CreateAsync(new CreateAssignmentApiRequest
+            var creationResult = await this.service.Assignments.CreateAsync(new CreateAssignmentRequest
                 {
-                    QuestionnaireId = questionnaireIdentity.ToString(),
+                    QuestionnaireId = questionnaireIdentity,
                     Comments = "comment",
                     IsAudioRecordingEnabled = true,
                     ProtectedVariables = new List<string> {"yn1"},
@@ -147,9 +145,9 @@ namespace SurveySolutionsClient.Tests
         [Test]
         public async Task should_be_able_to_create_assignment_with_answer()
         {
-            var creationResult = await this.service.Assignments.CreateAsync(new CreateAssignmentApiRequest
+            var creationResult = await this.service.Assignments.CreateAsync(new CreateAssignmentRequest
             {
-                QuestionnaireId = questionnaireIdentity.ToString(),
+                QuestionnaireId = questionnaireIdentity,
                 Quantity = 5,
                 Responsible = "inter",
                 IdentifyingData = new List<AssignmentIdentifyingDataItem>

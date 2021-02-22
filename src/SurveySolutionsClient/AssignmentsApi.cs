@@ -29,9 +29,9 @@ namespace SurveySolutionsClient
         }
 
         /// <inheritdoc />
-        public virtual Task<FullAssignmentDetails> DetailsAsync(int id, CancellationToken cancellationToken = default) =>
+        public virtual Task<FullAssignment> DetailsAsync(int id, CancellationToken cancellationToken = default) =>
             this.requestExecutor
-                .GetAsync<FullAssignmentDetails>(options.BaseUrl, $"api/v1/assignments/{id}", options.Credentials, cancellationToken);
+                .GetAsync<FullAssignment>(options.BaseUrl, $"api/v1/assignments/{id}", options.Credentials, cancellationToken);
 
         /// <inheritdoc />
         public virtual Task<AssignmentsListView> ListAsync(AssignmentsListFilter filter, CancellationToken cancellationToken = default)
@@ -66,50 +66,51 @@ namespace SurveySolutionsClient
         }
 
         /// <inheritdoc />
-        public Task<AssignmentDetails> ArchiveAsync(int id, CancellationToken cancellationToken = default)
+        public Task<Assignment> ArchiveAsync(int id, CancellationToken cancellationToken = default)
         {
             return this.requestExecutor
-                .PatchAsync<AssignmentDetails>(options.BaseUrl, $"api/v1/assignments/{id}/archive", null, options.Credentials, cancellationToken);
+                .PatchAsync<Assignment>(options.BaseUrl, $"api/v1/assignments/{id}/archive", null, options.Credentials, cancellationToken);
         }
 
         /// <inheritdoc />
-        public Task<AssignmentDetails> UnArchiveAsync(int id, CancellationToken cancellationToken = default)
+        public Task<Assignment> UnArchiveAsync(int id, CancellationToken cancellationToken = default)
         {
             return this.requestExecutor
-                .PatchAsync<AssignmentDetails>(options.BaseUrl, $"api/v1/assignments/{id}/unarchive", null, options.Credentials, cancellationToken);
+                .PatchAsync<Assignment>(options.BaseUrl, $"api/v1/assignments/{id}/unarchive", null, options.Credentials, cancellationToken);
         }
 
         /// <inheritdoc />
-        public Task<AssignmentDetails> AssignAsync(int id, AssignmentResponsible assigneeRequest, CancellationToken cancellationToken = default)
+        public Task<Assignment> AssignAsync(int id, AssignmentResponsible assigneeRequest, CancellationToken cancellationToken = default)
         {
             return this.requestExecutor
-                .PatchAsync<AssignmentDetails>(options.BaseUrl, $"api/v1/assignments/{id}/assign", assigneeRequest, options.Credentials, cancellationToken);
+                .PatchAsync<Assignment>(options.BaseUrl, $"api/v1/assignments/{id}/assign", assigneeRequest, options.Credentials, cancellationToken);
         }
 
         /// <inheritdoc />
-        public Task<AssignmentDetails> ChangeQuantityAsync(int id, int quantity, CancellationToken cancellationToken = default)
+        public Task<Assignment> ChangeQuantityAsync(int id, int quantity, CancellationToken cancellationToken = default)
         {
             return this.requestExecutor
-                .PatchAsync<AssignmentDetails>(options.BaseUrl, $"api/v1/assignments/{id}/changeQuantity", quantity, options.Credentials, cancellationToken);
+                .PatchAsync<Assignment>(options.BaseUrl, $"api/v1/assignments/{id}/changeQuantity", quantity, options.Credentials, cancellationToken);
         }
 
         /// <inheritdoc />
-        public Task<AssignmentDetails> CloseAsync(int id, CancellationToken cancellationToken = default)
+        public Task<Assignment> CloseAsync(int id, CancellationToken cancellationToken = default)
         {
             return this.requestExecutor
-                .PatchAsync<AssignmentDetails>(options.BaseUrl, $"api/v1/assignments/{id}/close", null, options.Credentials, cancellationToken);
+                .PatchAsync<Assignment>(options.BaseUrl, $"api/v1/assignments/{id}/close", null, options.Credentials, cancellationToken);
         }
 
         /// <inheritdoc />
-        public async Task<CreateAssignmentResult> CreateAsync(CreateAssignmentApiRequest createItem, CancellationToken cancellationToken = default)
+        public async Task<CreateAssignmentResult> CreateAsync(CreateAssignmentRequest createItem, CancellationToken cancellationToken = default)
         {
             var response = await this.requestExecutor
-                .PostAsync(options.BaseUrl, "api/v1/assignments", createItem, options.Credentials, cancellationToken)
+                .ReceiveResponse(options.BaseUrl, "api/v1/assignments", options.Credentials, createItem, cancellationToken, "POST")
                 .ConfigureAwait(false);
             var responseBody = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
             if (response.StatusCode == HttpStatusCode.BadRequest)
             {
-                if ("application/json".Equals(response.Content.Headers.ContentType.MediaType, StringComparison.OrdinalIgnoreCase))
+                if ("text/json".Equals(response.Content.Headers.ContentType.MediaType, StringComparison.OrdinalIgnoreCase) ||
+                    "application/json".Equals(response.Content.Headers.ContentType.MediaType, StringComparison.OrdinalIgnoreCase))
                 {
                     var createAssignmentResult = JsonSerializer.Deserialize<CreateAssignmentResult>(responseBody);
                     throw new AssignmentCreationException("Assignment was not created", createAssignmentResult);

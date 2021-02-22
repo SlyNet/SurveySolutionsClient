@@ -9,7 +9,8 @@ namespace SurveySolutionsClient.JsonConverters
     {
         public override Identity Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
-            return Identity.Parse(reader.GetString());
+            var value = reader.GetString();
+            return Identity.Parse(value);
         }
 
         public override void Write(Utf8JsonWriter writer, Identity value, JsonSerializerOptions options)

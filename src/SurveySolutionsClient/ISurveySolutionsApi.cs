@@ -14,5 +14,11 @@
         /// Gets the entry point to export related methods.
         /// </summary>
         IExport Export { get; }
+
+
+        /// <summary>
+        /// Gets the entry point to interview related methods.
+        /// </summary>
+        IInterviews Interviews { get; }
     }
 }

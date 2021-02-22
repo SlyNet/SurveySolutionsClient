@@ -1,6 +1,6 @@
 ﻿namespace SurveySolutionsClient.Models
 {
-    public abstract class BaseApiView
+    public abstract class BaseList
     {
         public string Order { get; protected set; }
 

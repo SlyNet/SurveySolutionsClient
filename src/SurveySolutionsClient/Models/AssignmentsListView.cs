@@ -2,7 +2,7 @@
 
 namespace SurveySolutionsClient.Models
 {
-    public class AssignmentsListView : BaseApiView
+    public class AssignmentsListView : BaseList
     {
         public List<AssignmentViewItem> Assignments { get; set; }
     }

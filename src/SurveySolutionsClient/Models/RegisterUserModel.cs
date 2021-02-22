@@ -1,10 +1,11 @@
 ﻿using System.ComponentModel;
+using System.Text.Json.Serialization;
 
 namespace SurveySolutionsClient.Models
 {
     public class RegisterUserModel
     {
-        
+        [JsonConverter(typeof(JsonStringEnumConverter))]
         public Roles Role { get; set; }
 
         

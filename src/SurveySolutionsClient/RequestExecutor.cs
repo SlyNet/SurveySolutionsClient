@@ -23,18 +23,28 @@ namespace SurveySolutionsClient
             CancellationToken cancellationToken)
         {
             var responseObject = await SendRequest(baseUrl, path, credentials, null, cancellationToken, HttpMethod.Get.Method);
+            return await DeserializeResponse<T>(cancellationToken, responseObject).ConfigureAwait(false);
 
-            return await DeserializeResponse<T>(cancellationToken, responseObject);
         }
 
         private static async Task<T> DeserializeResponse<T>(CancellationToken cancellationToken, Stream responseObject)
         {
-            var result = await JsonSerializer.DeserializeAsync<T>(responseObject, cancellationToken: cancellationToken)
-                .ConfigureAwait(false);
-            return result ?? throw new Exception("Failed to deserialize");
+            try
+            {
+                var result = await JsonSerializer.DeserializeAsync<T>(responseObject, cancellationToken: cancellationToken)
+                    .ConfigureAwait(false);
+                return result ?? throw new Exception("Failed to deserialize");
+            }
+            catch (JsonException)
+            {
+                responseObject.Seek(0, SeekOrigin.Begin);
+                using var streamReader = new StreamReader(responseObject);
+                var stringContent = await streamReader.ReadToEndAsync().ConfigureAwait(false);
+                throw;
+            }
         }
 
-        public Task PatchAsync(string baseUrl, string path, object jsonBody,
+        public Task PatchAsync(string baseUrl, string path, object? jsonBody,
             Credentials credentials, CancellationToken cancellationToken)
         {
             return SendRequest(baseUrl, path, credentials, jsonBody, cancellationToken, "PATCH");
@@ -47,30 +57,25 @@ namespace SurveySolutionsClient
             return await DeserializeResponse<T>(cancellationToken, response).ConfigureAwait(false);
         }
 
-        public Task<HttpResponseMessage> PostAsync(string baseUrl, string path, object jsonBody, Credentials credentials, CancellationToken cancellationToken)
+        public async Task PostAsync(string baseUrl, string path, object? jsonBody, Credentials credentials, CancellationToken cancellationToken)
         {
-            return ReceiveResponse(baseUrl, path, credentials, jsonBody, cancellationToken, HttpMethod.Post.Method);
+            var response = await ReceiveResponse(baseUrl, path, credentials, jsonBody, cancellationToken, HttpMethod.Post.Method);
+            if (!response.IsSuccessStatusCode)
+            {
+                string responseBody = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                throw new ApiCallException($"Server responded with {response.StatusCode} ({(int)response.StatusCode}) status code. Check ResponseBody property for details", responseBody, response);
+            }
         }
 
         public async Task<T> PostAsync<T>(string baseUrl, string path, object jsonBody, Credentials credentials, CancellationToken cancellationToken)
         {
             var response = await SendRequest(baseUrl, path, credentials, jsonBody, cancellationToken, HttpMethod.Post.Method).ConfigureAwait(false);
-            try
-            {
-                return await DeserializeResponse<T>(cancellationToken, response).ConfigureAwait(false);
-            }
-            catch (JsonException)
-            {
-                response.Seek(0, SeekOrigin.Begin);
-                using var streamReader = new StreamReader(response);
-                var stringContent = await streamReader.ReadToEndAsync().ConfigureAwait(false);
-                throw;
-            }
+            return await DeserializeResponse<T>(cancellationToken, response).ConfigureAwait(false);
         }
 
-        private async Task<Stream> SendRequest(string baseUrl, string path, Credentials credentials,
-            object? jsonBody, 
-            CancellationToken cancellationToken, 
+        public async Task<Stream> SendRequest(string baseUrl, string path, Credentials credentials,
+            object? jsonBody,
+            CancellationToken cancellationToken,
             string httpMethod)
         {
             var serverResponse = await ReceiveResponse(baseUrl, path, credentials, jsonBody, cancellationToken, httpMethod);
@@ -78,14 +83,14 @@ namespace SurveySolutionsClient
             if (!serverResponse.IsSuccessStatusCode)
             {
                 string responseBody = await serverResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
-                throw new ApiCallException($"Server responded with {serverResponse.StatusCode} status code", responseBody, serverResponse);
+                throw new ApiCallException($"Server responded with {serverResponse.StatusCode} ({(int)serverResponse.StatusCode}) status code. Check ResponseBody property for details", responseBody, serverResponse);
             }
 
-            var responseObject = await serverResponse.Content.ReadAsStreamAsync().ConfigureAwait(false);
+            Stream responseObject = await serverResponse.Content.ReadAsStreamAsync().ConfigureAwait(false);
             return responseObject;
         }
 
-        private async Task<HttpResponseMessage> ReceiveResponse(string baseUrl, string path, Credentials credentials, object? jsonBody,
+        public async Task<HttpResponseMessage> ReceiveResponse(string baseUrl, string path, Credentials credentials, object? jsonBody,
             CancellationToken cancellationToken, string httpMethod)
         {
             var fullUrl = new Uri(new Uri(baseUrl), path);
@@ -110,6 +115,11 @@ namespace SurveySolutionsClient
             HttpResponseMessage serverResponse =
                 await this.httpClient.SendAsync(request, cancellationToken).ConfigureAwait(false);
             return serverResponse;
+        }
+
+        public async Task DeleteAsync(string baseUrl, string path, Credentials credentials, CancellationToken cancellationToken)
+        {
+            await SendRequest(baseUrl, path, credentials, null, cancellationToken, HttpMethod.Delete.Method).ConfigureAwait(false);
         }
 
         public async Task<T> DeleteAsync<T>(string baseUrl, string path, Credentials credentials, CancellationToken cancellationToken)

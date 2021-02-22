@@ -2,7 +2,7 @@
 {
     public class CreateAssignmentResult
     {
-        public AssignmentDetails? Assignment { get; set; }
+        public Assignment? Assignment { get; set; }
 
         public ImportDataVerificationState? VerificationStatus { get; set; }
 

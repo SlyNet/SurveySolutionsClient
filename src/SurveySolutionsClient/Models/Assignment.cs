@@ -2,9 +2,9 @@
 
 namespace SurveySolutionsClient.Models
 {
-    public class AssignmentDetails : AssignmentViewItem
+    public class Assignment : AssignmentViewItem
     {
-        public AssignmentDetails()
+        public Assignment()
         {
             IdentifyingData = new List<AssignmentIdentifyingDataItem>();
         }

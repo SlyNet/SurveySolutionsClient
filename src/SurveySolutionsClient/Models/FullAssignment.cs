@@ -3,7 +3,7 @@ using System.Runtime.Serialization;
 
 namespace SurveySolutionsClient.Models
 {
-    public class FullAssignmentDetails : AssignmentDetails
+    public class FullAssignment : Assignment
     {
         [DataMember]
         public List<InterviewAnswer> Answers { get; set; }

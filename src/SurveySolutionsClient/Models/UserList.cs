@@ -2,7 +2,7 @@
 
 namespace SurveySolutionsClient.Models
 {
-    public class UserApiView : BaseApiView
+    public class UserList : BaseList
     {
         public IEnumerable<UserApiItem> Users { get; private set; }
     }

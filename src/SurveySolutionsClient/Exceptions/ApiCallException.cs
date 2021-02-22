@@ -4,7 +4,7 @@ using System.Net.Http;
 namespace SurveySolutionsClient.Exceptions
 {
     /// <summary>
-    /// Thrown in case of non success response status code returned from server
+    /// Thrown in case of non success response status code returned from server and client does not know how to handle it properly. Otherwise typed exception will be thrown.
     /// </summary>
     /// <seealso cref="System.Exception" />
     [Serializable]
