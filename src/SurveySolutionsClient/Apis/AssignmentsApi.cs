@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Net;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using SurveySolutionsClient.Exceptions;
+using SurveySolutionsClient.Helpers;
 using SurveySolutionsClient.Models;
 
-namespace SurveySolutionsClient
+namespace SurveySolutionsClient.Apis
 {
     /// <inheritdoc />
     public class AssignmentsApi : IAssignments
@@ -31,7 +31,7 @@ namespace SurveySolutionsClient
         /// <inheritdoc />
         public virtual Task<FullAssignment> DetailsAsync(int id, CancellationToken cancellationToken = default) =>
             this.requestExecutor
-                .GetAsync<FullAssignment>(options.BaseUrl, $"api/v1/assignments/{id}", options.Credentials, cancellationToken);
+                .GetAsync<FullAssignment>(this.options.BaseUrl, $"api/v1/assignments/{id}", this.options.Credentials, cancellationToken);
 
         /// <inheritdoc />
         public virtual Task<AssignmentsListView> ListAsync(AssignmentsListFilter filter, CancellationToken cancellationToken = default)
@@ -39,7 +39,7 @@ namespace SurveySolutionsClient
             string queryString = filter.GetQueryString();
 
             return this.requestExecutor
-                .GetAsync<AssignmentsListView>(options.BaseUrl, "api/v1/assignments?" + queryString, options.Credentials, cancellationToken);
+                .GetAsync<AssignmentsListView>(this.options.BaseUrl, "api/v1/assignments?" + queryString, this.options.Credentials, cancellationToken);
         }
 
         /// <inheritdoc />
@@ -48,63 +48,63 @@ namespace SurveySolutionsClient
             var query = new {start, length}.GetQueryString();
 
             return this.requestExecutor
-                .GetAsync<AssignmentHistory>(options.BaseUrl, $"api/v1/assignments/{id}/history?" + query, options.Credentials, cancellationToken);
+                .GetAsync<AssignmentHistory>(this.options.BaseUrl, $"api/v1/assignments/{id}/history?" + query, this.options.Credentials, cancellationToken);
         }
 
         /// <inheritdoc />
-        public Task<AssignmentAudioRecordingEnabled> GetAudioRecordingAsync(int id, CancellationToken cancellationToken = default)
+        public Task<AudioRecordingEnabled> GetAudioRecordingAsync(int id, CancellationToken cancellationToken = default)
         {
             return this.requestExecutor
-                .GetAsync<AssignmentAudioRecordingEnabled>(options.BaseUrl, $"api/v1/assignments/{id}/recordAudio", options.Credentials, cancellationToken);
+                .GetAsync<AudioRecordingEnabled>(this.options.BaseUrl, $"api/v1/assignments/{id}/recordAudio", this.options.Credentials, cancellationToken);
         }
 
         /// <inheritdoc />
         public Task SetAudioRecordingAsync(int id, UpdateRecordingRequest request, CancellationToken cancellationToken = default)
         {
             return this.requestExecutor
-                .PatchAsync(options.BaseUrl, $"api/v1/assignments/{id}/recordAudio", request, options.Credentials, cancellationToken);
+                .PatchAsync(this.options.BaseUrl, $"api/v1/assignments/{id}/recordAudio", request, this.options.Credentials, cancellationToken);
         }
 
         /// <inheritdoc />
         public Task<Assignment> ArchiveAsync(int id, CancellationToken cancellationToken = default)
         {
             return this.requestExecutor
-                .PatchAsync<Assignment>(options.BaseUrl, $"api/v1/assignments/{id}/archive", null, options.Credentials, cancellationToken);
+                .PatchAsync<Assignment>(this.options.BaseUrl, $"api/v1/assignments/{id}/archive", null, this.options.Credentials, cancellationToken);
         }
 
         /// <inheritdoc />
         public Task<Assignment> UnArchiveAsync(int id, CancellationToken cancellationToken = default)
         {
             return this.requestExecutor
-                .PatchAsync<Assignment>(options.BaseUrl, $"api/v1/assignments/{id}/unarchive", null, options.Credentials, cancellationToken);
+                .PatchAsync<Assignment>(this.options.BaseUrl, $"api/v1/assignments/{id}/unarchive", null, this.options.Credentials, cancellationToken);
         }
 
         /// <inheritdoc />
         public Task<Assignment> AssignAsync(int id, AssignmentResponsible assigneeRequest, CancellationToken cancellationToken = default)
         {
             return this.requestExecutor
-                .PatchAsync<Assignment>(options.BaseUrl, $"api/v1/assignments/{id}/assign", assigneeRequest, options.Credentials, cancellationToken);
+                .PatchAsync<Assignment>(this.options.BaseUrl, $"api/v1/assignments/{id}/assign", assigneeRequest, this.options.Credentials, cancellationToken);
         }
 
         /// <inheritdoc />
         public Task<Assignment> ChangeQuantityAsync(int id, int quantity, CancellationToken cancellationToken = default)
         {
             return this.requestExecutor
-                .PatchAsync<Assignment>(options.BaseUrl, $"api/v1/assignments/{id}/changeQuantity", quantity, options.Credentials, cancellationToken);
+                .PatchAsync<Assignment>(this.options.BaseUrl, $"api/v1/assignments/{id}/changeQuantity", quantity, this.options.Credentials, cancellationToken);
         }
 
         /// <inheritdoc />
         public Task<Assignment> CloseAsync(int id, CancellationToken cancellationToken = default)
         {
             return this.requestExecutor
-                .PatchAsync<Assignment>(options.BaseUrl, $"api/v1/assignments/{id}/close", null, options.Credentials, cancellationToken);
+                .PatchAsync<Assignment>(this.options.BaseUrl, $"api/v1/assignments/{id}/close", null, this.options.Credentials, cancellationToken);
         }
 
         /// <inheritdoc />
         public async Task<CreateAssignmentResult> CreateAsync(CreateAssignmentRequest createItem, CancellationToken cancellationToken = default)
         {
             var response = await this.requestExecutor
-                .ReceiveResponse(options.BaseUrl, "api/v1/assignments", options.Credentials, createItem, cancellationToken, "POST")
+                .ReceiveResponse(this.options.BaseUrl, "api/v1/assignments", this.options.Credentials, createItem, cancellationToken, "POST")
                 .ConfigureAwait(false);
             var responseBody = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
             if (response.StatusCode == HttpStatusCode.BadRequest)

@@ -37,7 +37,7 @@ namespace SurveySolutionsClient
         /// </summary>
         /// <param name="id">The assignment id.</param>
         /// <param name="cancellationToken">The cancellation token.</param>
-        Task<AssignmentAudioRecordingEnabled> GetAudioRecordingAsync(int id, CancellationToken cancellationToken = default);
+        Task<AudioRecordingEnabled> GetAudioRecordingAsync(int id, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Enables/Disables audio recording for assignment.

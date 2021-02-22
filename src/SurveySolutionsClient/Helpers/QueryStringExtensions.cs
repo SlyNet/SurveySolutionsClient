@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using System.Web;
 
-namespace SurveySolutionsClient
+namespace SurveySolutionsClient.Helpers
 {
     // https://stackoverflow.com/a/6848707/72174
     internal static class ExtensionMethods

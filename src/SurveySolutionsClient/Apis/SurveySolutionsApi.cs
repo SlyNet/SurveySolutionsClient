@@ -1,6 +1,6 @@
 ﻿using System.Net.Http;
 
-namespace SurveySolutionsClient
+namespace SurveySolutionsClient.Apis
 {
     /// <inheritdoc />
     public class SurveySolutionsApi : ISurveySolutionsApi
@@ -21,11 +21,13 @@ namespace SurveySolutionsClient
         }
 
         /// <inheritdoc />
-        public virtual IAssignments Assignments => new AssignmentsApi(httpClient, this.options);
+        public virtual IAssignments Assignments => new AssignmentsApi(this.httpClient, this.options);
 
         /// <inheritdoc />
         public virtual IExport Export => new ExportApi(this.httpClient, this.options);
 
         public IInterviews Interviews => new InterviewsApi(this.httpClient, this.options);
+
+        public IQuestionnaires Questionnaires => new QuestionnairesApi(this.httpClient, this.options);
     }
 }

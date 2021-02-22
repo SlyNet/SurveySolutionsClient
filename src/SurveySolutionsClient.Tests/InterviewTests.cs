@@ -3,6 +3,7 @@ using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
 using NUnit.Framework;
+using SurveySolutionsClient.Apis;
 using SurveySolutionsClient.Models;
 
 namespace SurveySolutionsClient.Tests
@@ -78,7 +79,7 @@ namespace SurveySolutionsClient.Tests
         [Test]
         public async Task should_be_able_to_add_comment()
         {
-            await this.service.Interviews.CommentAsync(Guid.Parse("4f7ff718d6dd42a1832db332e620159b"), "date",
+            await this.service.Interviews.CommentAsync(Guid.Parse("4f7ff718d6dd42a1832db332e620159b"), "numeric13",
                 "my comment", new RosterVector(0));
         }
 

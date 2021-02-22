@@ -4,9 +4,10 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
+using SurveySolutionsClient.Helpers;
 using SurveySolutionsClient.Models;
 
-namespace SurveySolutionsClient
+namespace SurveySolutionsClient.Apis
 {
     /// <inheritdoc />
     public class InterviewsApi : IInterviews

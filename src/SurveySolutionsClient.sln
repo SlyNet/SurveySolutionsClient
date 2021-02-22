@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31005.135
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SurveySolutionsClient", "SurveySolutionsClient\SurveySolutionsClient.csproj", "{36D2AAF9-4E27-4259-A468-1AF20130A274}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SurveySolutionsClient", "SurveySolutionsClient\SurveySolutionsClient.csproj", "{36D2AAF9-4E27-4259-A468-1AF20130A274}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SurveySolutionsClient.Tests", "SurveySolutionsClient.Tests\SurveySolutionsClient.Tests.csproj", "{5383EDFB-C8BE-44C9-86CB-07FCE6062051}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SurveySolutionsClient.Tests", "SurveySolutionsClient.Tests\SurveySolutionsClient.Tests.csproj", "{5383EDFB-C8BE-44C9-86CB-07FCE6062051}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

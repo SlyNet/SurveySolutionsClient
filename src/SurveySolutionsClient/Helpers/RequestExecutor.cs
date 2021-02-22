@@ -8,7 +8,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using SurveySolutionsClient.Exceptions;
 
-namespace SurveySolutionsClient
+namespace SurveySolutionsClient.Helpers
 {
     internal class RequestExecutor
     {

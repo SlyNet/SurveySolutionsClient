@@ -20,5 +20,13 @@
         /// Gets the entry point to interview related methods.
         /// </summary>
         IInterviews Interviews { get; }
+
+        /// <summary>
+        /// Gets the entry point to questionnaires related methods.
+        /// </summary>
+        /// <value>
+        /// The questionnaires.
+        /// </value>
+        IQuestionnaires Questionnaires { get; }
     }
 }

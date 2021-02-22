@@ -2,6 +2,7 @@
 using System.Net.Http;
 using System.Threading.Tasks;
 using NUnit.Framework;
+using SurveySolutionsClient.Apis;
 using SurveySolutionsClient.Models;
 
 namespace SurveySolutionsClient.Tests

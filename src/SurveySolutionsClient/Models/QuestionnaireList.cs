@@ -5,6 +5,6 @@ namespace SurveySolutionsClient.Models
     public class QuestionnaireList : BaseList
     {
         
-        public IEnumerable<QuestionnaireApiItem> Questionnaires { get; private set; }
+        public IEnumerable<QuestionnaireItem> Questionnaires { get; private set; }
     }
 }
