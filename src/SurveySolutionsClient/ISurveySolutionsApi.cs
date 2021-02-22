@@ -36,5 +36,13 @@
         /// The settings.
         /// </value>
         ISettings Settings { get; }
+
+        /// <summary>
+        /// Gets the users api.
+        /// </summary>
+        /// <value>
+        /// The users.
+        /// </value>
+        IUsers Users { get; }
     }
 }
