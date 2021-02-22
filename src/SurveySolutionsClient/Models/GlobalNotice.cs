@@ -1,9 +1,6 @@
 ﻿namespace SurveySolutionsClient.Models
 {
-    /// <summary>
-    /// 
-    /// </summary>
-    public class GlobalNoticeApiView
+    public class GlobalNotice
     {
         /// <summary>
         /// Current global notice

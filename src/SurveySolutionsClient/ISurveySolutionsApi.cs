@@ -28,5 +28,13 @@
         /// The questionnaires.
         /// </value>
         IQuestionnaires Questionnaires { get; }
+
+        /// <summary>
+        /// Gets the settings api.
+        /// </summary>
+        /// <value>
+        /// The settings.
+        /// </value>
+        ISettings Settings { get; }
     }
 }

@@ -127,5 +127,10 @@ namespace SurveySolutionsClient.Helpers
             var response = await SendRequest(baseUrl, path, credentials, null, cancellationToken, HttpMethod.Delete.Method).ConfigureAwait(false);
             return await DeserializeResponse<T>(cancellationToken, response).ConfigureAwait(false);
         }
+
+        public Task PutAsync(string baseUrl, string path, object? body, Credentials credentials, CancellationToken cancellationToken)
+        {
+            return SendRequest(baseUrl, path, credentials, body, cancellationToken, HttpMethod.Put.Method);
+        }
     }
 }

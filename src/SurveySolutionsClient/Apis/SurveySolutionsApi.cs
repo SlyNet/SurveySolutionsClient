@@ -29,5 +29,6 @@ namespace SurveySolutionsClient.Apis
         public IInterviews Interviews => new InterviewsApi(this.httpClient, this.options);
 
         public IQuestionnaires Questionnaires => new QuestionnairesApi(this.httpClient, this.options);
+        public ISettings Settings  => new SettingsApi(this.httpClient, this.options);
     }
 }
