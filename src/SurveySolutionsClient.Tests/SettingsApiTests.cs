@@ -28,7 +28,7 @@ namespace SurveySolutionsClient.Tests
         [Test]
         public async Task set_global_notice()
         {
-            await this.service.Settings.SetGlobalNoticeAsync(new SetGlobalNoticeApiModel
+            await this.service.Settings.SetGlobalNoticeAsync(new GlobalNoticeRequest
             {
                 Message = "test message"
             });

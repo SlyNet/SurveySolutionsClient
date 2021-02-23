@@ -2,7 +2,7 @@ using System;
 
 namespace SurveySolutionsClient.Models
 {
-    public class WorkspaceApiView
+    public class Workspace
     {
         public string Name { get; set; }
         

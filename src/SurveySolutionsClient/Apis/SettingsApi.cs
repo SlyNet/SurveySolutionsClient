@@ -31,7 +31,7 @@ namespace SurveySolutionsClient.Apis
         }
 
         /// <inheritdoc />
-        public Task SetGlobalNoticeAsync(SetGlobalNoticeApiModel request,
+        public Task SetGlobalNoticeAsync(GlobalNoticeRequest request,
             CancellationToken cancellationToken = default)
         {
             return this.requestExecutor.PutAsync(this.options.BaseUrl, "/api/v1/settings/globalnotice", request,

@@ -108,7 +108,8 @@ namespace SurveySolutionsClient.Helpers
 
             if (jsonBody != null)
             {
-                request.Content = new StringContent(JsonSerializer.Serialize(jsonBody));
+                var serialize = JsonSerializer.Serialize(jsonBody);
+                request.Content = new StringContent(serialize);
                 request.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
             }
 

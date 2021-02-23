@@ -21,7 +21,7 @@ namespace SurveySolutionsClient
         /// </summary>
         /// <param name="request">The request.</param>
         /// <param name="cancellationToken">The cancellation token.</param>
-        Task SetGlobalNoticeAsync(SetGlobalNoticeApiModel request,
+        Task SetGlobalNoticeAsync(GlobalNoticeRequest request,
             CancellationToken cancellationToken = default);
 
         /// <summary>

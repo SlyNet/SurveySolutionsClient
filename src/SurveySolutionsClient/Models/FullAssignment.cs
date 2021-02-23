@@ -5,7 +5,6 @@ namespace SurveySolutionsClient.Models
 {
     public class FullAssignment : Assignment
     {
-        [DataMember]
         public List<InterviewAnswer> Answers { get; set; }
     }
 }

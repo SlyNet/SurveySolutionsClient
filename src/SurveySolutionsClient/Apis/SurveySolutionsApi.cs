@@ -31,5 +31,6 @@ namespace SurveySolutionsClient.Apis
         public IQuestionnaires Questionnaires => new QuestionnairesApi(this.httpClient, this.options);
         public ISettings Settings  => new SettingsApi(this.httpClient, this.options);
         public IUsers Users => new UsersApi(this.httpClient, this.options);
+        public IWorkSpaces WorkSpaces => new WorkSpacesApi(this.httpClient, this.options);
     }
 }

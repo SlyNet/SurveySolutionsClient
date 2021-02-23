@@ -5,7 +5,7 @@ namespace SurveySolutionsClient.Models
 {
     public class WorkspacesList : BaseList
     {
-        public WorkspacesList(int offset, int limit, int totalCount, IEnumerable<WorkspaceApiView> workspaces)
+        public WorkspacesList(int offset, int limit, int totalCount, IEnumerable<Workspace> workspaces)
         {
             Offset = offset;
             Limit = limit;
@@ -13,6 +13,6 @@ namespace SurveySolutionsClient.Models
             Workspaces = workspaces;
         }
 
-        public IEnumerable<WorkspaceApiView> Workspaces { get; set; }
+        public IEnumerable<Workspace> Workspaces { get; set; }
     }
 }

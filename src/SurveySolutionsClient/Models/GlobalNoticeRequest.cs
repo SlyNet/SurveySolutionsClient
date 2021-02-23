@@ -1,8 +1,7 @@
 ﻿namespace SurveySolutionsClient.Models
 {
-    public class SetGlobalNoticeApiModel
+    public class GlobalNoticeRequest
     {
-        
         public string Message { get; set; }
     }
 }

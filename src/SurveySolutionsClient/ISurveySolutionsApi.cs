@@ -44,5 +44,13 @@
         /// The users.
         /// </value>
         IUsers Users { get; }
+
+        /// <summary>
+        /// Gets the work spaces api.
+        /// </summary>
+        /// <value>
+        /// The work spaces api.
+        /// </value>
+        IWorkSpaces WorkSpaces {get;}
     }
 }
