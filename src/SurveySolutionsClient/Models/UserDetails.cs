@@ -3,7 +3,7 @@ using System.Runtime.Serialization;
 
 namespace SurveySolutionsClient.Models
 {
-    public class UserApiDetails
+    public class UserDetails
     {
         [DataMember]
         public bool IsArchived { get; set; }

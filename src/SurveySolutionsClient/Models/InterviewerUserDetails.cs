@@ -3,7 +3,7 @@ using System.Runtime.Serialization;
 
 namespace SurveySolutionsClient.Models
 {
-    public class InterviewerUserApiDetails : UserApiDetails
+    public class InterviewerUserDetails : UserDetails
     {
         [DataMember]
         
