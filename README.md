@@ -1,4 +1,4 @@
-[![NuGet](https://img.shields.io/nuget/v/MvvmCross.svg)](https://www.nuget.org/packages/MvvmCross/)
+[![NuGet package](https://img.shields.io/nuget/v/SurveySolutionsClient)](https://www.nuget.org/packages/SurveySolutionsClient/)
 
 # SurveySolutionsClient
 C# client library to access Survey Solutions public api.
