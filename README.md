@@ -8,6 +8,7 @@ To get started using api create a new api user as described [here](https://docs.
 ``` C#
 Credentials creds = new Credentials("apiUser", "apiPassword");
 string surveySolutionsUrl = "https://demo.mysruvey.solutions";
-var client = new SurveySolutionsApi(new HttpClient(), new SurveySolutionsApiConfiguration(creds, surveySolutionsUrl));
+var surveySolutionsApiConfiguration = new SurveySolutionsApiConfiguration(creds, surveySolutionsUrl);
+var client = new SurveySolutionsApi(new HttpClient(), surveySolutionsApiConfiguration);
 var assignmentsList = await client.Assignments.ListAsync(new AssignmentsListFilter());
 ```
