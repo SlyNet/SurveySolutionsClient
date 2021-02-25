@@ -15,14 +15,14 @@ namespace SurveySolutionsClient.Exceptions
         /// <value>
         /// The creation result.
         /// </value>
-        public CreateAssignmentResult CreationResult { get; }
+        public CreateAssignmentResult? CreationResult { get; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AssignmentCreationException"/> class.
         /// </summary>
         /// <param name="message">The text message.</param>
         /// <param name="creationResult">The creation result details.</param>
-        public AssignmentCreationException(string message, CreateAssignmentResult creationResult) : base(message)
+        public AssignmentCreationException(string message, CreateAssignmentResult? creationResult) : base(message)
         {
             CreationResult = creationResult;
         }

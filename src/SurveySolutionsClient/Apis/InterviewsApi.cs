@@ -29,35 +29,35 @@ namespace SurveySolutionsClient.Apis
         /// <inheritdoc />
         public Task<Interview> DetailsAsync(Guid id, CancellationToken cancellationToken = default)
         {
-            return this.requestExecutor.GetAsync<Interview>(this.options.BaseUrl, $"/api/v1/interviews/{id}",
+            return this.requestExecutor.GetAsync<Interview>(this.options.TargetUrlWithWorkspace, $"/api/v1/interviews/{id}",
                 this.options.Credentials, cancellationToken);
         }
 
         /// <inheritdoc />
         public Task DeleteAsync(Guid id, CancellationToken cancellationToken = default)
         {
-            return this.requestExecutor.DeleteAsync(this.options.BaseUrl, $"/api/v1/interviews/{id}",
+            return this.requestExecutor.DeleteAsync(this.options.TargetUrlWithWorkspace, $"/api/v1/interviews/{id}",
                 this.options.Credentials, cancellationToken);
         }
 
         /// <inheritdoc />
         public Task<InterviewHistory> HistoryAsync(Guid id, CancellationToken cancellationToken = default)
         {
-            return this.requestExecutor.GetAsync<InterviewHistory>(this.options.BaseUrl, $"/api/v1/interviews/{id}/history",
+            return this.requestExecutor.GetAsync<InterviewHistory>(this.options.TargetUrlWithWorkspace, $"/api/v1/interviews/{id}/history",
                 this.options.Credentials, cancellationToken);
         }
 
         /// <inheritdoc />
         public Task<Stream> GetPdfAsync(Guid id, CancellationToken cancellationToken = default)
         {
-            return this.requestExecutor.SendRequest(this.options.BaseUrl, $"/api/v1/interviews/{id}/pdf",
+            return this.requestExecutor.SendRequest(this.options.TargetUrlWithWorkspace, $"/api/v1/interviews/{id}/pdf",
                 this.options.Credentials, null, cancellationToken, "GET");
         }
 
         /// <inheritdoc />
         public Task<InterviewStatistics> StatisticsAsync(Guid id, CancellationToken cancellationToken = default)
         {
-            return this.requestExecutor.GetAsync<InterviewStatistics>(this.options.BaseUrl, $"/api/v1/interviews/{id}/stats",
+            return this.requestExecutor.GetAsync<InterviewStatistics>(this.options.TargetUrlWithWorkspace, $"/api/v1/interviews/{id}/stats",
                 this.options.Credentials, cancellationToken);
         }
 
@@ -65,28 +65,28 @@ namespace SurveySolutionsClient.Apis
         public Task ApproveAsync(Guid id, string? comment = null, CancellationToken cancellationToken = default)
         {
             var query = new {comment}.GetQueryString();
-            return this.requestExecutor.PatchAsync(this.options.BaseUrl, $"/api/v1/interviews/{id}/approve?" + query, null,
+            return this.requestExecutor.PatchAsync(this.options.TargetUrlWithWorkspace, $"/api/v1/interviews/{id}/approve?" + query, null,
                 this.options.Credentials, cancellationToken);
         }
 
         /// <inheritdoc />
         public Task AssignAsync(Guid id, AssignInterviewRequest assignRequest, CancellationToken cancellationToken = default)
         {
-            return this.requestExecutor.PatchAsync(this.options.BaseUrl, $"/api/v1/interviews/{id}/assign", assignRequest,
+            return this.requestExecutor.PatchAsync(this.options.TargetUrlWithWorkspace, $"/api/v1/interviews/{id}/assign", assignRequest,
                 this.options.Credentials, cancellationToken);
         }
 
         public Task AssignSupervisorAsync(Guid id, AssignInterviewRequest assignRequest,
             CancellationToken cancellationToken = default)
         {
-            return this.requestExecutor.PatchAsync(this.options.BaseUrl, $"/api/v1/interviews/{id}/assignsupervisor", assignRequest,
+            return this.requestExecutor.PatchAsync(this.options.TargetUrlWithWorkspace, $"/api/v1/interviews/{id}/assignsupervisor", assignRequest,
                 this.options.Credentials, cancellationToken);
         }
 
         public Task HqApproveAsync(Guid id, string? comment = null, CancellationToken cancellationToken = default)
         {
             var query = new {comment}.GetQueryString();
-            return this.requestExecutor.PatchAsync(this.options.BaseUrl, $"/api/v1/interviews/{id}/hqapprove?" + query, null,
+            return this.requestExecutor.PatchAsync(this.options.TargetUrlWithWorkspace, $"/api/v1/interviews/{id}/hqapprove?" + query, null,
                 this.options.Credentials, cancellationToken);
         }
 
@@ -94,7 +94,7 @@ namespace SurveySolutionsClient.Apis
         public Task HqRejectAsync(Guid id, string? comment = null, Guid? responsibleId = null, CancellationToken cancellationToken = default)
         {
             var query = new {comment }.GetQueryString();
-            return this.requestExecutor.PatchAsync(this.options.BaseUrl, $"/api/v1/interviews/{id}/hqapprove?" + query, null,
+            return this.requestExecutor.PatchAsync(this.options.TargetUrlWithWorkspace, $"/api/v1/interviews/{id}/hqapprove?" + query, null,
                 this.options.Credentials, cancellationToken);
         }
 
@@ -102,7 +102,7 @@ namespace SurveySolutionsClient.Apis
         public Task HqUnapproveAsync(Guid id, string? comment = null, CancellationToken cancellationToken = default)
         {
             var query = new {comment }.GetQueryString();
-            return this.requestExecutor.PatchAsync(this.options.BaseUrl, $"/api/v1/interviews/{id}/hqunapprove?" + query, null,
+            return this.requestExecutor.PatchAsync(this.options.TargetUrlWithWorkspace, $"/api/v1/interviews/{id}/hqunapprove?" + query, null,
                 this.options.Credentials, cancellationToken);
         }
 
@@ -111,7 +111,7 @@ namespace SurveySolutionsClient.Apis
             CancellationToken cancellationToken = default)
         {
             var query = new {comment, responsibleId}.GetQueryString();
-            return this.requestExecutor.PatchAsync(this.options.BaseUrl, $"/api/v1/interviews/{id}/reject?" + query, null,
+            return this.requestExecutor.PatchAsync(this.options.TargetUrlWithWorkspace, $"/api/v1/interviews/{id}/reject?" + query, null,
                 this.options.Credentials, cancellationToken);
         }
 
@@ -120,7 +120,7 @@ namespace SurveySolutionsClient.Apis
         {
             var query = new {comment = commentText, 
                 rosterVector = rosterVector?.ToArray()}.GetQueryString();
-            return this.requestExecutor.PostAsync(this.options.BaseUrl, $"/api/v1/interviews/{id}/comment/{questionId}?" + query, null,
+            return this.requestExecutor.PostAsync(this.options.TargetUrlWithWorkspace, $"/api/v1/interviews/{id}/comment/{questionId}?" + query, null,
                 this.options.Credentials, cancellationToken);
         }
 
@@ -132,7 +132,7 @@ namespace SurveySolutionsClient.Apis
                 comment = commentText,
                 rosterVector = rosterVector?.ToArray()
             }.GetQueryString();
-            return this.requestExecutor.PostAsync(this.options.BaseUrl, $"/api/v1/interviews/{id}/comment-by-variable/{variableName}?" + query, null,
+            return this.requestExecutor.PostAsync(this.options.TargetUrlWithWorkspace, $"/api/v1/interviews/{id}/comment-by-variable/{variableName}?" + query, null,
                 this.options.Credentials, cancellationToken);
         }
     }

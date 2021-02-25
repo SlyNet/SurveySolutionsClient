@@ -36,7 +36,6 @@ namespace SurveySolutionsClient.Models
         /// <value>
         /// The email.
         /// </value>
-        /// <see cref="https://docs.mysurvey.solutions/headquarters/cawi/web-interviewing#3-make-web-assignments"/>
         public string? Email { get; set; }
 
         /// <summary>
@@ -45,7 +44,6 @@ namespace SurveySolutionsClient.Models
         /// <value>
         /// The password.
         /// </value>
-        /// <see cref="https://docs.mysurvey.solutions/headquarters/cawi/web-interviewing#3-make-web-assignments"/>
         public string? Password { get; set; }
 
         /// <summary>
@@ -54,7 +52,6 @@ namespace SurveySolutionsClient.Models
         /// <value>
         ///   <c>true</c> if [web mode]; otherwise, <c>false</c>.
         /// </value>
-        /// <see cref="https://docs.mysurvey.solutions/headquarters/cawi/web-interviewing#3-make-web-assignments"/>
         public bool WebMode { get; set; }
 
         /// <summary>
@@ -63,7 +60,6 @@ namespace SurveySolutionsClient.Models
         /// <value>
         /// The is audio recording enabled.
         /// </value>
-        /// <see cref="https://docs.mysurvey.solutions/headquarters/svymanage/audio-audit/"/>
         public bool? IsAudioRecordingEnabled { get; set; }
 
         /// <summary>
@@ -80,7 +76,6 @@ namespace SurveySolutionsClient.Models
         /// <value>
         /// The protected variables.
         /// </value>
-        /// <see cref="https://docs.mysurvey.solutions/headquarters/preloading/protecting-pre-loaded-answers/"/>
         public List<string> ProtectedVariables { get; set; } = new();
     }
 }

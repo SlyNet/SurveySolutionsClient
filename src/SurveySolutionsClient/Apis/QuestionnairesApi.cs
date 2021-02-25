@@ -31,7 +31,7 @@ namespace SurveySolutionsClient.Apis
             var query = new {offset = page, limit = pageSize}.GetQueryString();
 
             return this.requestExecutor.GetAsync<QuestionnairesList>(
-                this.options.BaseUrl, "/api/v1/questionnaires?" + query, this.options.Credentials, cancellationToken
+                this.options.TargetUrlWithWorkspace, "/api/v1/questionnaires?" + query, this.options.Credentials, cancellationToken
             );
         }
 
@@ -40,7 +40,7 @@ namespace SurveySolutionsClient.Apis
             CancellationToken cancellationToken = default)
         {
             return this.requestExecutor.GetAsync<AudioRecordingEnabled>(
-                this.options.BaseUrl, $"/api/v1/questionnaires/{questionnaireIdentity.QuestionnaireId}/{questionnaireIdentity.Version}/recordAudio", this.options.Credentials, cancellationToken
+                this.options.TargetUrlWithWorkspace, $"/api/v1/questionnaires/{questionnaireIdentity.QuestionnaireId}/{questionnaireIdentity.Version}/recordAudio", this.options.Credentials, cancellationToken
             );
         }
 
@@ -49,7 +49,7 @@ namespace SurveySolutionsClient.Apis
             CancellationToken cancellationToken = default)
         {
             return this.requestExecutor.PostAsync(
-                this.options.BaseUrl, $"/api/v1/questionnaires/{questionnaireIdentity.QuestionnaireId}/{questionnaireIdentity.Version}/recordAudio",
+                this.options.TargetUrlWithWorkspace, $"/api/v1/questionnaires/{questionnaireIdentity.QuestionnaireId}/{questionnaireIdentity.Version}/recordAudio",
                 request, this.options.Credentials, cancellationToken
             );
         }

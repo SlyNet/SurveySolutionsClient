@@ -27,7 +27,7 @@ namespace SurveySolutionsClient.Apis
             CancellationToken cancellationToken = default)
         {
             var queryString = filter.GetQueryString();
-            return this.requestExecutor.GetAsync<WorkspacesList>(this.options.BaseUrl,
+            return this.requestExecutor.GetAsync<WorkspacesList>(this.options.TargetUrlWithWorkspace,
                 "/api/v1/workspaces?" + queryString,
                 this.options.Credentials, cancellationToken);
         }

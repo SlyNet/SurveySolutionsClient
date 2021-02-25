@@ -7,9 +7,10 @@ namespace SurveySolutionsClient.JsonConverters
 {
     internal class IdentityJsonConverter :  JsonConverter<Identity>
     {
-        public override Identity Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+        public override Identity? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
             var value = reader.GetString();
+            if (value == null) return null;
             return Identity.Parse(value);
         }
 

@@ -53,7 +53,9 @@ namespace SurveySolutionsClient
         /// Approves the interview.
         /// </summary>
         /// <param name="id">Interview id.</param>
+        /// <param name="comment">The comment.</param>
         /// <param name="cancellationToken">The cancellation token.</param>
+        /// <returns></returns>
         Task ApproveAsync(Guid id, string? comment = null, CancellationToken cancellationToken = default);
 
         /// <summary>

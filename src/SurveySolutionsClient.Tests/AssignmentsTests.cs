@@ -44,14 +44,14 @@ namespace SurveySolutionsClient.Tests
         [Test]
         public async Task can_get_history_of_assignment()
         {
-            var response = await service.Assignments.HistoryAsync(1);
+            var response = await service.Assignments.HistoryAsync(9);
             Assert.That(response, Is.Not.Null);
         }
 
         [Test]
         public async Task can_get_audio_recording_setting()
         {
-            var response = await service.Assignments.GetAudioRecordingAsync(1);
+            var response = await service.Assignments.GetAudioRecordingAsync(9);
             Assert.That(response, Is.Not.Null);
         }
 

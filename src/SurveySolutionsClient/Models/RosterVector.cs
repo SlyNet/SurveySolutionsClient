@@ -16,9 +16,7 @@ namespace SurveySolutionsClient.Models
         [JsonConstructor]
         public RosterVector(params int[] coordinates)
         {
-            if (coordinates == null) throw new ArgumentNullException(nameof(coordinates));
-
-            var asArray = coordinates as int[];
+            var asArray = coordinates;
             this.coordinates = asArray;
         }
 
@@ -49,9 +47,10 @@ namespace SurveySolutionsClient.Models
             return new RosterVector(ParseMinusDelimitedIntArray(value));
         }
 
-        static int[] ParseMinusDelimitedIntArray(string arrayString)
+        static int[] ParseMinusDelimitedIntArray(string? arrayString)
         {
-            if (string.IsNullOrWhiteSpace(arrayString) || string.IsNullOrWhiteSpace(arrayString.Trim('_'))) return null;
+            if (string.IsNullOrWhiteSpace(arrayString) || string.IsNullOrWhiteSpace(arrayString.Trim('_'))) 
+                return Array.Empty<int>();
 
             //"-1-2--3".Split('-') => string[5] { "", "1", "2", "", "3" }
             // every empty space mean that we encounter negative number

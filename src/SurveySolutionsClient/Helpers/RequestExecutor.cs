@@ -90,14 +90,18 @@ namespace SurveySolutionsClient.Helpers
             return responseObject;
         }
 
-        public async Task<HttpResponseMessage> ReceiveResponse(string baseUrl, string path, Credentials credentials, object? jsonBody,
-            CancellationToken cancellationToken, string httpMethod)
+        public async Task<HttpResponseMessage> ReceiveResponse(string baseUrl, 
+            string path,
+            Credentials credentials, 
+            object? jsonBody,
+            CancellationToken cancellationToken, 
+            string httpMethod)
         {
-            var fullUrl = new Uri(new Uri(baseUrl), path);
+            var fullUrl = baseUrl + "/" + path;
 
             var request = new HttpRequestMessage
             {
-                RequestUri = fullUrl,
+                RequestUri = new Uri(fullUrl),
                 Method = new HttpMethod(httpMethod)
             };
 

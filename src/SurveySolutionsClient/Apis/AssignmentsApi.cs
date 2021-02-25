@@ -31,7 +31,7 @@ namespace SurveySolutionsClient.Apis
         /// <inheritdoc />
         public virtual Task<FullAssignment> DetailsAsync(int id, CancellationToken cancellationToken = default) =>
             this.requestExecutor
-                .GetAsync<FullAssignment>(this.options.BaseUrl, $"api/v1/assignments/{id}", this.options.Credentials, cancellationToken);
+                .GetAsync<FullAssignment>(this.options.TargetUrlWithWorkspace, $"api/v1/assignments/{id}", this.options.Credentials, cancellationToken);
 
         /// <inheritdoc />
         public virtual Task<AssignmentsListView> ListAsync(AssignmentsListFilter filter, CancellationToken cancellationToken = default)
@@ -39,7 +39,7 @@ namespace SurveySolutionsClient.Apis
             string queryString = filter.GetQueryString();
 
             return this.requestExecutor
-                .GetAsync<AssignmentsListView>(this.options.BaseUrl, "api/v1/assignments?" + queryString, this.options.Credentials, cancellationToken);
+                .GetAsync<AssignmentsListView>(this.options.TargetUrlWithWorkspace, "api/v1/assignments?" + queryString, this.options.Credentials, cancellationToken);
         }
 
         /// <inheritdoc />
@@ -48,65 +48,65 @@ namespace SurveySolutionsClient.Apis
             var query = new {start, length}.GetQueryString();
 
             return this.requestExecutor
-                .GetAsync<AssignmentHistory>(this.options.BaseUrl, $"api/v1/assignments/{id}/history?" + query, this.options.Credentials, cancellationToken);
+                .GetAsync<AssignmentHistory>(this.options.TargetUrlWithWorkspace, $"api/v1/assignments/{id}/history?" + query, this.options.Credentials, cancellationToken);
         }
 
         /// <inheritdoc />
         public Task<AudioRecordingEnabled> GetAudioRecordingAsync(int id, CancellationToken cancellationToken = default)
         {
             return this.requestExecutor
-                .GetAsync<AudioRecordingEnabled>(this.options.BaseUrl, $"api/v1/assignments/{id}/recordAudio", this.options.Credentials, cancellationToken);
+                .GetAsync<AudioRecordingEnabled>(this.options.TargetUrlWithWorkspace, $"api/v1/assignments/{id}/recordAudio", this.options.Credentials, cancellationToken);
         }
 
         /// <inheritdoc />
         public Task SetAudioRecordingAsync(int id, UpdateRecordingRequest request, CancellationToken cancellationToken = default)
         {
             return this.requestExecutor
-                .PatchAsync(this.options.BaseUrl, $"api/v1/assignments/{id}/recordAudio", request, this.options.Credentials, cancellationToken);
+                .PatchAsync(this.options.TargetUrlWithWorkspace, $"api/v1/assignments/{id}/recordAudio", request, this.options.Credentials, cancellationToken);
         }
 
         /// <inheritdoc />
         public Task<Assignment> ArchiveAsync(int id, CancellationToken cancellationToken = default)
         {
             return this.requestExecutor
-                .PatchAsync<Assignment>(this.options.BaseUrl, $"api/v1/assignments/{id}/archive", null, this.options.Credentials, cancellationToken);
+                .PatchAsync<Assignment>(this.options.TargetUrlWithWorkspace, $"api/v1/assignments/{id}/archive", null, this.options.Credentials, cancellationToken);
         }
 
         /// <inheritdoc />
         public Task<Assignment> UnArchiveAsync(int id, CancellationToken cancellationToken = default)
         {
             return this.requestExecutor
-                .PatchAsync<Assignment>(this.options.BaseUrl, $"api/v1/assignments/{id}/unarchive", null, this.options.Credentials, cancellationToken);
+                .PatchAsync<Assignment>(this.options.TargetUrlWithWorkspace, $"api/v1/assignments/{id}/unarchive", null, this.options.Credentials, cancellationToken);
         }
 
         /// <inheritdoc />
         public Task<Assignment> AssignAsync(int id, AssignmentResponsible assigneeRequest, CancellationToken cancellationToken = default)
         {
             return this.requestExecutor
-                .PatchAsync<Assignment>(this.options.BaseUrl, $"api/v1/assignments/{id}/assign", assigneeRequest, this.options.Credentials, cancellationToken);
+                .PatchAsync<Assignment>(this.options.TargetUrlWithWorkspace, $"api/v1/assignments/{id}/assign", assigneeRequest, this.options.Credentials, cancellationToken);
         }
 
         /// <inheritdoc />
         public Task<Assignment> ChangeQuantityAsync(int id, int quantity, CancellationToken cancellationToken = default)
         {
             return this.requestExecutor
-                .PatchAsync<Assignment>(this.options.BaseUrl, $"api/v1/assignments/{id}/changeQuantity", quantity, this.options.Credentials, cancellationToken);
+                .PatchAsync<Assignment>(this.options.TargetUrlWithWorkspace, $"api/v1/assignments/{id}/changeQuantity", quantity, this.options.Credentials, cancellationToken);
         }
 
         /// <inheritdoc />
         public Task<Assignment> CloseAsync(int id, CancellationToken cancellationToken = default)
         {
             return this.requestExecutor
-                .PatchAsync<Assignment>(this.options.BaseUrl, $"api/v1/assignments/{id}/close", null, this.options.Credentials, cancellationToken);
+                .PatchAsync<Assignment>(this.options.TargetUrlWithWorkspace, $"api/v1/assignments/{id}/close", null, this.options.Credentials, cancellationToken);
         }
 
         /// <inheritdoc />
-        public async Task<CreateAssignmentResult> CreateAsync(CreateAssignmentRequest createItem, CancellationToken cancellationToken = default)
+        public async Task<CreateAssignmentResult?> CreateAsync(CreateAssignmentRequest createItem, CancellationToken cancellationToken = default)
         {
             var response = await this.requestExecutor
-                .ReceiveResponse(this.options.BaseUrl, "api/v1/assignments", this.options.Credentials, createItem, cancellationToken, "POST")
+                .ReceiveResponse(this.options.TargetUrlWithWorkspace, "api/v1/assignments", this.options.Credentials, createItem, cancellationToken, "POST")
                 .ConfigureAwait(false);
-            var responseBody = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+            string responseBody = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
             if (response.StatusCode == HttpStatusCode.BadRequest)
             {
                 if ("text/json".Equals(response.Content.Headers.ContentType.MediaType, StringComparison.OrdinalIgnoreCase) ||

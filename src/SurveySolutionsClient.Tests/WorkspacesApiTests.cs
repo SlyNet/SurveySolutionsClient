@@ -18,7 +18,7 @@ namespace SurveySolutionsClient.Tests
             httpClient = new HttpClient();
             service = new SurveySolutionsApi(httpClient, 
                 new SurveySolutionsApiConfiguration(new Credentials("admin", "Qwerty1234"), 
-                    ClientSettings.GetConfiguration().BaseUrl)).WorkSpaces;
+                    ClientSettings.GetConfiguration().TargetUrlWithWorkspace)).WorkSpaces;
         }
 
         [Test]

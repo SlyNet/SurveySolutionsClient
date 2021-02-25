@@ -79,7 +79,10 @@ namespace SurveySolutionsClient
         /// </summary>
         /// <param name="id">The assignment id.</param>
         /// <param name="quantity">The quantity.</param>
-        /// <returns>Updated assignment details</returns>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <returns>
+        /// Updated assignment details
+        /// </returns>
         Task<Assignment> ChangeQuantityAsync(int id, int quantity, CancellationToken cancellationToken = default);
 
 
@@ -97,7 +100,8 @@ namespace SurveySolutionsClient
         /// Creates new assignment.
         /// </summary>
         /// <param name="createItem">Assignment details.</param>
+        /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>Created assignment information</returns>
-        Task<CreateAssignmentResult> CreateAsync(CreateAssignmentRequest createItem, CancellationToken cancellationToken = default);
+        Task<CreateAssignmentResult?> CreateAsync(CreateAssignmentRequest createItem, CancellationToken cancellationToken = default);
     }
 }

@@ -30,28 +30,28 @@ namespace SurveySolutionsClient.Apis
         public Task<List<ExportProcess>> ListAsync(ExportListRequest filteringArgs, CancellationToken cancellationToken = default)
         {
             var queryString = filteringArgs.GetQueryString();
-            return this.requestExecutor.GetAsync<List<ExportProcess>>(this.options.BaseUrl, "/api/v2/export?" + queryString,
+            return this.requestExecutor.GetAsync<List<ExportProcess>>(this.options.TargetUrlWithWorkspace, "/api/v2/export?" + queryString,
                 this.options.Credentials, cancellationToken);
         }
 
         /// <inheritdoc />
         public Task<ExportProcess> DetailsAsync(long id, CancellationToken cancellationToken = default)
         {
-            return this.requestExecutor.GetAsync<ExportProcess>(this.options.BaseUrl, $"/api/v2/export/{id}",
+            return this.requestExecutor.GetAsync<ExportProcess>(this.options.TargetUrlWithWorkspace, $"/api/v2/export/{id}",
                 this.options.Credentials, cancellationToken);
         }
 
         /// <inheritdoc />
         public Task<ExportProcess> StartAsync(CreateExportProcess body, CancellationToken cancellationToken = default)
         {
-            return this.requestExecutor.PostAsync<ExportProcess>(this.options.BaseUrl, "/api/v2/export", body,
+            return this.requestExecutor.PostAsync<ExportProcess>(this.options.TargetUrlWithWorkspace, "/api/v2/export", body,
                 this.options.Credentials, cancellationToken);
         }
 
         /// <inheritdoc />
         public Task<ExportProcess> CancelAsync(long id, CancellationToken cancellationToken = default)
         {
-            return this.requestExecutor.DeleteAsync<ExportProcess>(this.options.BaseUrl, $"/api/v2/export/{id}", 
+            return this.requestExecutor.DeleteAsync<ExportProcess>(this.options.TargetUrlWithWorkspace, $"/api/v2/export/{id}", 
                 this.options.Credentials, cancellationToken);
         }
     }

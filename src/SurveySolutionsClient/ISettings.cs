@@ -12,7 +12,6 @@ namespace SurveySolutionsClient
         /// <summary>
         /// Gets the global notice.
         /// </summary>
-        /// <param name="request">The request.</param>
         /// <param name="cancellationToken">The cancellation token.</param>
         Task<GlobalNotice> GetGlobalNoticeAsync(CancellationToken cancellationToken = default);
 

@@ -26,7 +26,7 @@ namespace SurveySolutionsClient.Apis
         /// <inheritdoc />
         public Task<GlobalNotice> GetGlobalNoticeAsync(CancellationToken cancellationToken = default)
         {
-            return this.requestExecutor.GetAsync<GlobalNotice>(this.options.BaseUrl, "/api/v1/settings/globalnotice",
+            return this.requestExecutor.GetAsync<GlobalNotice>(this.options.TargetUrlWithWorkspace, "/api/v1/settings/globalnotice",
                 this.options.Credentials, cancellationToken);
         }
 
@@ -34,14 +34,14 @@ namespace SurveySolutionsClient.Apis
         public Task SetGlobalNoticeAsync(GlobalNoticeRequest request,
             CancellationToken cancellationToken = default)
         {
-            return this.requestExecutor.PutAsync(this.options.BaseUrl, "/api/v1/settings/globalnotice", request,
+            return this.requestExecutor.PutAsync(this.options.TargetUrlWithWorkspace, "/api/v1/settings/globalnotice", request,
                 this.options.Credentials, cancellationToken);
         }
 
         /// <inheritdoc />
         public Task ClearGlobalNoticeAsync(CancellationToken cancellationToken = default)
         {
-            return this.requestExecutor.DeleteAsync(this.options.BaseUrl, "/api/v1/settings/globalnotice", 
+            return this.requestExecutor.DeleteAsync(this.options.TargetUrlWithWorkspace, "/api/v1/settings/globalnotice", 
                 this.options.Credentials, cancellationToken);
         }
     }
