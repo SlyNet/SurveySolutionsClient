@@ -6,6 +6,9 @@
         <RepositoryType>git</RepositoryType>
         <Nullable>enable</Nullable>
         <LangVersion>latest</LangVersion>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <PackageProjectUrl>https://docs.mysurvey.solutions/headquarters/api/survey-solutions-api/</PackageProjectUrl>
     </PropertyGroup>
     <ItemGroup>
       <PackageReference Include="System.Text.Json" Version="5.0.1" />
