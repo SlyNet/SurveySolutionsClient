@@ -8,6 +8,9 @@
         <LangVersion>latest</LangVersion>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <Version>1.0.0.0</Version>
+        <Authors>Andrii Kozhyn</Authors>
+        <Company></Company>
         <PackageProjectUrl>https://docs.mysurvey.solutions/headquarters/api/survey-solutions-api/</PackageProjectUrl>
     </PropertyGroup>
     <ItemGroup>
