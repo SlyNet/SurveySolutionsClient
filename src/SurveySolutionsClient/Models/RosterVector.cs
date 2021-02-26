@@ -49,7 +49,7 @@ namespace SurveySolutionsClient.Models
 
         static int[] ParseMinusDelimitedIntArray(string? arrayString)
         {
-            if (string.IsNullOrWhiteSpace(arrayString) || string.IsNullOrWhiteSpace(arrayString.Trim('_'))) 
+            if (arrayString == null || string.IsNullOrWhiteSpace(arrayString) || string.IsNullOrWhiteSpace(arrayString.Trim('_'))) 
                 return Array.Empty<int>();
 
             //"-1-2--3".Split('-') => string[5] { "", "1", "2", "", "3" }

@@ -16,7 +16,7 @@ namespace SurveySolutionsClient.Exceptions
         /// <param name="message">The message.</param>
         /// <param name="responseBody">Server response body.</param>
         /// <param name="serverResponse">The Headquarters server response.</param>
-        public ApiCallException(string message, string responseBody, HttpResponseMessage serverResponse) : base(message)
+        public ApiCallException(string message, string? responseBody, HttpResponseMessage serverResponse) : base(message)
         {
             this.ServerResponse = serverResponse;
             this.ResponseBody = responseBody;
