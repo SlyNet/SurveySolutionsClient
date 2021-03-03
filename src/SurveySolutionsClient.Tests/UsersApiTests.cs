@@ -79,6 +79,13 @@ namespace SurveySolutionsClient.Tests
             });
         }
 
+        [Test]
+        public async Task can_list_supervisors()
+        {
+            var supervisors = await this.service.Users.SupervisorsListAsync();
+            Assert.That(supervisors, Is.Not.Null);
+        }
+
         [OneTimeTearDown]
         public void OneTimeTearDown()
         {
