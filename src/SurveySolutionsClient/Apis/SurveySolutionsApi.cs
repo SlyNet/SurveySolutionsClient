@@ -26,11 +26,18 @@ namespace SurveySolutionsClient.Apis
         /// <inheritdoc />
         public virtual IExport Export => new ExportApi(this.httpClient, this.options);
 
+        /// <inheritdoc />
         public IInterviews Interviews => new InterviewsApi(this.httpClient, this.options);
 
+        /// <inheritdoc />
         public IQuestionnaires Questionnaires => new QuestionnairesApi(this.httpClient, this.options);
+        /// <inheritdoc />
         public ISettings Settings  => new SettingsApi(this.httpClient, this.options);
+        /// <inheritdoc />
         public IUsers Users => new UsersApi(this.httpClient, this.options);
+        /// <inheritdoc />
         public IWorkSpaces WorkSpaces => new WorkSpacesApi(this.httpClient, this.options);
+        /// <inheritdoc />
+        public IGraphQl GraphQl => new GraphqlApi(this.httpClient, this.options);
     }
 }

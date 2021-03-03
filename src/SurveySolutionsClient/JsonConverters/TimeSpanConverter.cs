@@ -5,7 +5,7 @@ using System.Text.Json.Serialization;
 
 namespace SurveySolutionsClient.JsonConverters
 {
-    public class TimeSpanConverter : JsonConverter<TimeSpan>
+    internal class TimeSpanConverter : JsonConverter<TimeSpan>
     {
         public override TimeSpan Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {

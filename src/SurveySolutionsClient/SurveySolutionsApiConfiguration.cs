@@ -1,4 +1,4 @@
-﻿[assembly: System.Runtime.CompilerServices.InternalsVisibleTo("SurveySolutionsClient.Tests")]
+﻿//[assembly: System.Runtime.CompilerServices.InternalsVisibleTo("SurveySolutionsClient.Tests")]
 
 namespace SurveySolutionsClient
 {

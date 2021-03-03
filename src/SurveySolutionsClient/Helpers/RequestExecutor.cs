@@ -7,6 +7,8 @@ using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using SurveySolutionsClient.Exceptions;
+using SurveySolutionsClient.GraphQl;
+using SurveySolutionsClient.JsonConverters;
 
 namespace SurveySolutionsClient.Helpers
 {
@@ -29,19 +31,23 @@ namespace SurveySolutionsClient.Helpers
 
         private static async Task<T> DeserializeResponse<T>(CancellationToken cancellationToken, Stream responseObject)
         {
-            try
-            {
-                var result = await JsonSerializer.DeserializeAsync<T>(responseObject, cancellationToken: cancellationToken)
-                    .ConfigureAwait(false);
-                return result ?? throw new Exception("Failed to deserialize");
-            }
-            catch (JsonException)
+            if (typeof(T) == typeof(string))
             {
                 responseObject.Seek(0, SeekOrigin.Begin);
                 using var streamReader = new StreamReader(responseObject);
                 var stringContent = await streamReader.ReadToEndAsync().ConfigureAwait(false);
-                throw;
+                return (T)(object)stringContent;
             }
+
+            var result = await JsonSerializer.DeserializeAsync<T>(responseObject, 
+                    cancellationToken: cancellationToken,
+                    options: new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true,
+                        Converters = { new GuidJsonConverter() }
+                    })
+                .ConfigureAwait(false);
+            return result ?? throw new Exception("Failed to deserialize");
         }
 
         public Task PatchAsync(string baseUrl, string path, object? jsonBody,
@@ -97,7 +103,7 @@ namespace SurveySolutionsClient.Helpers
             CancellationToken cancellationToken, 
             string httpMethod)
         {
-            var fullUrl = baseUrl + "/" + path;
+            var fullUrl = baseUrl + path;
 
             var request = new HttpRequestMessage
             {
@@ -109,6 +115,13 @@ namespace SurveySolutionsClient.Helpers
                 Convert.ToBase64String(Encoding.UTF8.GetBytes($"{credentials.UserName}:{credentials.Password}"));
             request.Headers.Authorization = new AuthenticationHeaderValue("Basic", base64String);
             request.Headers.Accept.Add(MediaTypeWithQualityHeaderValue.Parse("text/json"));
+
+            if (jsonBody is GraphQlQueryBuilder queryBuilder)
+            {
+                var query = queryBuilder.Build();
+
+                jsonBody = new { query };
+            }
 
             if (jsonBody != null)
             {

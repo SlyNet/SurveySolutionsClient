@@ -52,5 +52,13 @@
         /// The work spaces api.
         /// </value>
         IWorkSpaces WorkSpaces {get;}
+
+        /// <summary>
+        /// Gets the ability to execute GraphQL api calls.
+        /// </summary>
+        /// <value>
+        /// The graph ql.
+        /// </value>
+        IGraphQl GraphQl { get; }
     }
 }

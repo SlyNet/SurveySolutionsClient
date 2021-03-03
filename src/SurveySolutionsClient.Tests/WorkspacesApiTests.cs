@@ -18,14 +18,14 @@ namespace SurveySolutionsClient.Tests
             httpClient = new HttpClient();
             service = new SurveySolutionsApi(httpClient, 
                 new SurveySolutionsApiConfiguration(new Credentials("admin", "Qwerty1234"), 
-                    ClientSettings.GetConfiguration().TargetUrlWithWorkspace)).WorkSpaces;
+                    ClientSettings.GetConfiguration().BaseUrl)).WorkSpaces;
         }
 
         [Test]
         public async Task can_get_list()
         {
             var workspacesList = await this.service.ListAsync(new WorkspacesListFilter());
-            Assert.That(workspacesList.Workspaces, Has.Count.EqualTo(1));
+            Assert.That(workspacesList.Workspaces, Has.Count.EqualTo(3));
         }
 
         [Test]
