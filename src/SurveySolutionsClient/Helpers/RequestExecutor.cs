@@ -4,6 +4,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
 using SurveySolutionsClient.Exceptions;
@@ -26,7 +27,6 @@ namespace SurveySolutionsClient.Helpers
         {
             var responseObject = await SendRequest(baseUrl, path, credentials, null, cancellationToken, HttpMethod.Get.Method);
             return await DeserializeResponse<T>(cancellationToken, responseObject).ConfigureAwait(false);
-
         }
 
         private static async Task<T> DeserializeResponse<T>(CancellationToken cancellationToken, Stream responseObject)
@@ -39,12 +39,15 @@ namespace SurveySolutionsClient.Helpers
                 return (T)(object)stringContent;
             }
 
-            var result = await JsonSerializer.DeserializeAsync<T>(responseObject, 
+            var result = await JsonSerializer.DeserializeAsync<T>(responseObject,
                     cancellationToken: cancellationToken,
                     options: new JsonSerializerOptions
                     {
                         PropertyNameCaseInsensitive = true,
-                        Converters = { new GuidJsonConverter() }
+                        Converters = {
+                            new GuidJsonConverter(),
+                            new JsonStringEnumConverter()
+                        }
                     })
                 .ConfigureAwait(false);
             return result ?? throw new Exception("Failed to deserialize");
@@ -96,11 +99,11 @@ namespace SurveySolutionsClient.Helpers
             return responseObject;
         }
 
-        public async Task<HttpResponseMessage> ReceiveResponse(string baseUrl, 
+        public async Task<HttpResponseMessage> ReceiveResponse(string baseUrl,
             string path,
-            Credentials credentials, 
+            Credentials credentials,
             object? jsonBody,
-            CancellationToken cancellationToken, 
+            CancellationToken cancellationToken,
             string httpMethod)
         {
             var fullUrl = baseUrl + path;

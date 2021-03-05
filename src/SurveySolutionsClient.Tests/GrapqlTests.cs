@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using NUnit.Framework;
@@ -44,7 +45,7 @@ namespace SurveySolutionsClient.Tests
                     })
                 .WithParameter(questionnaireIdArgument);
 
-            var result = await this.service.GraphQl.ExecuteAsync<GraphqlResponse>(builder);
+            var result = await this.service.GraphQl.ExecuteAsync<GraphQlResponse>(builder);
 
             Assert.That(result, Is.Not.Null);
             Assert.That(result.Data.Assignments.Nodes, Is.Not.Empty);
@@ -61,10 +62,28 @@ namespace SurveySolutionsClient.Tests
                     comment:  "api call test",
                     newStart: new DateTime(2011, 10, 11, 15, 30, 12));
 
-            var result = await this.service.GraphQl.ExecuteAsync<GraphqlResponse>(builder);
+            var result = await this.service.GraphQl.ExecuteAsync<GraphQlResponse>(builder);
 
             Assert.That(result, Is.Not.Null);
 
+        }
+
+        [Test]
+        public async Task should_be_able_to_list_interviews()
+        {
+            var builder = new HeadquartersQueryQueryBuilder()
+                .WithInterviews(
+                    new IPagedConnectionOfInterviewQueryBuilder()
+                        .WithNodes(new InterviewQueryBuilder().WithAllScalarFields())
+                        .WithFilteredCount()
+                        .WithTotalCount(), 
+                    workspace: "primary");
+
+            var result = await this.service.GraphQl.ExecuteAsync<GraphQlResponse>(builder);
+
+            Assert.That(result.Data.Interviews, Is.Not.Null);
+            Assert.That(result.Data.Interviews.Nodes, Is.Not.Null.Or.Empty);
+            Assert.That(result.Data.Interviews.Nodes.First().Id, Is.Not.Null);
         }
 
         [OneTimeTearDown]
