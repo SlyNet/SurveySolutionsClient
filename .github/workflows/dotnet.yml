@@ -22,6 +22,6 @@ jobs:
       id: publish_nuget
       uses: rohith/publish-nuget@v2
       with:
-          PROJECT_FILE_PATH: ./src/SurveySolutionsClient/SurveySolutionsClient.csproj
+          PROJECT_FILE_PATH: src/SurveySolutionsClient/SurveySolutionsClient.csproj
           NUGET_KEY: ${{secrets.NUGET_KEY}}
           INCLUDE_SYMBOLS: true
