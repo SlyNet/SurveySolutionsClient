@@ -88,6 +88,13 @@ namespace SurveySolutionsClient.Tests
             Assert.That(supervisors.Users.First().UserName, Is.Not.Null);
         }
 
+        [Test]
+        public async Task can_get_user_details()
+        {
+            var user = await this.service.Users.GetUserDetailsAsync("sup");
+            Assert.That(user.UserName, Is.Not.Null);
+        }
+
         [OneTimeTearDown]
         public void OneTimeTearDown()
         {

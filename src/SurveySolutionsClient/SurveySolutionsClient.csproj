@@ -8,11 +8,11 @@
         <LangVersion>latest</LangVersion>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <AssemblyVersion>1.0.0.0</AssemblyVersion>
-        <Version>1.2.2.0</Version>
+        <Version>1.2.3.0</Version>
         <Authors>Andrii Kozhyn</Authors>
         <Company></Company>
         <PackageProjectUrl>https://docs.mysurvey.solutions/headquarters/api/survey-solutions-api/</PackageProjectUrl>
-        <PackageReleaseNotes>Fixed users list endpoint</PackageReleaseNotes>
+        <PackageReleaseNotes>Fixed get user details method</PackageReleaseNotes>
         <Description>Client for survey solutions application</Description>
         <NoWarn>1701;1702;1591;8618</NoWarn>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>

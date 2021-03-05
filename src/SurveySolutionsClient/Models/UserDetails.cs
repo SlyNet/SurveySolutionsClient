@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.Serialization;
+using System.Text.Json.Serialization;
 
 namespace SurveySolutionsClient.Models
 {
@@ -11,6 +12,7 @@ namespace SurveySolutionsClient.Models
 
         public string UserName { get; set; }
 
+        [JsonConverter(typeof(JsonStringEnumConverter))]
         public UserRoles Role { get; set; }
 
         public bool IsLocked { get; set; }
