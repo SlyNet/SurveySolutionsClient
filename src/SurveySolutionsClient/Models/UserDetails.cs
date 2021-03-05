@@ -5,31 +5,22 @@ namespace SurveySolutionsClient.Models
 {
     public class UserDetails
     {
-        [DataMember]
         public bool IsArchived { get; set; }
 
-        [DataMember]
-        public Guid UserId { get; private set; }
+        public Guid UserId { get; set; }
 
-        [DataMember]
-        public string UserName { get; private set; }
+        public string UserName { get; set; }
 
-        [DataMember]
-        public UserRoles Role { get; private set; }
+        public UserRoles Role { get; set; }
 
-        [DataMember]
-        public bool IsLocked { get; private set; }
+        public bool IsLocked { get; set; }
 
-        [DataMember]
-        public DateTime CreationDate { get; private set; }
+        public DateTime CreationDate { get; set; }
 
-        [DataMember]
-        public string Email { get; private set; }
+        public string Email { get; set; }
 
-        [DataMember]
-        public string PhoneNumber { get; private set; }
+        public string PhoneNumber { get; set; }
 
-        [DataMember]
-        public string FullName { get; private set; }
+        public string FullName { get; set; }
     }
 }

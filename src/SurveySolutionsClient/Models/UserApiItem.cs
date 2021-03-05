@@ -5,26 +5,16 @@ namespace SurveySolutionsClient.Models
 {
     public class UserApiItem
     {
-        [DataMember]
+        public bool IsLocked { get; set; }
+
+        public DateTime CreationDate { get; set; }
+
+        public string Email { get; set; }
+
+        public string DeviceId { get; set; }
+
+        public Guid UserId { get; set; }
         
-        public bool IsLocked { get; private set; }
-
-        [DataMember]
-        
-        public DateTime CreationDate { get; private set; }
-
-        [DataMember]
-        public string Email { get; private set; }
-
-        [DataMember]
-        public string DeviceId { get; private set; }
-
-        [DataMember]
-        
-        public Guid UserId { get; private set; }
-
-        [DataMember]
-        
-        public string UserName { get; private set; }
+        public string UserName { get; set; }
     }
 }

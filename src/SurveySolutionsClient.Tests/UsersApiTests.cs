@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using NUnit.Framework;
@@ -84,6 +85,7 @@ namespace SurveySolutionsClient.Tests
         {
             var supervisors = await this.service.Users.SupervisorsListAsync();
             Assert.That(supervisors, Is.Not.Null);
+            Assert.That(supervisors.Users.First().UserName, Is.Not.Null);
         }
 
         [OneTimeTearDown]

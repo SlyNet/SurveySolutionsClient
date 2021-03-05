@@ -33,6 +33,7 @@ namespace SurveySolutionsClient.Tests
     public class GrapqlGenerator
     {
         [Test]
+        [Ignore("used for schema generate")]
         public async Task GenerateAsync()
         {
             var schema = await GraphQlGenerator.RetrieveSchema("https://localhost:5000/graphql");

@@ -5,20 +5,16 @@ namespace SurveySolutionsClient.Models
 {
     public class InterviewerUserDetails : UserDetails
     {
-        [DataMember]
         
-        public string SupervisorName { get; }
+        public string SupervisorName { get; set; }
 
-        [DataMember]
         
-        public Guid SupervisorId { get; }
+        public Guid SupervisorId { get; set; }
 
-        [DataMember]
         
-        public bool IsLockedBySupervisor { get; }
+        public bool IsLockedBySupervisor { get; set; }
 
-        [DataMember]
         
-        public bool IsLockedByHeadquarters { get; }
+        public bool IsLockedByHeadquarters { get; set;}
     }
 }
