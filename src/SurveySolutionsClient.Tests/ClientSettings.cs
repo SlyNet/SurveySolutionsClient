@@ -5,9 +5,11 @@ namespace SurveySolutionsClient.Tests
 {
     public class ClientSettings
     {
-        public static SurveySolutionsApiConfiguration GetConfiguration(string workspace = null) =>
-            new SurveySolutionsApiConfiguration(new Credentials("api", "Qwerty1234"), "http://localhost:5001", workspace);
+        public const string HqUrl = "http://localhost:5001";
 
-        public static QuestionnaireIdentity Questionnaire => new QuestionnaireIdentity(Guid.Parse("1949c957-f891-4b93-be78-37cf41baa0a9"), 1);
+        public static SurveySolutionsApiConfiguration GetConfiguration(string workspace = null) =>
+            new(new Credentials("api", "Qwerty1234"), HqUrl, workspace);
+
+        public static QuestionnaireIdentity Questionnaire => new QuestionnaireIdentity(Guid.Parse("bb930378-1037-4a53-9dfd-26029b419925"), 1);
     }
 }

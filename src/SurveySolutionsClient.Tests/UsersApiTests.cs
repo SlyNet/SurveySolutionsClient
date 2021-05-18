@@ -12,6 +12,7 @@ namespace SurveySolutionsClient.Tests
     {
         private HttpClient httpClient;
         private ISurveySolutionsApi service;
+        private Guid interviewerGuid = Guid.Parse("6083f76d-5faa-49a9-9c6d-fba1d920584e");
 
         [OneTimeSetUp]
         public void OneTimeSetup()
@@ -24,7 +25,7 @@ namespace SurveySolutionsClient.Tests
         public async Task get_interviewer_details()
         {
             var interviewer =
-                await this.service.Users.GetInterviewerDetailsAsync(Guid.Parse("30b5216a-5df8-4bdc-b4aa-91606190354b"));
+                await this.service.Users.GetInterviewerDetailsAsync(this.interviewerGuid);
             Assert.That(interviewer, Is.Not.Null);
         }
 
@@ -52,19 +53,19 @@ namespace SurveySolutionsClient.Tests
         [Test]
         public async Task can_archive()
         {
-            await this.service.Users.Archive(Guid.Parse("0ec2229c-29c1-45d8-954a-121e55d244a2"));
+            await this.service.Users.Archive(this.interviewerGuid);
         }
 
         [Test]
         public async Task can_un_archive()
         {
-            await this.service.Users.UnArchive(Guid.Parse("0ec2229c-29c1-45d8-954a-121e55d244a2"));
+            await this.service.Users.UnArchive(this.interviewerGuid);
         }
 
         [Test]
         public async Task can_get_actions_log()
         {
-            var actions = await this.service.Users.GetActionsLogAsync(Guid.Parse("30b5216a-5df8-4bdc-b4aa-91606190354b"));
+            var actions = await this.service.Users.GetActionsLogAsync(this.interviewerGuid);
             Assert.That(actions, Is.Not.Null);
         }
 

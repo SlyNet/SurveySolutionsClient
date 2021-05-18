@@ -1,0 +1,5490 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Survey Solutions API"
+  },
+  "servers": [
+    {
+      "url": "/primary"
+    }
+  ],
+  "paths": {
+    "/api/v1/assignments": {
+      "get": {
+        "tags": [
+          "Assignments"
+        ],
+        "summary": "List all assignments with filtering",
+        "parameters": [
+          {
+            "name": "SearchBy",
+            "in": "query",
+            "description": "Filter result by custom search query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "QuestionnaireId",
+            "in": "query",
+            "description": "Questionnaire Id in format of `{QuestionnaireId}${Version}`",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Responsible",
+            "in": "query",
+            "description": "Responsible user Id on name",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "SupervisorId",
+            "in": "query",
+            "description": "Supervisor id",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "ShowArchive",
+            "in": "query",
+            "description": "Search for only archived assignments",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "Order",
+            "in": "query",
+            "description": "Possible values are\r\nId, ResponsibleName, InterviewsCount, Quantity, UpdatedAtUtc, CreatedAtUtc\r\nFollowed by ordering direction \"ASC\" or \"DESC\"",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Offset",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "Limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssignmentsListView"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssignmentsListView"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssignmentsListView"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Assignments"
+        ],
+        "summary": "Create new assignment",
+        "requestBody": {
+          "description": "New assignments options",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateAssignmentApiRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateAssignmentApiRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateAssignmentApiRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateAssignmentApiRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateAssignmentResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateAssignmentResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateAssignmentResult"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Created assignment with details"
+          },
+          "400": {
+            "description": "Bad parameters provided or identifying data incorrect. See response details for more info"
+          },
+          "404": {
+            "description": "Questionnaire not found"
+          }
+        }
+      }
+    },
+    "/api/v1/assignments/{id}": {
+      "get": {
+        "tags": [
+          "Assignments"
+        ],
+        "summary": "Single assignment details",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Assignment details",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/FullAssignmentDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FullAssignmentDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FullAssignmentDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Assignment cannot be found"
+          }
+        }
+      }
+    },
+    "/api/v1/assignments/{id}/assignmentQuantitySettings": {
+      "get": {
+        "tags": [
+          "Assignments"
+        ],
+        "summary": "Gets Quantity Settings for provided assignment",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Assignment id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssignmentQuantitySettings"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssignmentQuantitySettings"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssignmentQuantitySettings"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Assignment not found"
+          }
+        }
+      }
+    },
+    "/api/v1/assignments/{id}/history": {
+      "get": {
+        "tags": [
+          "Assignments"
+        ],
+        "summary": "Gets history of the assignment",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Assignment id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "start",
+            "in": "query",
+            "description": "",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 0
+            }
+          },
+          {
+            "name": "length",
+            "in": "query",
+            "description": "Limit of events to return",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 30
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Assignment history",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssignmentHistory"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssignmentHistory"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssignmentHistory"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Assignment cannot accessed by logged in user"
+          },
+          "404": {
+            "description": "Assignment cannot be found"
+          }
+        }
+      }
+    },
+    "/api/v1/assignments/{id}/recordAudio": {
+      "get": {
+        "tags": [
+          "Assignments"
+        ],
+        "summary": "Gets status of audio recording for provided assignment",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Assignment id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/AudioRecordingEnabled"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AudioRecordingEnabled"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AudioRecordingEnabled"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Assignment not found"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Assignments"
+        ],
+        "summary": "Set audio recording setting for assignment",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Assignment id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateRecordingRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateRecordingRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateRecordingRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateRecordingRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "204": {
+            "description": "Audio recording updated"
+          },
+          "404": {
+            "description": "Assignment not found"
+          }
+        }
+      }
+    },
+    "/api/v1/assignments/{id}/archive": {
+      "patch": {
+        "tags": [
+          "Assignments"
+        ],
+        "summary": "Archive assignment",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Assignment id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Assignment details",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssignmentDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssignmentDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssignmentDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Assignment not found"
+          }
+        }
+      }
+    },
+    "/api/v1/assignments/{id}/assign": {
+      "patch": {
+        "tags": [
+          "Assignments"
+        ],
+        "summary": "Assign new responsible person for assignment",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Assignment id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Responsible user id or name",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/AssignmentAssignRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AssignmentAssignRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AssignmentAssignRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/AssignmentAssignRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Assignment details with updated assignee",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssignmentDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssignmentDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssignmentDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Assignment or assignee not found"
+          },
+          "406": {
+            "description": "Assignee cannot be assigned to assignment"
+          }
+        }
+      }
+    },
+    "/api/v1/assignments/{id}/changeQuantity": {
+      "patch": {
+        "tags": [
+          "Assignments"
+        ],
+        "summary": "Change assignments limit on created interviews",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Assignment id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "New limit on created interviews",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "type": "integer",
+                "format": "int32"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "type": "integer",
+                "format": "int32"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "integer",
+                "format": "int32"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "type": "integer",
+                "format": "int32"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Assignment details with updated quantity",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssignmentDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssignmentDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssignmentDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Assignment not found"
+          },
+          "406": {
+            "description": "Size cannot be changed"
+          }
+        }
+      }
+    },
+    "/api/v1/assignments/{id}/close": {
+      "patch": {
+        "tags": [
+          "Assignments"
+        ],
+        "summary": "Closes assignment by setting Size to the amount of collected interviews",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Assignment id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Assignment closed",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssignmentDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssignmentDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssignmentDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Assignment not found"
+          },
+          "409": {
+            "description": "Quantity cannot be changed. Assignment either archived or has web mode enabled"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Assignments"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        },
+        "deprecated": true
+      }
+    },
+    "/api/v1/assignments/{id}/unarchive": {
+      "patch": {
+        "tags": [
+          "Assignments"
+        ],
+        "summary": "Archive assignment",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Assignment id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Assignment details",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssignmentDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssignmentDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssignmentDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Assignment not found"
+          }
+        }
+      }
+    },
+    "/api/v2/export": {
+      "get": {
+        "tags": [
+          "Export"
+        ],
+        "summary": "Get list of export processes",
+        "parameters": [
+          {
+            "name": "exportType",
+            "in": "query",
+            "description": "Format of export data to download",
+            "schema": {
+              "$ref": "#/components/schemas/ExportType"
+            },
+            "x-ms-enum": {
+              "name": "ExportType",
+              "modelAsString": false
+            }
+          },
+          {
+            "name": "interviewStatus",
+            "in": "query",
+            "description": "Status of exported interviews",
+            "schema": {
+              "$ref": "#/components/schemas/ExportInterviewType"
+            },
+            "x-ms-enum": {
+              "name": "ExportInterviewType",
+              "modelAsString": false
+            }
+          },
+          {
+            "name": "questionnaireIdentity",
+            "in": "query",
+            "description": "Questionnaire id",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "exportStatus",
+            "in": "query",
+            "description": "Status of export process",
+            "schema": {
+              "$ref": "#/components/schemas/ExportStatus"
+            },
+            "x-ms-enum": {
+              "name": "ExportStatus",
+              "modelAsString": false
+            }
+          },
+          {
+            "name": "hasFile",
+            "in": "query",
+            "description": "Has export process file to download",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Select a limited number of records",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "Skip number of records before beginning to return records",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ExportProcess"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ExportProcess"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ExportProcess"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Export"
+        ],
+        "summary": "Start export file creation",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateExportProcess"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateExportProcess"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateExportProcess"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateExportProcess"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Export started",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExportProcess"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExportProcess"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExportProcess"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Request is malformed",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v2/export/{id}": {
+      "get": {
+        "tags": [
+          "Export"
+        ],
+        "summary": "Get detailed information about export process",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Export process id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExportProcess"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExportProcess"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExportProcess"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Export process was not found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Export"
+        ],
+        "summary": "Cancel export process",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Export deleted",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExportProcess"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExportProcess"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExportProcess"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Export process was not found"
+          }
+        }
+      }
+    },
+    "/api/v2/export/{id}/file": {
+      "get": {
+        "tags": [
+          "Export"
+        ],
+        "summary": "Downloads export file. It will return either 200 status code with export file content or 302 redirect to export location.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Export process id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns content of the export file as zip archive"
+          },
+          "302": {
+            "description": "Location header contains location of export file for download"
+          },
+          "404": {
+            "description": "Export process was not found"
+          },
+          "400": {
+            "description": "Export file was not generated yet"
+          }
+        }
+      }
+    },
+    "/api/v1/interviews": {
+      "get": {
+        "tags": [
+          "Interviews"
+        ],
+        "summary": "Gets list of interviews existing in the system",
+        "parameters": [
+          {
+            "name": "questionnaireId",
+            "in": "query",
+            "description": "Questionnaire id if filtering by this field is required",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "questionnaireVersion",
+            "in": "query",
+            "description": "Questionnaire id if filtering by this field is required",
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "Filtering by interview status",
+            "schema": {
+              "$ref": "#/components/schemas/InterviewStatus"
+            },
+            "x-ms-enum": {
+              "name": "InterviewStatus",
+              "modelAsString": false
+            }
+          },
+          {
+            "name": "interviewId",
+            "in": "query",
+            "description": "Interview Id. This corresponds to the interview__id variable in data export files or the interview Id obtained through other API requests",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "Page size",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Page number (starting from 1)",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/InterviewApiView"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InterviewApiView"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InterviewApiView"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": true
+      }
+    },
+    "/api/v1/interviews/{id}": {
+      "get": {
+        "tags": [
+          "Interviews"
+        ],
+        "summary": "Gets all the answers for given interview",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Interview Id. This corresponds to the interview__id variable in data export files or the interview Id obtained through other API requests",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/InterviewApiDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InterviewApiDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InterviewApiDetails"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Interviews"
+        ],
+        "summary": "Deletes interview",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Interview Id. This corresponds to the interview__id variable in data export files or the interview Id obtained through other API requests",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Interview was deleted"
+          },
+          "404": {
+            "description": "Interview was not found"
+          },
+          "406": {
+            "description": "Target interview was in status that was not ready to be deleted"
+          }
+        }
+      }
+    },
+    "/api/v1/interviews/{id}/history": {
+      "get": {
+        "tags": [
+          "Interviews"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/InterviewHistoryView"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InterviewHistoryView"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InterviewHistoryView"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/interviews/{id}/pdf": {
+      "get": {
+        "tags": [
+          "Interviews"
+        ],
+        "summary": "Get interview transcript in pdf file",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Interview id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "403": {
+            "description": "Authorised user has no access to interview"
+          },
+          "404": {
+            "description": "Interview not found or pdf cannot be generated"
+          }
+        }
+      }
+    },
+    "/api/v1/interviews/{id}/stats": {
+      "get": {
+        "tags": [
+          "Interviews"
+        ],
+        "summary": "Get statistics by interview",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Interview id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/InterviewApiStatistics"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InterviewApiStatistics"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InterviewApiStatistics"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/interviews/{id}/approve": {
+      "patch": {
+        "tags": [
+          "Interviews"
+        ],
+        "summary": "Approves interview",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Interview Id. This corresponds to the interview__id variable in data export files or the interview Id obtained through other API requests",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "comment",
+            "in": "query",
+            "description": "Approval comment",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Interview was approved"
+          },
+          "404": {
+            "description": "Interview was not found"
+          },
+          "406": {
+            "description": "Target interview was in status that was not ready to be approved"
+          }
+        }
+      }
+    },
+    "/api/v1/interviews/{id}/assign": {
+      "patch": {
+        "tags": [
+          "Interviews"
+        ],
+        "summary": "Assigns interview to interviewer",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Interview Id. This corresponds to the interview__id variable in data export files or the interview Id obtained through other API requests",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Responsible id or responsible name",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/AssignChangeApiModel"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AssignChangeApiModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AssignChangeApiModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/AssignChangeApiModel"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Interview was reassigned"
+          },
+          "404": {
+            "description": "Interview was not found"
+          },
+          "406": {
+            "description": "Interview cannot be reassigned. Check response for error description"
+          }
+        }
+      }
+    },
+    "/api/v1/interviews/{id}/assignsupervisor": {
+      "patch": {
+        "tags": [
+          "Interviews"
+        ],
+        "summary": "Assigns supervisor",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Interview Id. This corresponds to the interview__id variable in data export files or the interview Id obtained through other API requests",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/AssignChangeApiModel"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AssignChangeApiModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AssignChangeApiModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/AssignChangeApiModel"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Interview was assigned to supervisor"
+          },
+          "404": {
+            "description": "Interview was not found"
+          },
+          "406": {
+            "description": "Interview cannot be reassigned. Check response for error description"
+          }
+        }
+      }
+    },
+    "/api/v1/interviews/{id}/hqapprove": {
+      "patch": {
+        "tags": [
+          "Interviews"
+        ],
+        "summary": "Approves interview as headquarters",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Interview Id. This corresponds to the interview__id variable in data export files or the interview Id obtained through other API requests",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "comment",
+            "in": "query",
+            "description": "Approve comment",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Interview was approved"
+          },
+          "404": {
+            "description": "Interview was not found"
+          },
+          "406": {
+            "description": "Target interview was in status that was not ready to be approved"
+          }
+        }
+      }
+    },
+    "/api/v1/interviews/{id}/hqreject": {
+      "patch": {
+        "tags": [
+          "Interviews"
+        ],
+        "summary": "Rejects interview as headquarters",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Interview Id. This corresponds to the interview__id variable in data export files or the interview Id obtained through other API requests",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "comment",
+            "in": "query",
+            "description": "Rejection comment",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "responsibleId",
+            "in": "query",
+            "description": "New responsible id",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Interview was rejected"
+          },
+          "404": {
+            "description": "Interview was not found"
+          },
+          "406": {
+            "description": "Target interview was in status that was not ready to be rejected or selected responsible cannot be assigned"
+          }
+        }
+      }
+    },
+    "/api/v1/interviews/{id}/hqunapprove": {
+      "patch": {
+        "tags": [
+          "Interviews"
+        ],
+        "summary": "Rejects interview from Approved by headquarters status",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Interview Id. This corresponds to the interview__id variable in data export files or the interview Id obtained through other API requests",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "comment",
+            "in": "query",
+            "description": "Approve comment",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Interview was rejected"
+          },
+          "404": {
+            "description": "Interview was not found"
+          },
+          "406": {
+            "description": "Target interview was in status that was not ready to be rejected"
+          }
+        }
+      }
+    },
+    "/api/v1/interviews/{id}/reject": {
+      "patch": {
+        "tags": [
+          "Interviews"
+        ],
+        "summary": "Rejects interview as supervisor",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Interview Id. This corresponds to the interview__id variable in data export files or the interview Id obtained through other API requests",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "comment",
+            "in": "query",
+            "description": "Rejection comment",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "responsibleId",
+            "in": "query",
+            "description": "New responsible id",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Interview was rejected"
+          },
+          "404": {
+            "description": "Interview was not found"
+          },
+          "406": {
+            "description": "Target interview was in status that was not ready to be rejected or selected responsible cannot be assigned"
+          }
+        }
+      }
+    },
+    "/api/v1/interviews/{id}/comment-by-variable/{variable}": {
+      "post": {
+        "tags": [
+          "Interviews"
+        ],
+        "summary": "Leave a comment on a question using questionnaire variable name and roster vector",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Interview Id. This corresponds to the interview__id variable in data export files or the interview Id obtained through other API requests",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "variable",
+            "in": "path",
+            "description": "Variable name. This is the variable name for a question in Designer or in an export file",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "rosterVector",
+            "in": "query",
+            "description": "Roster row. In simple rosters, the row code. In nested rosters, an array of row codes: first, the row code of the parent(s); followed by the row code of the target child roster (e.g., a question in a second-level roster needs 2 row codes, a question in a first-level roster only 1). For variables not in rosters, this parameter may be left blank",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "format": "int32"
+              }
+            }
+          },
+          {
+            "name": "comment",
+            "in": "query",
+            "description": "Comment. Comment to be posted to the chosen question",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Provided request fails validation.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationProblemDetails"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Comment added."
+          },
+          "406": {
+            "description": "Questionnaire not found."
+          }
+        }
+      }
+    },
+    "/api/v1/interviews/{id}/comment/{questionId}": {
+      "post": {
+        "tags": [
+          "Interviews"
+        ],
+        "summary": "Leave a comment on a question",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Interview Id. This corresponds to the interview__id variable in data export files or the interview Id obtained through other API requests",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "questionId",
+            "in": "path",
+            "description": "Question Id. Identifier of the question constructed as follows. First, take the question GUID from the JSON version of the questionnaire. Then, remove all dashes. If the question is not in a roster, use this as the question Id. If the question is in a roster, append its address to the question Id using the following pattern : [questionId]_#-#-#, where [questionId] is the question GUID without dashes, # represents the row code of each roster from the top level of the questionnaire to the current question, and only the needed number of row codes is used (e.g., a question in a second-level roster needs 2 row codes, a question in a first-level roster only 1)",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "comment",
+            "in": "query",
+            "description": "Comment. Comment to be posted to the chosen question",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Provided request fails validation.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationProblemDetails"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Comment added."
+          },
+          "406": {
+            "description": "Questionnaire not found."
+          }
+        }
+      }
+    },
+    "/api/v1/questionnaires": {
+      "get": {
+        "tags": [
+          "Questionnaires"
+        ],
+        "summary": "Gets list of imported questionnaires",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Limit number of returned rows. Max allowed value is 40",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "Page number starting from 1. Actual skipped rows are calculated as `(offset - 1) * limit`",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/QuestionnaireApiView"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QuestionnaireApiView"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QuestionnaireApiView"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": true
+      }
+    },
+    "/api/v1/questionnaires/{id}": {
+      "get": {
+        "tags": [
+          "Questionnaires"
+        ],
+        "summary": "Gets list of imported questionnaires by questionnaire id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Questionnaire Id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Limit number of returned rows. Max allowed value is 40",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "Page number starting from 1. Actual skipped rows are calculated as `(offset - 1) * limit`",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/QuestionnaireApiView"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QuestionnaireApiView"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QuestionnaireApiView"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": true
+      }
+    },
+    "/api/v1/questionnaires/{id}/{version}/document": {
+      "get": {
+        "tags": [
+          "Questionnaires"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "version",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/v1/questionnaires/{id}/{version}/interviews": {
+      "get": {
+        "tags": [
+          "Questionnaires"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "version",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/InterviewApiView"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InterviewApiView"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InterviewApiView"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": true
+      }
+    },
+    "/api/v1/questionnaires/{id}/{version}/recordAudio": {
+      "get": {
+        "tags": [
+          "Questionnaires"
+        ],
+        "summary": "Gets audio recording enabled setting for provided questionnaire",
+        "operationId": "RecordAudioSetting",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Questionnaire guid",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "version",
+            "in": "path",
+            "description": "Questionnaire version",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/AudioRecordingEnabled"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AudioRecordingEnabled"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AudioRecordingEnabled"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Questionnaire cannot be found"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Questionnaires"
+        ],
+        "summary": "Sets audio recording enabled setting for provided questionnaire",
+        "operationId": "RecordAudioSetting",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Questionnaire guid",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "version",
+            "in": "path",
+            "description": "Questionnaire version",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/RecordAudioRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RecordAudioRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RecordAudioRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/RecordAudioRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "204": {
+            "description": "Questionnaire setting updated"
+          },
+          "404": {
+            "description": "Questionnaire cannot be found"
+          }
+        }
+      }
+    },
+    "/api/v1/questionnaires/{id}/{version}": {
+      "get": {
+        "tags": [
+          "Questionnaires"
+        ],
+        "summary": "Gets imported questionnaire by id and version",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Questionnaire Id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "version",
+            "in": "path",
+            "description": "Questionnaire version",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/QuestionnaireApiItem"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QuestionnaireApiItem"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QuestionnaireApiItem"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": true
+      }
+    },
+    "/api/v1/questionnaires/statuses": {
+      "get": {
+        "tags": [
+          "Questionnaires"
+        ],
+        "summary": "Gets list of possible interview statuses",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/InterviewStatus"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InterviewStatus"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InterviewStatus"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": true
+      }
+    },
+    "/api/v1/settings/globalnotice": {
+      "get": {
+        "tags": [
+          "Settings"
+        ],
+        "summary": "Get global notice for the headquarters application",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/GlobalNoticeApiView"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GlobalNoticeApiView"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GlobalNoticeApiView"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Settings"
+        ],
+        "summary": "Set global notice for the headquarters application",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/SetGlobalNoticeApiModel"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SetGlobalNoticeApiModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SetGlobalNoticeApiModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/SetGlobalNoticeApiModel"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "204": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Settings"
+        ],
+        "summary": "Remove global notice for the headquarters application",
+        "responses": {
+          "204": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/v1/statistics": {
+      "get": {
+        "tags": [
+          "Statistics"
+        ],
+        "summary": "Generate report report based on provided query paramters.",
+        "parameters": [
+          {
+            "name": "QuestionnaireId",
+            "in": "query",
+            "description": "Questionnaire Id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Version",
+            "in": "query",
+            "description": "Questionnaire version",
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "Question",
+            "in": "query",
+            "description": "Question variable name or UUID",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Min",
+            "in": "query",
+            "description": "Minimum value of answers to count in report",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "Max",
+            "in": "query",
+            "description": "Maximum value of answers to count in report",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "exportType",
+            "in": "query",
+            "description": "Specify report format to ouput",
+            "schema": {
+              "$ref": "#/components/schemas/ExportFileType"
+            },
+            "x-ms-enum": {
+              "name": "ExportFileType",
+              "modelAsString": false
+            }
+          },
+          {
+            "name": "ConditionalQuestion",
+            "in": "query",
+            "description": "Condition question variable name or UUID",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "condition[]",
+            "in": "query",
+            "description": "List of condition question answers to filter on",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "format": "int64"
+              }
+            }
+          },
+          {
+            "name": "Pivot",
+            "in": "query",
+            "description": "Specify {true} if Pivot Table output needed.",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "ExpandTeams",
+            "in": "query",
+            "description": "Show detailed report with team members for each team",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "statuses[]",
+            "in": "query",
+            "description": "List of statuses to apply filtering",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "Draw",
+            "in": "query",
+            "description": "Datatables specific",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "Start",
+            "in": "query",
+            "description": "Paging - Start row",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "Length",
+            "in": "query",
+            "description": "How many rows per page",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "Order",
+            "in": "query",
+            "description": "order of output",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/SortOrder"
+              }
+            }
+          },
+          {
+            "name": "_C",
+            "in": "query",
+            "description": "This is shorthand for {Columns} property. DataTable works via Get requests",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/ColumnInfo"
+              }
+            }
+          },
+          {
+            "name": "Columns",
+            "in": "query",
+            "description": "List of columns that need to be outputed. Leave null for default values",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/ColumnInfo"
+              }
+            }
+          },
+          {
+            "name": "ColummnsList",
+            "in": "query",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/ColumnInfo"
+              }
+            }
+          },
+          {
+            "name": "Search.Value",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Search.Regex",
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "PageIndex",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "PageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/v1/statistics/questionnaires": {
+      "get": {
+        "tags": [
+          "Statistics"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/QuestionnaireDto"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/QuestionnaireDto"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/QuestionnaireDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/statistics/questions": {
+      "get": {
+        "tags": [
+          "Statistics"
+        ],
+        "summary": "Get questions list",
+        "description": "Gets a questions list for specified questionnaire identity. Only questions that have data are shown",
+        "parameters": [
+          {
+            "name": "questionnaireId",
+            "in": "query",
+            "description": "Questionnaire Id",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "version",
+            "in": "query",
+            "description": "Questionnaire version",
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/QuestionDto"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/QuestionDto"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/QuestionDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/interviewers/{id}": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Gets detailed info about single interviewer",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "User id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/InterviewerUserApiDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InterviewerUserApiDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InterviewerUserApiDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Interviewer was not found"
+          }
+        }
+      }
+    },
+    "/api/v1/interviewers/{id}/actions-log": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Returns audit log records for interviewer.\r\nYou can specify \"start\" and \"end\" parameters in query string to get range results.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "User id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "start",
+            "in": "query",
+            "description": "Start datetime. If isn't specified then return data for last 7 days.",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "end",
+            "in": "query",
+            "description": "End datetime. If isn't specified then get data for 7 days from start data.",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AuditLogRecordApiView"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AuditLogRecordApiView"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AuditLogRecordApiView"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/supervisors": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Gets list of supervisors",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserApiView"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserApiView"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserApiView"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/supervisors/{id}": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Gets detailed info about single user",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "User id or user name or user email",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserApiDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserApiDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserApiDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/supervisors/{supervisorId}/interviewers": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Gets list of interviewers in the specific supervisor team",
+        "parameters": [
+          {
+            "name": "supervisorId",
+            "in": "path",
+            "description": "Id of supervisor",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserApiView"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserApiView"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserApiView"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/users/{id}": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Gets detailed info about single user",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "User id or user name or user email",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserApiDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserApiDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserApiDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/users/{id}/archive": {
+      "patch": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Archives interviewer or supervisor with all his interviewers",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "User id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "User id cannot be parsed",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationProblemDetails"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "User archived"
+          },
+          "404": {
+            "description": "User with provided id does not exist"
+          },
+          "406": {
+            "description": "User is not an interviewer or supervisor"
+          }
+        }
+      }
+    },
+    "/api/v1/users/{id}/unarchive": {
+      "patch": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Unarchives single user",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "User id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "User id cannot be parsed",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationProblemDetails"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "User unarchived"
+          },
+          "404": {
+            "description": "User with provided id does not exist"
+          },
+          "406": {
+            "description": "User is not an interviewer or supervisor"
+          },
+          "409": {
+            "description": "User cannot be unarchived"
+          }
+        }
+      }
+    },
+    "/api/v1/users": {
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Creates new user with specified role.",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterUserModel"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterUserModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterUserModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterUserModel"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "400": {
+            "description": "User cannot be created.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationProblemDetails"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Created user id."
+          }
+        }
+      }
+    },
+    "/api/v1/workspaces": {
+      "get": {
+        "tags": [
+          "Workspaces"
+        ],
+        "summary": "List existing workspaces",
+        "parameters": [
+          {
+            "name": "Start",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "Length",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "UserId",
+            "in": "query",
+            "description": "Return only workspaces assigned to specified user",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "IncludeDisabled",
+            "in": "query",
+            "description": "Returned list will also include disabled workspaces",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/WorkspaceApiView"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WorkspaceApiView"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WorkspaceApiView"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Workspaces"
+        ],
+        "summary": "Creates new workspace. Accessible only to administrator",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/WorkspaceCreateApiView"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/WorkspaceCreateApiView"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/WorkspaceCreateApiView"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/WorkspaceCreateApiView"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/WorkspaceApiView"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WorkspaceApiView"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WorkspaceApiView"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/workspaces/{name}": {
+      "get": {
+        "tags": [
+          "Workspaces"
+        ],
+        "summary": "Get single workspace details",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "404": {
+            "description": "Not Found"
+          },
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/WorkspaceApiView"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WorkspaceApiView"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WorkspaceApiView"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Workspaces"
+        ],
+        "summary": "Updates workspace",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/WorkspaceUpdateApiView"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/WorkspaceUpdateApiView"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/WorkspaceUpdateApiView"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/WorkspaceUpdateApiView"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "Workspace updated"
+          },
+          "400": {
+            "description": "Validation failed"
+          },
+          "404": {
+            "description": "Workspace not found"
+          },
+          "403": {
+            "description": "User is not authorized to make changes to workspace"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Workspaces"
+        ],
+        "summary": "Delete workspace",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "description": "Workspace name",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeleteWorkspaceResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeleteWorkspaceResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeleteWorkspaceResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/workspaces/status/{name}": {
+      "get": {
+        "tags": [
+          "Workspaces"
+        ],
+        "summary": "Request server for information about workspace status and it's ability to delete",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "description": "Workspace name",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/WorkspaceStatusInformation"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WorkspaceStatusInformation"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WorkspaceStatusInformation"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/workspaces/{name}/disable": {
+      "post": {
+        "tags": [
+          "Workspaces"
+        ],
+        "summary": "Disables specified workspace",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "204": {
+            "description": "Workspace disabled"
+          },
+          "400": {
+            "description": "Validation failed"
+          },
+          "404": {
+            "description": "Workspace not found"
+          }
+        }
+      }
+    },
+    "/api/v1/workspaces/{name}/enable": {
+      "post": {
+        "tags": [
+          "Workspaces"
+        ],
+        "summary": "Enables specified workspace",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "204": {
+            "description": "Workspace enabled"
+          },
+          "400": {
+            "description": "Validation failed"
+          },
+          "404": {
+            "description": "Workspace not found"
+          }
+        }
+      }
+    },
+    "/api/v1/workspaces/assign": {
+      "post": {
+        "tags": [
+          "Workspaces"
+        ],
+        "summary": "Assigns workspaces to user.",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/AssignWorkspacesToUserModel"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AssignWorkspacesToUserModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AssignWorkspacesToUserModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/AssignWorkspacesToUserModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "204": {
+            "description": "Workspaces list updated"
+          },
+          "400": {
+            "description": "Validation failed"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AbstractAnswer": {
+        "type": "object",
+        "additionalProperties": false
+      },
+      "AssignChangeApiModel": {
+        "type": "object",
+        "properties": {
+          "ResponsibleId": {
+            "type": "string",
+            "description": "New responsible id",
+            "format": "uuid",
+            "nullable": true
+          },
+          "ResponsibleName": {
+            "type": "string",
+            "description": "New responsible name",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Provide either responsible id or responsible name"
+      },
+      "AssignmentAssignRequest": {
+        "required": [
+          "responsible"
+        ],
+        "type": "object",
+        "properties": {
+          "Responsible": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "AssignmentDetails": {
+        "type": "object",
+        "properties": {
+          "IdentifyingData": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AssignmentIdentifyingDataItem"
+            },
+            "nullable": true
+          },
+          "Id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "ResponsibleId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "ResponsibleName": {
+            "type": "string",
+            "description": "Name of the responsible person\r\nCan be used for ordering",
+            "nullable": true
+          },
+          "QuestionnaireId": {
+            "type": "string",
+            "description": "Questionnaire Id",
+            "nullable": true
+          },
+          "InterviewsCount": {
+            "type": "integer",
+            "description": "Quantity of submitted interviews for this assignment\r\nCan be used for ordering",
+            "format": "int32"
+          },
+          "Quantity": {
+            "type": "integer",
+            "description": "Maximum allowed quantity of interviews that can be created from this assignment\r\nCan be used for ordering",
+            "format": "int32",
+            "nullable": true
+          },
+          "Archived": {
+            "type": "boolean",
+            "description": "Archived status to filter by. True or False"
+          },
+          "CreatedAtUtc": {
+            "type": "string",
+            "description": "Date (UTC) when assignment were created\r\nCan be used for ordering",
+            "format": "date-time"
+          },
+          "UpdatedAtUtc": {
+            "type": "string",
+            "description": "Last Update Date (UTC) of assignment\r\nCan be used for ordering",
+            "format": "date-time"
+          },
+          "Email": {
+            "type": "string",
+            "nullable": true
+          },
+          "Password": {
+            "type": "string",
+            "nullable": true
+          },
+          "WebMode": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "ReceivedByTabletAtUtc": {
+            "type": "string",
+            "description": "Represents date (UTC) when assignment was received by tablet",
+            "format": "date-time",
+            "nullable": true
+          },
+          "IsAudioRecordingEnabled": {
+            "type": "boolean",
+            "description": "Determines if interview from this assignment must record voice during interview (only on tablet)"
+          }
+        },
+        "additionalProperties": false
+      },
+      "AssignmentHistory": {
+        "type": "object",
+        "properties": {
+          "History": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AssignmentHistoryItem"
+            },
+            "nullable": true
+          },
+          "RecordsFiltered": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "AssignmentHistoryAction": {
+        "enum": [
+          "Unknown",
+          "Created",
+          "Archived",
+          "Deleted",
+          "ReceivedByTablet",
+          "UnArchived",
+          "AudioRecordingChanged",
+          "Reassigned",
+          "QuantityChanged",
+          "WebModeChanged"
+        ],
+        "type": "string",
+        "x-ms-enum": {
+          "name": "AssignmentHistoryAction",
+          "modelAsString": false
+        }
+      },
+      "AssignmentHistoryItem": {
+        "type": "object",
+        "properties": {
+          "Action": {
+            "$ref": "#/components/schemas/AssignmentHistoryAction"
+          },
+          "ActorName": {
+            "type": "string",
+            "nullable": true
+          },
+          "UtcDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "AdditionalData": {
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "AssignmentIdentifyingDataItem": {
+        "type": "object",
+        "properties": {
+          "Identity": {
+            "type": "string",
+            "description": "Question identity\r\nExpected format: GuidWithoutDashes_Int1-Int2, where _Int1-Int2 - codes of parent rosters (empty if question is not inside any roster).\r\nFor example: 11111111111111111111111111111111_0-1 should be used for question on the second level",
+            "nullable": true
+          },
+          "Variable": {
+            "type": "string",
+            "nullable": true
+          },
+          "Answer": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "AssignmentQuantitySettings": {
+        "required": [
+          "canChangeQuantity"
+        ],
+        "type": "object",
+        "properties": {
+          "CanChangeQuantity": {
+            "type": "boolean",
+            "description": "Assignment Quantity Settings."
+          }
+        },
+        "additionalProperties": false
+      },
+      "AssignmentsListView": {
+        "required": [
+          "limit",
+          "offset",
+          "totalCount"
+        ],
+        "type": "object",
+        "properties": {
+          "Assignments": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AssignmentViewItem"
+            },
+            "nullable": true
+          },
+          "Order": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "Limit": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          },
+          "TotalCount": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          },
+          "Offset": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "AssignmentViewItem": {
+        "type": "object",
+        "properties": {
+          "Id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "ResponsibleId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "ResponsibleName": {
+            "type": "string",
+            "description": "Name of the responsible person\r\nCan be used for ordering",
+            "nullable": true
+          },
+          "QuestionnaireId": {
+            "type": "string",
+            "description": "Questionnaire Id",
+            "nullable": true
+          },
+          "InterviewsCount": {
+            "type": "integer",
+            "description": "Quantity of submitted interviews for this assignment\r\nCan be used for ordering",
+            "format": "int32"
+          },
+          "Quantity": {
+            "type": "integer",
+            "description": "Maximum allowed quantity of interviews that can be created from this assignment\r\nCan be used for ordering",
+            "format": "int32",
+            "nullable": true
+          },
+          "Archived": {
+            "type": "boolean",
+            "description": "Archived status to filter by. True or False"
+          },
+          "CreatedAtUtc": {
+            "type": "string",
+            "description": "Date (UTC) when assignment were created\r\nCan be used for ordering",
+            "format": "date-time"
+          },
+          "UpdatedAtUtc": {
+            "type": "string",
+            "description": "Last Update Date (UTC) of assignment\r\nCan be used for ordering",
+            "format": "date-time"
+          },
+          "Email": {
+            "type": "string",
+            "nullable": true
+          },
+          "Password": {
+            "type": "string",
+            "nullable": true
+          },
+          "WebMode": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "ReceivedByTabletAtUtc": {
+            "type": "string",
+            "description": "Represents date (UTC) when assignment was received by tablet",
+            "format": "date-time",
+            "nullable": true
+          },
+          "IsAudioRecordingEnabled": {
+            "type": "boolean",
+            "description": "Determines if interview from this assignment must record voice during interview (only on tablet)"
+          }
+        },
+        "additionalProperties": false
+      },
+      "AssignWorkspaceInfo": {
+        "required": [
+          "workspace"
+        ],
+        "type": "object",
+        "properties": {
+          "Workspace": {
+            "type": "string"
+          },
+          "SupervisorId": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "AssignWorkspacesMode": {
+        "enum": [
+          "Assign",
+          "Add",
+          "Remove"
+        ],
+        "type": "string",
+        "description": "Assignment mode for workspaces",
+        "x-ms-enum": {
+          "name": "AssignWorkspacesMode",
+          "modelAsString": false
+        }
+      },
+      "AssignWorkspacesToUserModel": {
+        "required": [
+          "userIds",
+          "workspaces"
+        ],
+        "type": "object",
+        "properties": {
+          "UserIds": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          "Workspaces": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AssignWorkspaceInfo"
+            }
+          },
+          "Mode": {
+            "$ref": "#/components/schemas/AssignWorkspacesMode"
+          }
+        },
+        "additionalProperties": false
+      },
+      "AudioRecordingEnabled": {
+        "type": "object",
+        "properties": {
+          "Enabled": {
+            "type": "boolean",
+            "description": "Indicates if audio recording is enabled"
+          }
+        },
+        "additionalProperties": false
+      },
+      "AuditLogRecordApiView": {
+        "type": "object",
+        "properties": {
+          "Time": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "Message": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ColumnInfo": {
+        "type": "object",
+        "properties": {
+          "Title": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "Name": {
+            "type": "string",
+            "nullable": true
+          },
+          "Searchable": {
+            "type": "boolean"
+          },
+          "Orderable": {
+            "type": "boolean"
+          },
+          "Search": {
+            "$ref": "#/components/schemas/SearchInfo"
+          }
+        },
+        "additionalProperties": false
+      },
+      "CreateAssignmentApiRequest": {
+        "required": [
+          "identifyingData",
+          "questionnaireId",
+          "responsible"
+        ],
+        "type": "object",
+        "properties": {
+          "Responsible": {
+            "type": "string"
+          },
+          "Quantity": {
+            "type": "integer",
+            "description": "Maximum number of allowed to create assignments",
+            "format": "int32",
+            "nullable": true
+          },
+          "QuestionnaireId": {
+            "type": "string",
+            "description": "QuestionnaireId for assignment"
+          },
+          "IdentifyingData": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AssignmentIdentifyingDataItem"
+            }
+          },
+          "Email": {
+            "type": "string",
+            "nullable": true
+          },
+          "Password": {
+            "type": "string",
+            "nullable": true
+          },
+          "WebMode": {
+            "type": "boolean"
+          },
+          "IsAudioRecordingEnabled": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "Comments": {
+            "type": "string",
+            "nullable": true
+          },
+          "ProtectedVariables": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "List of protected variables",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CreateAssignmentResult": {
+        "type": "object",
+        "properties": {
+          "Assignment": {
+            "$ref": "#/components/schemas/AssignmentDetails"
+          },
+          "VerificationStatus": {
+            "$ref": "#/components/schemas/ImportDataVerificationState"
+          },
+          "WebInterviewLink": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CreateExportProcess": {
+        "required": [
+          "exportType",
+          "interviewStatus",
+          "questionnaireId"
+        ],
+        "type": "object",
+        "properties": {
+          "ExportType": {
+            "$ref": "#/components/schemas/ExportType"
+          },
+          "QuestionnaireId": {
+            "type": "string",
+            "description": "Questionnaire id in format [QuestionnaireGuid$Version]"
+          },
+          "InterviewStatus": {
+            "$ref": "#/components/schemas/ExportInterviewType"
+          },
+          "From": {
+            "type": "string",
+            "description": "Started date for timeframe of exported interviews (when change was done to an interview). Should be in UTC date",
+            "format": "date-time",
+            "nullable": true
+          },
+          "To": {
+            "type": "string",
+            "description": "Finished date for timeframe of exported interviews (when change was done to an interview). Should be in UTC date",
+            "format": "date-time",
+            "nullable": true
+          },
+          "AccessToken": {
+            "type": "string",
+            "description": "Access token to external storage",
+            "nullable": true
+          },
+          "RefreshToken": {
+            "type": "string",
+            "description": "Refresh token to external storage",
+            "nullable": true
+          },
+          "StorageType": {
+            "$ref": "#/components/schemas/ExternalStorageType"
+          },
+          "TranslationId": {
+            "type": "string",
+            "description": "Translation Id of the questionnaire",
+            "format": "uuid",
+            "nullable": true
+          },
+          "IncludeMeta": {
+            "type": "boolean",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "DeleteWorkspaceResponse": {
+        "type": "object",
+        "properties": {
+          "Success": {
+            "type": "boolean"
+          },
+          "ErrorMessage": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ExportFileType": {
+        "enum": [
+          "Excel",
+          "Csv",
+          "Tab"
+        ],
+        "type": "string",
+        "x-ms-enum": {
+          "name": "ExportFileType",
+          "modelAsString": false
+        }
+      },
+      "ExportInterviewType": {
+        "enum": [
+          "All",
+          "SupervisorAssigned",
+          "InterviewerAssigned",
+          "RejectedBySupervisor",
+          "Completed",
+          "ApprovedBySupervisor",
+          "RejectedByHeadquarters",
+          "ApprovedByHeadquarters"
+        ],
+        "type": "string",
+        "x-ms-enum": {
+          "name": "ExportInterviewType",
+          "modelAsString": false
+        }
+      },
+      "ExportJobLinks": {
+        "type": "object",
+        "properties": {
+          "Cancel": {
+            "type": "string",
+            "description": "Link for cancelling export process",
+            "nullable": true
+          },
+          "Download": {
+            "type": "string",
+            "description": "Link for downloading file with data",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ExportProcess": {
+        "required": [
+          "exportType",
+          "interviewStatus",
+          "questionnaireId"
+        ],
+        "type": "object",
+        "properties": {
+          "JobId": {
+            "type": "integer",
+            "description": "Export process id",
+            "format": "int64"
+          },
+          "ExportStatus": {
+            "$ref": "#/components/schemas/ExportStatus"
+          },
+          "StartDate": {
+            "type": "string",
+            "description": "Export process stated date",
+            "format": "date-time",
+            "nullable": true
+          },
+          "CompleteDate": {
+            "type": "string",
+            "description": "Export process completed date",
+            "format": "date-time",
+            "nullable": true
+          },
+          "Progress": {
+            "type": "integer",
+            "description": "Progress of export in percents",
+            "format": "int32"
+          },
+          "Eta": {
+            "type": "string",
+            "description": "Estimated time to finish of export",
+            "format": "date-span",
+            "nullable": true
+          },
+          "Error": {
+            "type": "string",
+            "description": "",
+            "nullable": true
+          },
+          "Links": {
+            "$ref": "#/components/schemas/ExportJobLinks"
+          },
+          "HasExportFile": {
+            "type": "boolean",
+            "description": "True, if export process is finished and exported file ready for download, otherwise false"
+          },
+          "ExportType": {
+            "$ref": "#/components/schemas/ExportType"
+          },
+          "QuestionnaireId": {
+            "type": "string",
+            "description": "Questionnaire id in format [QuestionnaireGuid$Version]"
+          },
+          "InterviewStatus": {
+            "$ref": "#/components/schemas/ExportInterviewType"
+          },
+          "From": {
+            "type": "string",
+            "description": "Started date for timeframe of exported interviews (when change was done to an interview). Should be in UTC date",
+            "format": "date-time",
+            "nullable": true
+          },
+          "To": {
+            "type": "string",
+            "description": "Finished date for timeframe of exported interviews (when change was done to an interview). Should be in UTC date",
+            "format": "date-time",
+            "nullable": true
+          },
+          "AccessToken": {
+            "type": "string",
+            "description": "Access token to external storage",
+            "nullable": true
+          },
+          "RefreshToken": {
+            "type": "string",
+            "description": "Refresh token to external storage",
+            "nullable": true
+          },
+          "StorageType": {
+            "$ref": "#/components/schemas/ExternalStorageType"
+          },
+          "TranslationId": {
+            "type": "string",
+            "description": "Translation Id of the questionnaire",
+            "format": "uuid",
+            "nullable": true
+          },
+          "IncludeMeta": {
+            "type": "boolean",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ExportStatus": {
+        "enum": [
+          "Created",
+          "Running",
+          "Completed",
+          "Fail",
+          "Canceled"
+        ],
+        "type": "string",
+        "x-ms-enum": {
+          "name": "ExportStatus",
+          "modelAsString": false
+        }
+      },
+      "ExportType": {
+        "enum": [
+          "Tabular",
+          "STATA",
+          "SPSS",
+          "Binary",
+          "DDI",
+          "Paradata"
+        ],
+        "type": "string",
+        "x-ms-enum": {
+          "name": "ExportType",
+          "modelAsString": false
+        }
+      },
+      "ExternalStorageType": {
+        "enum": [
+          "Dropbox",
+          "OneDrive",
+          "GoogleDrive"
+        ],
+        "type": "string",
+        "x-ms-enum": {
+          "name": "ExternalStorageType",
+          "modelAsString": false
+        }
+      },
+      "FullAssignmentDetails": {
+        "type": "object",
+        "properties": {
+          "Answers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/InterviewAnswer"
+            },
+            "nullable": true
+          },
+          "IdentifyingData": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AssignmentIdentifyingDataItem"
+            },
+            "nullable": true
+          },
+          "Id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "ResponsibleId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "ResponsibleName": {
+            "type": "string",
+            "description": "Name of the responsible person\r\nCan be used for ordering",
+            "nullable": true
+          },
+          "QuestionnaireId": {
+            "type": "string",
+            "description": "Questionnaire Id",
+            "nullable": true
+          },
+          "InterviewsCount": {
+            "type": "integer",
+            "description": "Quantity of submitted interviews for this assignment\r\nCan be used for ordering",
+            "format": "int32"
+          },
+          "Quantity": {
+            "type": "integer",
+            "description": "Maximum allowed quantity of interviews that can be created from this assignment\r\nCan be used for ordering",
+            "format": "int32",
+            "nullable": true
+          },
+          "Archived": {
+            "type": "boolean",
+            "description": "Archived status to filter by. True or False"
+          },
+          "CreatedAtUtc": {
+            "type": "string",
+            "description": "Date (UTC) when assignment were created\r\nCan be used for ordering",
+            "format": "date-time"
+          },
+          "UpdatedAtUtc": {
+            "type": "string",
+            "description": "Last Update Date (UTC) of assignment\r\nCan be used for ordering",
+            "format": "date-time"
+          },
+          "Email": {
+            "type": "string",
+            "nullable": true
+          },
+          "Password": {
+            "type": "string",
+            "nullable": true
+          },
+          "WebMode": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "ReceivedByTabletAtUtc": {
+            "type": "string",
+            "description": "Represents date (UTC) when assignment was received by tablet",
+            "format": "date-time",
+            "nullable": true
+          },
+          "IsAudioRecordingEnabled": {
+            "type": "boolean",
+            "description": "Determines if interview from this assignment must record voice during interview (only on tablet)"
+          }
+        },
+        "additionalProperties": false
+      },
+      "GlobalNoticeApiView": {
+        "type": "object",
+        "properties": {
+          "Message": {
+            "type": "string",
+            "description": "Current global notice",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": ""
+      },
+      "Identity": {
+        "type": "object",
+        "properties": {
+          "Id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "RosterVector": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ImportDataVerificationState": {
+        "type": "object",
+        "properties": {
+          "Errors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PanelImportVerificationError"
+            },
+            "nullable": true
+          },
+          "WasResponsibleProvided": {
+            "type": "boolean"
+          },
+          "EntitiesCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "EnumeratorsCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "SupervisorsCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "FileName": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "InterviewAnswer": {
+        "type": "object",
+        "properties": {
+          "Identity": {
+            "$ref": "#/components/schemas/Identity"
+          },
+          "Answer": {
+            "$ref": "#/components/schemas/AbstractAnswer"
+          },
+          "Variable": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "InterviewApiDetails": {
+        "required": [
+          "answers"
+        ],
+        "type": "object",
+        "properties": {
+          "Answers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/QuestionApiItem"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "InterviewApiItem": {
+        "required": [
+          "errorsCount",
+          "interviewId",
+          "lastEntryDate",
+          "questionnaireId",
+          "questionnaireVersion",
+          "responsibleId",
+          "responsibleName",
+          "status"
+        ],
+        "type": "object",
+        "properties": {
+          "FeaturedQuestions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/InterviewFeaturedQuestion"
+            },
+            "nullable": true
+          },
+          "InterviewId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "QuestionnaireId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "QuestionnaireVersion": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "AssignmentId": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "ResponsibleId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "ResponsibleName": {
+            "type": "string"
+          },
+          "ErrorsCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "Status": {
+            "$ref": "#/components/schemas/InterviewStatus"
+          },
+          "LastEntryDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "ReceivedByDevice": {
+            "type": "boolean",
+            "readOnly": true
+          },
+          "ReceivedByDeviceAtUtc": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "InterviewApiStatistics": {
+        "type": "object",
+        "properties": {
+          "Answered": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "NotAnswered": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "Flagged": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "NotFlagged": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "Valid": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "Invalid": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "WithComments": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "ForInterviewer": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "ForSupervisor": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "InterviewId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "InterviewKey": {
+            "type": "string",
+            "nullable": true
+          },
+          "Status": {
+            "type": "string",
+            "nullable": true
+          },
+          "ResponsibleId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "ResponsibleName": {
+            "type": "string",
+            "nullable": true
+          },
+          "NumberOfInterviewers": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "NumberRejectionsBySupervisor": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "NumberRejectionsByHq": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "InterviewDuration": {
+            "type": "string",
+            "format": "date-span",
+            "nullable": true
+          },
+          "AssignmentId": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "UpdatedAtUtc": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "WebInterviewUrl": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "InterviewApiView": {
+        "required": [
+          "limit",
+          "offset",
+          "totalCount"
+        ],
+        "type": "object",
+        "properties": {
+          "Interviews": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/InterviewApiItem"
+            },
+            "nullable": true
+          },
+          "Order": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "Limit": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          },
+          "TotalCount": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          },
+          "Offset": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "InterviewerUserApiDetails": {
+        "required": [
+          "creationDate",
+          "isArchived",
+          "isLocked",
+          "isLockedByHeadquarters",
+          "isLockedBySupervisor",
+          "role",
+          "supervisorId",
+          "supervisorName",
+          "userId",
+          "userName"
+        ],
+        "type": "object",
+        "properties": {
+          "SupervisorName": {
+            "type": "string",
+            "readOnly": true
+          },
+          "SupervisorId": {
+            "type": "string",
+            "format": "uuid",
+            "readOnly": true
+          },
+          "IsLockedBySupervisor": {
+            "type": "boolean",
+            "readOnly": true
+          },
+          "IsLockedByHeadquarters": {
+            "type": "boolean",
+            "readOnly": true
+          },
+          "IsArchived": {
+            "type": "boolean"
+          },
+          "UserId": {
+            "type": "string",
+            "format": "uuid",
+            "readOnly": true
+          },
+          "UserName": {
+            "type": "string",
+            "readOnly": true
+          },
+          "Role": {
+            "$ref": "#/components/schemas/UserRoles"
+          },
+          "IsLocked": {
+            "type": "boolean",
+            "readOnly": true
+          },
+          "CreationDate": {
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "Email": {
+            "type": "string",
+            "nullable": true
+          },
+          "PhoneNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "FullName": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "InterviewFeaturedQuestion": {
+        "type": "object",
+        "properties": {
+          "Id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "Question": {
+            "type": "string",
+            "nullable": true
+          },
+          "Answer": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "InterviewHistoricalAction": {
+        "enum": [
+          "SupervisorAssigned",
+          "InterviewerAssigned",
+          "AnswerSet",
+          "AnswerRemoved",
+          "CommentSet",
+          "Completed",
+          "Restarted",
+          "ApproveBySupervisor",
+          "ApproveByHeadquarter",
+          "RejectedBySupervisor",
+          "RejectedByHeadquarter",
+          "Deleted",
+          "Restored",
+          "QuestionEnabled",
+          "QuestionDisabled",
+          "GroupEnabled",
+          "GroupDisabled",
+          "QuestionDeclaredValid",
+          "QuestionDeclaredInvalid",
+          "UnapproveByHeadquarters",
+          "ReceivedByInterviewer",
+          "ReceivedBySupervisor",
+          "VariableSet",
+          "VariableEnabled",
+          "VariableDisabled",
+          "Paused",
+          "Resumed",
+          "KeyAssigned",
+          "TranslationSwitched",
+          "OpenedBySupervisor",
+          "ClosedBySupervisor",
+          "InterviewModeChanged"
+        ],
+        "type": "string",
+        "x-ms-enum": {
+          "name": "InterviewHistoricalAction",
+          "modelAsString": false
+        }
+      },
+      "InterviewHistoricalRecordView": {
+        "type": "object",
+        "properties": {
+          "Index": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "Action": {
+            "$ref": "#/components/schemas/InterviewHistoricalAction"
+          },
+          "OriginatorName": {
+            "type": "string",
+            "nullable": true
+          },
+          "OriginatorRole": {
+            "type": "string",
+            "nullable": true
+          },
+          "Parameters": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "Timestamp": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "Offset": {
+            "type": "string",
+            "format": "date-span",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "InterviewHistoryView": {
+        "type": "object",
+        "properties": {
+          "InterviewId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "QuestionnaireId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "QuestionnaireVersion": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "Records": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/InterviewHistoricalRecordView"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "InterviewImportReference": {
+        "type": "object",
+        "properties": {
+          "Type": {
+            "$ref": "#/components/schemas/PreloadedDataVerificationReferenceType"
+          },
+          "Column": {
+            "type": "string",
+            "nullable": true
+          },
+          "Row": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "Content": {
+            "type": "string",
+            "nullable": true
+          },
+          "DataFile": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "InterviewStatus": {
+        "enum": [
+          "Restored",
+          "Created",
+          "SupervisorAssigned",
+          "InterviewerAssigned",
+          "RejectedBySupervisor",
+          "ReadyForInterview",
+          "SentToCapi",
+          "Restarted",
+          "Completed",
+          "ApprovedBySupervisor",
+          "RejectedByHeadquarters",
+          "ApprovedByHeadquarters",
+          "Deleted"
+        ],
+        "type": "string",
+        "x-ms-enum": {
+          "name": "InterviewStatus",
+          "modelAsString": false
+        }
+      },
+      "OrderDirection": {
+        "enum": [
+          "Asc",
+          "Desc"
+        ],
+        "type": "string",
+        "x-ms-enum": {
+          "name": "OrderDirection",
+          "modelAsString": false
+        }
+      },
+      "PanelImportVerificationError": {
+        "type": "object",
+        "properties": {
+          "Code": {
+            "type": "string",
+            "nullable": true
+          },
+          "Message": {
+            "type": "string",
+            "nullable": true
+          },
+          "References": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/InterviewImportReference"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PreloadedDataVerificationReferenceType": {
+        "enum": [
+          "Column",
+          "Row",
+          "Cell",
+          "File"
+        ],
+        "type": "string",
+        "x-ms-enum": {
+          "name": "PreloadedDataVerificationReferenceType",
+          "modelAsString": false
+        }
+      },
+      "QuestionAnswerView": {
+        "type": "object",
+        "properties": {
+          "Answer": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "Text": {
+            "type": "string",
+            "nullable": true
+          },
+          "Column": {
+            "type": "string",
+            "description": "Column name in API",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "QuestionApiItem": {
+        "required": [
+          "questionId",
+          "variableName"
+        ],
+        "type": "object",
+        "properties": {
+          "VariableName": {
+            "type": "string"
+          },
+          "QuestionId": {
+            "$ref": "#/components/schemas/Identity"
+          },
+          "Answer": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "QuestionDto": {
+        "type": "object",
+        "properties": {
+          "Id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "VariableName": {
+            "type": "string",
+            "nullable": true
+          },
+          "QuestionText": {
+            "type": "string",
+            "nullable": true
+          },
+          "Answers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/QuestionAnswerView"
+            },
+            "nullable": true
+          },
+          "Breadcrumbs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "Label": {
+            "type": "string",
+            "nullable": true
+          },
+          "Type": {
+            "type": "string",
+            "nullable": true
+          },
+          "HasTotal": {
+            "type": "boolean"
+          },
+          "SupportConditions": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "QuestionnaireApiItem": {
+        "required": [
+          "lastEntryDate",
+          "questionnaireId",
+          "title",
+          "variable",
+          "version"
+        ],
+        "type": "object",
+        "properties": {
+          "QuestionnaireIdentity": {
+            "type": "string",
+            "nullable": true
+          },
+          "QuestionnaireId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "Version": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "Title": {
+            "type": "string"
+          },
+          "Variable": {
+            "type": "string"
+          },
+          "LastEntryDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "IsAudioRecordingEnabled": {
+            "type": "boolean"
+          },
+          "WebModeEnabled": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "QuestionnaireApiView": {
+        "required": [
+          "limit",
+          "offset",
+          "totalCount"
+        ],
+        "type": "object",
+        "properties": {
+          "Questionnaires": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/QuestionnaireApiItem"
+            },
+            "nullable": true,
+            "readOnly": true
+          },
+          "Order": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "Limit": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          },
+          "TotalCount": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          },
+          "Offset": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "QuestionnaireDto": {
+        "type": "object",
+        "properties": {
+          "Id": {
+            "type": "string",
+            "nullable": true
+          },
+          "Title": {
+            "type": "string",
+            "nullable": true
+          },
+          "Version": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "additionalProperties": false
+      },
+      "RecordAudioRequest": {
+        "type": "object",
+        "properties": {
+          "Enabled": {
+            "type": "boolean",
+            "description": "Enable or disable recording"
+          }
+        },
+        "additionalProperties": false
+      },
+      "RegisterUserModel": {
+        "required": [
+          "password",
+          "role",
+          "userName"
+        ],
+        "type": "object",
+        "properties": {
+          "Role": {
+            "$ref": "#/components/schemas/Roles"
+          },
+          "UserName": {
+            "type": "string"
+          },
+          "FullName": {
+            "type": "string",
+            "nullable": true
+          },
+          "PhoneNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "Email": {
+            "type": "string",
+            "format": "email",
+            "nullable": true
+          },
+          "Password": {
+            "type": "string"
+          },
+          "Supervisor": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Roles": {
+        "enum": [
+          "Supervisor",
+          "Interviewer",
+          "Headquarter",
+          "Observer",
+          "ApiUser"
+        ],
+        "type": "string",
+        "description": "User role",
+        "x-ms-enum": {
+          "name": "Roles",
+          "modelAsString": false
+        }
+      },
+      "SearchInfo": {
+        "type": "object",
+        "properties": {
+          "Value": {
+            "type": "string",
+            "nullable": true
+          },
+          "Regex": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "SetGlobalNoticeApiModel": {
+        "required": [
+          "message"
+        ],
+        "type": "object",
+        "properties": {
+          "Message": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "SortOrder": {
+        "type": "object",
+        "properties": {
+          "Column": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "Dir": {
+            "$ref": "#/components/schemas/OrderDirection"
+          },
+          "Name": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "UpdateRecordingRequest": {
+        "type": "object",
+        "properties": {
+          "Enabled": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "UserApiDetails": {
+        "required": [
+          "creationDate",
+          "isArchived",
+          "isLocked",
+          "role",
+          "userId",
+          "userName"
+        ],
+        "type": "object",
+        "properties": {
+          "IsArchived": {
+            "type": "boolean"
+          },
+          "UserId": {
+            "type": "string",
+            "format": "uuid",
+            "readOnly": true
+          },
+          "UserName": {
+            "type": "string",
+            "readOnly": true
+          },
+          "Role": {
+            "$ref": "#/components/schemas/UserRoles"
+          },
+          "IsLocked": {
+            "type": "boolean",
+            "readOnly": true
+          },
+          "CreationDate": {
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "Email": {
+            "type": "string",
+            "nullable": true
+          },
+          "PhoneNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "FullName": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "UserApiItem": {
+        "required": [
+          "creationDate",
+          "isLocked",
+          "userId",
+          "userName"
+        ],
+        "type": "object",
+        "properties": {
+          "IsLocked": {
+            "type": "boolean"
+          },
+          "CreationDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "Email": {
+            "type": "string",
+            "nullable": true
+          },
+          "DeviceId": {
+            "type": "string",
+            "nullable": true
+          },
+          "UserId": {
+            "type": "string",
+            "format": "uuid",
+            "readOnly": true
+          },
+          "UserName": {
+            "type": "string",
+            "readOnly": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "UserApiView": {
+        "required": [
+          "limit",
+          "offset",
+          "totalCount"
+        ],
+        "type": "object",
+        "properties": {
+          "Users": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/UserApiItem"
+            },
+            "nullable": true
+          },
+          "Order": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "Limit": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          },
+          "TotalCount": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          },
+          "Offset": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "UserRoles": {
+        "enum": [
+          "Administrator",
+          "Supervisor",
+          "Interviewer",
+          "Headquarter",
+          "Observer",
+          "ApiUser"
+        ],
+        "type": "string",
+        "x-ms-enum": {
+          "name": "UserRoles",
+          "modelAsString": false
+        }
+      },
+      "ValidationProblemDetails": {
+        "type": "object",
+        "properties": {
+          "Errors": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "nullable": true
+          },
+          "Type": {
+            "type": "string",
+            "nullable": true
+          },
+          "Title": {
+            "type": "string",
+            "nullable": true
+          },
+          "Status": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "Detail": {
+            "type": "string",
+            "nullable": true
+          },
+          "Instance": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": { }
+      },
+      "WorkspaceApiView": {
+        "type": "object",
+        "properties": {
+          "Name": {
+            "type": "string",
+            "nullable": true
+          },
+          "DisplayName": {
+            "type": "string",
+            "nullable": true
+          },
+          "DisabledAtUtc": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "WorkspaceCreateApiView": {
+        "required": [
+          "displayName",
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "Name": {
+            "maxLength": 12,
+            "pattern": "^[-0-9,a-z]+$",
+            "type": "string"
+          },
+          "DisplayName": {
+            "maxLength": 300,
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "WorkspaceStatusInformation": {
+        "type": "object",
+        "properties": {
+          "CanBeDeleted": {
+            "type": "boolean"
+          },
+          "WorkspaceName": {
+            "type": "string",
+            "nullable": true
+          },
+          "WorkspaceDisplayName": {
+            "type": "string",
+            "nullable": true
+          },
+          "ExistingQuestionnairesCount": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "InterviewersCount": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "SupervisorsCount": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "MapsCount": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "WorkspaceUpdateApiView": {
+        "required": [
+          "displayName"
+        ],
+        "type": "object",
+        "properties": {
+          "DisplayName": {
+            "maxLength": 300,
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "securitySchemes": {
+      "basicAuth": {
+        "type": "http",
+        "scheme": "basic"
+      }
+    }
+  },
+  "security": [
+    {
+      "basicAuth": [ ]
+    }
+  ]
+}

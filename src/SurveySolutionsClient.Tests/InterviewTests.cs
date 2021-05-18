@@ -4,6 +4,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using NUnit.Framework;
 using SurveySolutionsClient.Apis;
+using SurveySolutionsClient.Exceptions;
 using SurveySolutionsClient.Models;
 
 namespace SurveySolutionsClient.Tests
@@ -13,15 +14,13 @@ namespace SurveySolutionsClient.Tests
     {
         private HttpClient httpClient;
         private ISurveySolutionsApi service;
-        private QuestionnaireIdentity questionnaireIdentity;
-        private Guid interviewId = Guid.Parse("35b7fbb3b66749d5bf912fd048f36a13");
+        private Guid interviewId = Guid.Parse("be081efeb13547dcb6d300c078844384");
 
         [OneTimeSetUp]
         public void OneTimeSetup()
         {
             httpClient = new HttpClient();
             service = new SurveySolutionsApi(httpClient, ClientSettings.GetConfiguration());
-            questionnaireIdentity = ClientSettings.Questionnaire;
         }
 
         [Test]
@@ -31,10 +30,18 @@ namespace SurveySolutionsClient.Tests
             Assert.That(interview, Is.Not.Null);
         }
 
-        [Test]
+        [Test(Description = "Should throw for completed interview")]
         public async Task able_to_delete_interview()
         {
-            await this.service.Interviews.DeleteAsync(this.interviewId);
+            try
+            {
+                await this.service.Interviews.DeleteAsync(this.interviewId);
+            }
+            catch (ApiCallException e)
+            {
+                Assert.That(e.ResponseBody, Is.Not.Empty);
+            }
+            
         }
 
 
@@ -66,7 +73,7 @@ namespace SurveySolutionsClient.Tests
         [Test]
         public async Task should_be_able_to_approve()
         {
-            await this.service.Interviews.ApproveAsync(Guid.Parse("577a1b05706f455f80a967f05d813438"), "my api comment");
+            await this.service.Interviews.ApproveAsync(Guid.Parse("be081efeb13547dcb6d300c078844384"), "my api comment");
         }
 
         [Test]

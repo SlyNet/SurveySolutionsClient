@@ -8,7 +8,7 @@ using System.Text.Json.Serialization;
 namespace SurveySolutionsClient.Models
 {
     [DebuggerDisplay("{" + nameof(ToString) + "()}")]
-    public class RosterVector : IEnumerable<int>
+    public class RosterVector : IReadOnlyList<int>
     {
         private int? cachedHashCode;
         private readonly int[] coordinates;
@@ -125,5 +125,8 @@ namespace SurveySolutionsClient.Models
         IEnumerator<int> IEnumerable<int>.GetEnumerator() => ((IEnumerable<int>)this.coordinates).GetEnumerator();
 
         IEnumerator IEnumerable.GetEnumerator() => this.coordinates.GetEnumerator();
+        public int Count => this.coordinates.Length;
+
+        public int this[int index] => this.coordinates[index];
     }
 }

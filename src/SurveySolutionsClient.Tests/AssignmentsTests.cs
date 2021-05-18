@@ -15,13 +15,22 @@ namespace SurveySolutionsClient.Tests
         private HttpClient httpClient;
         private ISurveySolutionsApi service;
         private QuestionnaireIdentity questionnaireIdentity;
+        private int assignmentId;
 
         [OneTimeSetUp]
-        public void OneTimeSetup()
+        public async Task OneTimeSetup()
         {
             httpClient = new HttpClient();
             service = new SurveySolutionsApi(httpClient, ClientSettings.GetConfiguration());
             questionnaireIdentity = ClientSettings.Questionnaire;
+
+            var creationResult = await this.service.Assignments.CreateAsync(new CreateAssignmentRequest
+            {
+                QuestionnaireId = questionnaireIdentity,
+                Quantity = 5,
+                Responsible = "inter",
+            });
+            this.assignmentId = creationResult.Assignment.Id;
         }
 
         [Test]
@@ -51,26 +60,26 @@ namespace SurveySolutionsClient.Tests
         [Test]
         public async Task can_get_audio_recording_setting()
         {
-            var response = await service.Assignments.GetAudioRecordingAsync(9);
+            var response = await service.Assignments.GetAudioRecordingAsync(this.assignmentId);
             Assert.That(response, Is.Not.Null);
         }
 
         [Test]
         public async Task can_set_audio_recording()
         {
-            await service.Assignments.SetAudioRecordingAsync(1, new UpdateRecordingRequest
+            await service.Assignments.SetAudioRecordingAsync(this.assignmentId, new UpdateRecordingRequest
             {
                 Enabled = true
             });
 
-            var response = await service.Assignments.GetAudioRecordingAsync(1);
+            var response = await service.Assignments.GetAudioRecordingAsync(this.assignmentId);
             Assert.That(response.Enabled, Is.True);
         }
 
         [Test]
         public async Task can_archive_assignment()
         {
-            var archiveAsync = await this.service.Assignments.ArchiveAsync(1);
+            var archiveAsync = await this.service.Assignments.ArchiveAsync(this.assignmentId);
 
             Assert.That(archiveAsync.Archived, Is.True);
         }
@@ -78,7 +87,7 @@ namespace SurveySolutionsClient.Tests
         [Test]
         public async Task can_unarchive_assignment()
         {
-            var archiveAsync = await this.service.Assignments.UnArchiveAsync(1);
+            var archiveAsync = await this.service.Assignments.UnArchiveAsync(this.assignmentId);
 
             Assert.That(archiveAsync.Archived, Is.False);
         }
@@ -86,7 +95,7 @@ namespace SurveySolutionsClient.Tests
         [Test]
         public async Task can_assign()
         {
-            var archiveAsync = await this.service.Assignments.AssignAsync(1, new AssignmentResponsible("inter1"));
+            var archiveAsync = await this.service.Assignments.AssignAsync(this.assignmentId, new AssignmentResponsible("inter1"));
 
             Assert.That(archiveAsync.ResponsibleName, Is.EqualTo("inter1"));
         }
@@ -94,7 +103,7 @@ namespace SurveySolutionsClient.Tests
         [Test]
         public async Task can_change_quanity()
         {
-            var archiveAsync = await this.service.Assignments.ChangeQuantityAsync(1, 10);
+            var archiveAsync = await this.service.Assignments.ChangeQuantityAsync(this.assignmentId, 10);
 
             Assert.That(archiveAsync.Quantity, Is.EqualTo(10));
         }

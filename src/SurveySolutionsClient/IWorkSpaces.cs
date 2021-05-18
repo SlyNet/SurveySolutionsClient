@@ -80,7 +80,7 @@ namespace SurveySolutionsClient
             CancellationToken cancellationToken = default);
 
         /// <summary>
-        /// Assigns users into workspaces.
+        /// Assigns users into work spaces.
         /// </summary>
         /// <param name="request">The request.</param>
         /// <param name="cancellationToken">The cancellation token.</param>

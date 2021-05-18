@@ -2,11 +2,14 @@
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using NodaTime;
 using NUnit.Framework;
 using SurveySolutionsClient.Apis;
 using SurveySolutionsClient.GraphQl;
 using SurveySolutionsClient.Models;
+using InterviewStatus = SurveySolutionsClient.GraphQl.InterviewStatus;
 using QuestionnaireIdentity = SurveySolutionsClient.GraphQl.QuestionnaireIdentity;
+using UserRoles = SurveySolutionsClient.GraphQl.UserRoles;
 
 namespace SurveySolutionsClient.Tests
 {
@@ -25,7 +28,8 @@ namespace SurveySolutionsClient.Tests
         [Test]
         public async Task should_be_to_get_list_of_assignments()
         {
-            var questionnaireIdArgument = new GraphQlQueryParameter<QuestionnaireIdentity>("id", new QuestionnaireIdentity {
+            var questionnaireIdArgument = new GraphQlQueryParameter<QuestionnaireIdentity>("id", new QuestionnaireIdentity
+            {
                 Id = new ComparableGuidOperationFilterInput
                 {
                     Eq = ClientSettings.Questionnaire.QuestionnaireId
@@ -55,12 +59,14 @@ namespace SurveySolutionsClient.Tests
         public async Task should_be_able_to_execute_mutation()
         {
             var builder = new HeadquartersMutationQueryBuilder()
-                .WithAddOrUpdateCalendarEvent(
+                .WithAddInterviewCalendarEvent(
                     new CalendarEventQueryBuilder().WithAllScalarFields(),
                     workspace: "primary",
-                    interviewKey: "62-70-07-41",
-                    comment:  "api call test",
-                    newStart: new DateTime(2011, 10, 11, 15, 30, 12));
+                    comment: "api call test",
+                    startTimezone: DateTimeZoneProviders.Tzdb.GetSystemDefault().Id,
+                    newStart: new DateTime(2011, 10, 11, 15, 30, 12),
+                    interviewId: Guid.NewGuid()
+                    );
 
             var result = await this.service.GraphQl.ExecuteAsync<GraphQlResponse>(builder);
 
@@ -76,7 +82,14 @@ namespace SurveySolutionsClient.Tests
                     new IPagedConnectionOfInterviewQueryBuilder()
                         .WithNodes(new InterviewQueryBuilder().WithAllScalarFields())
                         .WithFilteredCount()
-                        .WithTotalCount(), 
+                        .WithTotalCount(),
+                    where: new InterviewsFilter
+                    {
+                        Status = new InterviewStatusOperationFilterInput
+                        {
+                            Eq = InterviewStatus.Completed
+                        }
+                    },
                     workspace: "primary");
 
             var result = await this.service.GraphQl.ExecuteAsync<GraphQlResponse>(builder);
@@ -84,6 +97,35 @@ namespace SurveySolutionsClient.Tests
             Assert.That(result.Data.Interviews, Is.Not.Null);
             Assert.That(result.Data.Interviews.Nodes, Is.Not.Null.Or.Empty);
             Assert.That(result.Data.Interviews.Nodes.First().Id, Is.Not.Null);
+        }
+
+        [Test]
+        public async Task should_be_able_to_get_list_of_interviewers()
+        {
+            SurveySolutionsApiConfiguration options = new SurveySolutionsApiConfiguration(new Credentials("admin", "Qwerty1234"), ClientSettings.HqUrl);
+            var adminApiService = new SurveySolutionsApi(httpClient, options);
+            var builder = new HeadquartersQueryQueryBuilder()
+                .WithUsers(new UsersQueryBuilder()
+                        .WithNodes(new UserQueryBuilder().WithAllScalarFields())
+                        .WithFilteredCount()
+                        .WithTotalCount(),
+                    where: new UsersFilterInput
+                    {
+                        Role = new RoleFilterInput {Eq = UserRoles.Interviewer}
+                    }, 
+                    order: new[]
+                    {
+                        new UsersSortInput
+                        {
+                            FullName = SortEnumType.Asc
+                        }
+                    });
+
+            var result = await adminApiService.GraphQl.ExecuteAsync<GraphQlResponse>(builder);
+
+            Assert.That(result.Data.Users, Is.Not.Null);
+            Assert.That(result.Data.Users.Nodes, Is.Not.Null.Or.Empty);
+            Assert.That(result.Data.Users.Nodes.All(x => x.Role == UserRoles.Interviewer));
         }
 
         [OneTimeTearDown]

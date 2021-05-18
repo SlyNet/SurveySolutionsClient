@@ -2,6 +2,7 @@
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
+using SurveySolutionsClient.Exceptions;
 using SurveySolutionsClient.Models;
 
 namespace SurveySolutionsClient
@@ -23,6 +24,7 @@ namespace SurveySolutionsClient
         /// </summary>
         /// <param name="id">Interview id.</param>
         /// <param name="cancellationToken">The cancellation token.</param>
+        /// <exception cref="ApiCallException"></exception>
         Task DeleteAsync(Guid id, CancellationToken cancellationToken = default);
 
         /// <summary>

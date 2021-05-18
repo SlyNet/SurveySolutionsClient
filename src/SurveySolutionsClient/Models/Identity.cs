@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Text.Json.Serialization;
+using SurveySolutionsClient.JsonConverters;
 
 namespace SurveySolutionsClient.Models
 {
@@ -7,7 +9,7 @@ namespace SurveySolutionsClient.Models
     /// Full identity of group or question: id and roster vector.
     /// </summary>
     [DebuggerDisplay("{" + nameof(ToString) + "()}")]
-    public sealed class Identity
+    public class Identity
     {
         private int? hashCode;
 
@@ -23,13 +25,13 @@ namespace SurveySolutionsClient.Models
             return this.hashCode.Value;
         }
 
-        public Guid Id { get; private set; }
+        public Guid Id { get; set; }
 
         /// <summary>
         /// If entity is in roster will contain coordinates array
         /// </summary>
-
-        public RosterVector RosterVector { get; private set; }
+        [JsonConverter(typeof(RosterVectorConverter))]
+        public RosterVector RosterVector { get; set; }
 
         public Identity(Guid id, RosterVector rosterVector)
         {

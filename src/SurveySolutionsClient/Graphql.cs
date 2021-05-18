@@ -906,7 +906,9 @@ namespace SurveySolutionsClient.GraphQl
     #region GraphQL type helpers
     public static class GraphQlTypes
     {
+        public const string Any = "Any";
         public const string Boolean = "Boolean";
+        public const string Date = "Date";
         public const string DateTime = "DateTime";
         public const string Decimal = "Decimal";
         public const string Float = "Float";
@@ -918,17 +920,23 @@ namespace SurveySolutionsClient.GraphQl
 
         public const string ApplyPolicy = "ApplyPolicy";
         public const string EntityType = "EntityType";
+        public const string GeoJsonObjectType = "GeoJSONObjectType";
         public const string InterviewActionFlags = "InterviewActionFlags";
+        public const string InterviewMode = "InterviewMode";
         public const string InterviewStatus = "InterviewStatus";
         public const string QuestionScope = "QuestionScope";
         public const string QuestionType = "QuestionType";
         public const string SortEnumType = "SortEnumType";
         public const string UserRoles = "UserRoles";
+        public const string VariableType = "VariableType";
 
         public const string Assignment = "Assignment";
         public const string CalendarEvent = "CalendarEvent";
         public const string CategoricalOption = "CategoricalOption";
         public const string Entity = "Entity";
+        public const string Feature = "Feature";
+        public const string FeatureCollection = "FeatureCollection";
+        public const string GeoBounds = "GeoBounds";
         public const string HeadquartersMutation = "HeadquartersMutation";
         public const string HeadquartersQuery = "HeadquartersQuery";
         public const string IdentifyingEntity = "IdentifyingEntity";
@@ -938,11 +946,15 @@ namespace SurveySolutionsClient.GraphQl
         public const string IPagedConnectionOfMap = "IPagedConnectionOfMap";
         public const string IPagedConnectionOfQuestionnaire = "IPagedConnectionOfQuestionnaire";
         public const string Map = "Map";
+        public const string MapReport = "MapReport";
+        public const string MapReportHolder = "MapReportHolder";
         public const string Questionnaire = "Questionnaire";
         public const string QuestionnaireItem = "QuestionnaireItem";
         public const string Translation = "Translation";
         public const string User = "User";
         public const string UserMap = "UserMap";
+        public const string Users = "Users";
+        public const string Viewer = "Viewer";
 
         public const string AssignmentsFilter = "AssignmentsFilter";
         public const string BooleanOperationFilterInput = "BooleanOperationFilterInput";
@@ -952,23 +964,30 @@ namespace SurveySolutionsClient.GraphQl
         public const string ComparableInt64OperationFilterInput = "ComparableInt64OperationFilterInput";
         public const string ComparableNullableOfDateTimeOperationFilterInput = "ComparableNullableOfDateTimeOperationFilterInput";
         public const string ComparableNullableOfDecimalOperationFilterInput = "ComparableNullableOfDecimalOperationFilterInput";
+        public const string ComparableNullableOfDoubleOperationFilterInput = "ComparableNullableOfDoubleOperationFilterInput";
         public const string ComparableNullableOfInt32OperationFilterInput = "ComparableNullableOfInt32OperationFilterInput";
+        public const string ComparableNullableOfInt64OperationFilterInput = "ComparableNullableOfInt64OperationFilterInput";
         public const string IdentifyEntityValueFilter = "IdentifyEntityValueFilter";
+        public const string InterviewModeOperationFilterInput = "InterviewModeOperationFilterInput";
         public const string InterviewsFilter = "InterviewsFilter";
         public const string InterviewSort = "InterviewSort";
         public const string InterviewStatusOperationFilterInput = "InterviewStatusOperationFilterInput";
         public const string ListFilterInputTypeOfIdentifyEntityValueFilterInput = "ListFilterInputTypeOfIdentifyEntityValueFilterInput";
         public const string ListFilterInputTypeOfUserMapFilterInput = "ListFilterInputTypeOfUserMapFilterInput";
+        public const string MapReportFilter = "MapReportFilter";
         public const string MapsFilter = "MapsFilter";
         public const string MapsSort = "MapsSort";
         public const string NullableOfQuestionScopeOperationFilterInput = "NullableOfQuestionScopeOperationFilterInput";
         public const string QuestionFilter = "QuestionFilter";
         public const string QuestionnaireIdentity = "QuestionnaireIdentity";
         public const string QuestionnaireItemsFilter = "QuestionnaireItemsFilter";
+        public const string RoleFilterInput = "RoleFilterInput";
         public const string StringOperationFilterInput = "StringOperationFilterInput";
         public const string StringOperationFilterInputType = "StringOperationFilterInputType";
         public const string UserMapFilterInput = "UserMapFilterInput";
         public const string UserRolesOperationFilterInput = "UserRolesOperationFilterInput";
+        public const string UsersFilterInput = "UsersFilterInput";
+        public const string UsersSortInput = "UsersSortInput";
 
         public static readonly IReadOnlyDictionary<Type, string> ReverseMapping =
             new Dictionary<Type, string>
@@ -978,8 +997,8 @@ namespace SurveySolutionsClient.GraphQl
                 { typeof(string), "String" },
                 { typeof(int), "Int" },
                 { typeof(Guid), "Uuid" },
-                { typeof(long), "Long" },
                 { typeof(double), "Float" },
+                { typeof(long), "Long" },
                 { typeof(AssignmentsFilter), "AssignmentsFilter" },
                 { typeof(BooleanOperationFilterInput), "BooleanOperationFilterInput" },
                 { typeof(ComparableDateTimeOperationFilterInput), "ComparableDateTimeOperationFilterInput" },
@@ -988,23 +1007,30 @@ namespace SurveySolutionsClient.GraphQl
                 { typeof(ComparableInt64OperationFilterInput), "ComparableInt64OperationFilterInput" },
                 { typeof(ComparableNullableOfDateTimeOperationFilterInput), "ComparableNullableOfDateTimeOperationFilterInput" },
                 { typeof(ComparableNullableOfDecimalOperationFilterInput), "ComparableNullableOfDecimalOperationFilterInput" },
+                { typeof(ComparableNullableOfDoubleOperationFilterInput), "ComparableNullableOfDoubleOperationFilterInput" },
                 { typeof(ComparableNullableOfInt32OperationFilterInput), "ComparableNullableOfInt32OperationFilterInput" },
+                { typeof(ComparableNullableOfInt64OperationFilterInput), "ComparableNullableOfInt64OperationFilterInput" },
                 { typeof(IdentifyEntityValueFilter), "IdentifyEntityValueFilter" },
+                { typeof(InterviewModeOperationFilterInput), "InterviewModeOperationFilterInput" },
                 { typeof(InterviewsFilter), "InterviewsFilter" },
                 { typeof(InterviewSort), "InterviewSort" },
                 { typeof(InterviewStatusOperationFilterInput), "InterviewStatusOperationFilterInput" },
                 { typeof(ListFilterInputTypeOfIdentifyEntityValueFilterInput), "ListFilterInputTypeOfIdentifyEntityValueFilterInput" },
                 { typeof(ListFilterInputTypeOfUserMapFilterInput), "ListFilterInputTypeOfUserMapFilterInput" },
+                { typeof(MapReportFilter), "MapReportFilter" },
                 { typeof(MapsFilter), "MapsFilter" },
                 { typeof(MapsSort), "MapsSort" },
                 { typeof(NullableOfQuestionScopeOperationFilterInput), "NullableOfQuestionScopeOperationFilterInput" },
                 { typeof(QuestionFilter), "QuestionFilter" },
                 { typeof(QuestionnaireIdentity), "QuestionnaireIdentity" },
                 { typeof(QuestionnaireItemsFilter), "QuestionnaireItemsFilter" },
+                { typeof(RoleFilterInput), "RoleFilterInput" },
                 { typeof(StringOperationFilterInput), "StringOperationFilterInput" },
                 { typeof(StringOperationFilterInputType), "StringOperationFilterInputType" },
                 { typeof(UserMapFilterInput), "UserMapFilterInput" },
-                { typeof(UserRolesOperationFilterInput), "UserRolesOperationFilterInput" }
+                { typeof(UserRolesOperationFilterInput), "UserRolesOperationFilterInput" },
+                { typeof(UsersFilterInput), "UsersFilterInput" },
+                { typeof(UsersSortInput), "UsersSortInput" }
             };
 }
     #endregion
@@ -1045,6 +1071,15 @@ namespace SurveySolutionsClient.GraphQl
         [EnumMember(Value = "AUDIO")] Audio
     }
 
+    public enum VariableType
+    {
+        [EnumMember(Value = "LONGINTEGER")] Longinteger,
+        [EnumMember(Value = "DOUBLE")] Double,
+        [EnumMember(Value = "BOOLEAN")] Boolean,
+        [EnumMember(Value = "DATETIME")] Datetime,
+        [EnumMember(Value = "STRING")] String
+    }
+
     public enum EntityType
     {
         [EnumMember(Value = "SECTION")] Section,
@@ -1072,7 +1107,9 @@ namespace SurveySolutionsClient.GraphQl
         [EnumMember(Value = "CANBEUNAPPROVEDBYHQ")] Canbeunapprovedbyhq,
         [EnumMember(Value = "CANBEREJECTED")] Canberejected,
         [EnumMember(Value = "CANBERESTARTED")] Canberestarted,
-        [EnumMember(Value = "CANBEOPENED")] Canbeopened
+        [EnumMember(Value = "CANBEOPENED")] Canbeopened,
+        [EnumMember(Value = "CANCHANGETOCAPI")] Canchangetocapi,
+        [EnumMember(Value = "CANCHANGETOCAWI")] Canchangetocawi
     }
 
     public enum InterviewStatus
@@ -1090,6 +1127,26 @@ namespace SurveySolutionsClient.GraphQl
         [EnumMember(Value = "REJECTEDBYHEADQUARTERS")] Rejectedbyheadquarters,
         [EnumMember(Value = "APPROVEDBYHEADQUARTERS")] Approvedbyheadquarters,
         [EnumMember(Value = "DELETED")] Deleted
+    }
+
+    public enum InterviewMode
+    {
+        [EnumMember(Value = "UNKNOWN")] Unknown,
+        [EnumMember(Value = "CAPI")] Capi,
+        [EnumMember(Value = "CAWI")] Cawi
+    }
+
+    public enum GeoJsonObjectType
+    {
+        Point,
+        MultiPoint,
+        LineString,
+        MultiLineString,
+        Polygon,
+        MultiPolygon,
+        GeometryCollection,
+        Feature,
+        FeatureCollection
     }
     #endregion
 
@@ -1143,7 +1200,9 @@ namespace SurveySolutionsClient.GraphQl
             new FieldMetadata { Name = "questionnaires", IsComplex = true, QueryBuilderType = typeof(IPagedConnectionOfQuestionnaireQueryBuilder) },
             new FieldMetadata { Name = "questions", IsComplex = true, QueryBuilderType = typeof(EntityQueryBuilder) },
             new FieldMetadata { Name = "questionnaireItems", IsComplex = true, QueryBuilderType = typeof(QuestionnaireItemQueryBuilder) },
-            new FieldMetadata { Name = "viewer", IsComplex = true, QueryBuilderType = typeof(UserQueryBuilder) }
+            new FieldMetadata { Name = "viewer", IsComplex = true, QueryBuilderType = typeof(ViewerQueryBuilder) },
+            new FieldMetadata { Name = "users", IsComplex = true, QueryBuilderType = typeof(UsersQueryBuilder) },
+            new FieldMetadata { Name = "mapReport", IsComplex = true, QueryBuilderType = typeof(MapReportHolderQueryBuilder) }
         };
 
         protected override string TypeName { get; } = "HeadquartersQuery";
@@ -1271,17 +1330,64 @@ namespace SurveySolutionsClient.GraphQl
 
         public HeadquartersQueryQueryBuilder ExceptQuestionnaireItems() => ExceptField("questionnaireItems");
 
-        public HeadquartersQueryQueryBuilder WithViewer(UserQueryBuilder userQueryBuilder, string? alias = null, SkipDirective? skip = null, IncludeDirective? include = null, StreamDirective? stream = null) => WithObjectField("viewer", alias, userQueryBuilder, new GraphQlDirective?[] { skip, include, stream });
+        public HeadquartersQueryQueryBuilder WithViewer(ViewerQueryBuilder viewerQueryBuilder, string? alias = null, SkipDirective? skip = null, IncludeDirective? include = null, StreamDirective? stream = null) => WithObjectField("viewer", alias, viewerQueryBuilder, new GraphQlDirective?[] { skip, include, stream });
 
         public HeadquartersQueryQueryBuilder ExceptViewer() => ExceptField("viewer");
+
+        public HeadquartersQueryQueryBuilder WithUsers(UsersQueryBuilder usersQueryBuilder, QueryBuilderParameter<int?>? skip = null, QueryBuilderParameter<int?>? take = null, QueryBuilderParameter<IEnumerable<UsersSortInput>>? order = null, QueryBuilderParameter<UsersFilterInput?>? where = null, string? alias = null, SkipDirective? skipDirective = null, IncludeDirective? include = null, StreamDirective? stream = null)
+        {
+            var args = new List<QueryBuilderArgumentInfo>();
+            if (skip != null)
+                args.Add(new QueryBuilderArgumentInfo { ArgumentName = "skip", ArgumentValue = skip} );
+
+            if (take != null)
+                args.Add(new QueryBuilderArgumentInfo { ArgumentName = "take", ArgumentValue = take} );
+
+            if (order != null)
+                args.Add(new QueryBuilderArgumentInfo { ArgumentName = "order", ArgumentValue = order} );
+
+            if (where != null)
+                args.Add(new QueryBuilderArgumentInfo { ArgumentName = "where", ArgumentValue = where} );
+
+            return WithObjectField("users", alias, usersQueryBuilder, new GraphQlDirective?[] { skipDirective, include, stream }, args);
+        }
+
+        public HeadquartersQueryQueryBuilder ExceptUsers() => ExceptField("users");
+
+        public HeadquartersQueryQueryBuilder WithMapReport(MapReportHolderQueryBuilder mapReportHolderQueryBuilder, QueryBuilderParameter<string> workspace, QueryBuilderParameter<Guid> questionnaireId, QueryBuilderParameter<int> zoom, QueryBuilderParameter<int> clientMapWidth, QueryBuilderParameter<double> east, QueryBuilderParameter<double> west, QueryBuilderParameter<double> north, QueryBuilderParameter<double> south, QueryBuilderParameter<long?>? questionnaireVersion = null, QueryBuilderParameter<string?>? variable = null, QueryBuilderParameter<MapReportFilter?>? where = null, string? alias = null, SkipDirective? skip = null, IncludeDirective? include = null, StreamDirective? stream = null)
+        {
+            var args = new List<QueryBuilderArgumentInfo>();
+            args.Add(new QueryBuilderArgumentInfo { ArgumentName = "workspace", ArgumentValue = workspace} );
+            args.Add(new QueryBuilderArgumentInfo { ArgumentName = "questionnaireId", ArgumentValue = questionnaireId, FormatMask = "N"} );
+            if (questionnaireVersion != null)
+                args.Add(new QueryBuilderArgumentInfo { ArgumentName = "questionnaireVersion", ArgumentValue = questionnaireVersion} );
+
+            if (variable != null)
+                args.Add(new QueryBuilderArgumentInfo { ArgumentName = "variable", ArgumentValue = variable} );
+
+            args.Add(new QueryBuilderArgumentInfo { ArgumentName = "zoom", ArgumentValue = zoom} );
+            args.Add(new QueryBuilderArgumentInfo { ArgumentName = "clientMapWidth", ArgumentValue = clientMapWidth} );
+            args.Add(new QueryBuilderArgumentInfo { ArgumentName = "east", ArgumentValue = east} );
+            args.Add(new QueryBuilderArgumentInfo { ArgumentName = "west", ArgumentValue = west} );
+            args.Add(new QueryBuilderArgumentInfo { ArgumentName = "north", ArgumentValue = north} );
+            args.Add(new QueryBuilderArgumentInfo { ArgumentName = "south", ArgumentValue = south} );
+            if (where != null)
+                args.Add(new QueryBuilderArgumentInfo { ArgumentName = "where", ArgumentValue = where} );
+
+            return WithObjectField("mapReport", alias, mapReportHolderQueryBuilder, new GraphQlDirective?[] { skip, include, stream }, args);
+        }
+
+        public HeadquartersQueryQueryBuilder ExceptMapReport() => ExceptField("mapReport");
     }
 
     public partial class HeadquartersMutationQueryBuilder : GraphQlQueryBuilder<HeadquartersMutationQueryBuilder>
     {
         private static readonly FieldMetadata[] AllFieldMetadata =
         {
-            new FieldMetadata { Name = "addOrUpdateCalendarEvent", IsComplex = true, QueryBuilderType = typeof(CalendarEventQueryBuilder) },
+            new FieldMetadata { Name = "updateCalendarEvent", IsComplex = true, QueryBuilderType = typeof(CalendarEventQueryBuilder) },
             new FieldMetadata { Name = "deleteCalendarEvent", IsComplex = true, QueryBuilderType = typeof(CalendarEventQueryBuilder) },
+            new FieldMetadata { Name = "addAssignmentCalendarEvent", IsComplex = true, QueryBuilderType = typeof(CalendarEventQueryBuilder) },
+            new FieldMetadata { Name = "addInterviewCalendarEvent", IsComplex = true, QueryBuilderType = typeof(CalendarEventQueryBuilder) },
             new FieldMetadata { Name = "deleteMap", IsComplex = true, QueryBuilderType = typeof(MapQueryBuilder) },
             new FieldMetadata { Name = "deleteUserFromMap", IsComplex = true, QueryBuilderType = typeof(MapQueryBuilder) },
             new FieldMetadata { Name = "addUserToMap", IsComplex = true, QueryBuilderType = typeof(MapQueryBuilder) }
@@ -1297,35 +1403,20 @@ namespace SurveySolutionsClient.GraphQl
 
         public HeadquartersMutationQueryBuilder WithParameter<T>(GraphQlQueryParameter<T> parameter) => WithParameterInternal(parameter);
 
-        public HeadquartersMutationQueryBuilder WithAddOrUpdateCalendarEvent(CalendarEventQueryBuilder calendarEventQueryBuilder, QueryBuilderParameter<string> workspace, QueryBuilderParameter<int?>? assignmentId = null, QueryBuilderParameter<string?>? comment = null, QueryBuilderParameter<Guid?>? interviewId = null, QueryBuilderParameter<string?>? interviewKey = null, QueryBuilderParameter<DateTime?>? newStart = null, QueryBuilderParameter<Guid?>? publicKey = null, QueryBuilderParameter<string?>? startTimezone = null, string? alias = null, SkipDirective? skip = null, IncludeDirective? include = null, StreamDirective? stream = null)
+        public HeadquartersMutationQueryBuilder WithUpdateCalendarEvent(CalendarEventQueryBuilder calendarEventQueryBuilder, QueryBuilderParameter<string> workspace, QueryBuilderParameter<DateTime> newStart, QueryBuilderParameter<Guid> publicKey, QueryBuilderParameter<string> startTimezone, QueryBuilderParameter<string?>? comment = null, string? alias = null, SkipDirective? skip = null, IncludeDirective? include = null, StreamDirective? stream = null)
         {
             var args = new List<QueryBuilderArgumentInfo>();
             args.Add(new QueryBuilderArgumentInfo { ArgumentName = "workspace", ArgumentValue = workspace} );
-            if (assignmentId != null)
-                args.Add(new QueryBuilderArgumentInfo { ArgumentName = "assignmentId", ArgumentValue = assignmentId} );
-
             if (comment != null)
                 args.Add(new QueryBuilderArgumentInfo { ArgumentName = "comment", ArgumentValue = comment} );
 
-            if (interviewId != null)
-                args.Add(new QueryBuilderArgumentInfo { ArgumentName = "interviewId", ArgumentValue = interviewId, FormatMask = "N"} );
-
-            if (interviewKey != null)
-                args.Add(new QueryBuilderArgumentInfo { ArgumentName = "interviewKey", ArgumentValue = interviewKey} );
-
-            if (newStart != null)
-                args.Add(new QueryBuilderArgumentInfo { ArgumentName = "newStart", ArgumentValue = newStart} );
-
-            if (publicKey != null)
-                args.Add(new QueryBuilderArgumentInfo { ArgumentName = "publicKey", ArgumentValue = publicKey, FormatMask = "N"} );
-
-            if (startTimezone != null)
-                args.Add(new QueryBuilderArgumentInfo { ArgumentName = "startTimezone", ArgumentValue = startTimezone} );
-
-            return WithObjectField("addOrUpdateCalendarEvent", alias, calendarEventQueryBuilder, new GraphQlDirective?[] { skip, include, stream }, args);
+            args.Add(new QueryBuilderArgumentInfo { ArgumentName = "newStart", ArgumentValue = newStart} );
+            args.Add(new QueryBuilderArgumentInfo { ArgumentName = "publicKey", ArgumentValue = publicKey, FormatMask = "N"} );
+            args.Add(new QueryBuilderArgumentInfo { ArgumentName = "startTimezone", ArgumentValue = startTimezone} );
+            return WithObjectField("updateCalendarEvent", alias, calendarEventQueryBuilder, new GraphQlDirective?[] { skip, include, stream }, args);
         }
 
-        public HeadquartersMutationQueryBuilder ExceptAddOrUpdateCalendarEvent() => ExceptField("addOrUpdateCalendarEvent");
+        public HeadquartersMutationQueryBuilder ExceptUpdateCalendarEvent() => ExceptField("updateCalendarEvent");
 
         public HeadquartersMutationQueryBuilder WithDeleteCalendarEvent(CalendarEventQueryBuilder calendarEventQueryBuilder, QueryBuilderParameter<string> workspace, QueryBuilderParameter<Guid> publicKey, string? alias = null, SkipDirective? skip = null, IncludeDirective? include = null, StreamDirective? stream = null)
         {
@@ -1336,6 +1427,36 @@ namespace SurveySolutionsClient.GraphQl
         }
 
         public HeadquartersMutationQueryBuilder ExceptDeleteCalendarEvent() => ExceptField("deleteCalendarEvent");
+
+        public HeadquartersMutationQueryBuilder WithAddAssignmentCalendarEvent(CalendarEventQueryBuilder calendarEventQueryBuilder, QueryBuilderParameter<string> workspace, QueryBuilderParameter<int> assignmentId, QueryBuilderParameter<DateTime> newStart, QueryBuilderParameter<string> startTimezone, QueryBuilderParameter<string?>? comment = null, string? alias = null, SkipDirective? skip = null, IncludeDirective? include = null, StreamDirective? stream = null)
+        {
+            var args = new List<QueryBuilderArgumentInfo>();
+            args.Add(new QueryBuilderArgumentInfo { ArgumentName = "workspace", ArgumentValue = workspace} );
+            args.Add(new QueryBuilderArgumentInfo { ArgumentName = "assignmentId", ArgumentValue = assignmentId} );
+            if (comment != null)
+                args.Add(new QueryBuilderArgumentInfo { ArgumentName = "comment", ArgumentValue = comment} );
+
+            args.Add(new QueryBuilderArgumentInfo { ArgumentName = "newStart", ArgumentValue = newStart} );
+            args.Add(new QueryBuilderArgumentInfo { ArgumentName = "startTimezone", ArgumentValue = startTimezone} );
+            return WithObjectField("addAssignmentCalendarEvent", alias, calendarEventQueryBuilder, new GraphQlDirective?[] { skip, include, stream }, args);
+        }
+
+        public HeadquartersMutationQueryBuilder ExceptAddAssignmentCalendarEvent() => ExceptField("addAssignmentCalendarEvent");
+
+        public HeadquartersMutationQueryBuilder WithAddInterviewCalendarEvent(CalendarEventQueryBuilder calendarEventQueryBuilder, QueryBuilderParameter<string> workspace, QueryBuilderParameter<Guid> interviewId, QueryBuilderParameter<DateTime> newStart, QueryBuilderParameter<string> startTimezone, QueryBuilderParameter<string?>? comment = null, string? alias = null, SkipDirective? skip = null, IncludeDirective? include = null, StreamDirective? stream = null)
+        {
+            var args = new List<QueryBuilderArgumentInfo>();
+            args.Add(new QueryBuilderArgumentInfo { ArgumentName = "workspace", ArgumentValue = workspace} );
+            if (comment != null)
+                args.Add(new QueryBuilderArgumentInfo { ArgumentName = "comment", ArgumentValue = comment} );
+
+            args.Add(new QueryBuilderArgumentInfo { ArgumentName = "interviewId", ArgumentValue = interviewId, FormatMask = "N"} );
+            args.Add(new QueryBuilderArgumentInfo { ArgumentName = "newStart", ArgumentValue = newStart} );
+            args.Add(new QueryBuilderArgumentInfo { ArgumentName = "startTimezone", ArgumentValue = startTimezone} );
+            return WithObjectField("addInterviewCalendarEvent", alias, calendarEventQueryBuilder, new GraphQlDirective?[] { skip, include, stream }, args);
+        }
+
+        public HeadquartersMutationQueryBuilder ExceptAddInterviewCalendarEvent() => ExceptField("addInterviewCalendarEvent");
 
         public HeadquartersMutationQueryBuilder WithDeleteMap(MapQueryBuilder mapQueryBuilder, QueryBuilderParameter<string> workspace, QueryBuilderParameter<string> fileName, string? alias = null, SkipDirective? skip = null, IncludeDirective? include = null, StreamDirective? stream = null)
         {
@@ -1484,7 +1605,8 @@ namespace SurveySolutionsClient.GraphQl
             new FieldMetadata { Name = "questionText" },
             new FieldMetadata { Name = "scope" },
             new FieldMetadata { Name = "type" },
-            new FieldMetadata { Name = "variable" }
+            new FieldMetadata { Name = "variable" },
+            new FieldMetadata { Name = "variableType" }
         };
 
         protected override string TypeName { get; } = "Entity";
@@ -1518,6 +1640,10 @@ namespace SurveySolutionsClient.GraphQl
         public EntityQueryBuilder WithVariable(string? alias = null, SkipDirective? skip = null, IncludeDirective? include = null, StreamDirective? stream = null) => WithScalarField("variable", alias, new GraphQlDirective?[] { skip, include, stream });
 
         public EntityQueryBuilder ExceptVariable() => ExceptField("variable");
+
+        public EntityQueryBuilder WithVariableType(string? alias = null, SkipDirective? skip = null, IncludeDirective? include = null, StreamDirective? stream = null) => WithScalarField("variableType", alias, new GraphQlDirective?[] { skip, include, stream });
+
+        public EntityQueryBuilder ExceptVariableType() => ExceptField("variableType");
     }
 
     public partial class QuestionnaireItemQueryBuilder : GraphQlQueryBuilder<QuestionnaireItemQueryBuilder>
@@ -1530,7 +1656,9 @@ namespace SurveySolutionsClient.GraphQl
             new FieldMetadata { Name = "scope" },
             new FieldMetadata { Name = "label" },
             new FieldMetadata { Name = "type" },
+            new FieldMetadata { Name = "variableType" },
             new FieldMetadata { Name = "identifying" },
+            new FieldMetadata { Name = "includedInReportingAtUtc" },
             new FieldMetadata { Name = "options", IsComplex = true, QueryBuilderType = typeof(CategoricalOptionQueryBuilder) }
         };
 
@@ -1562,44 +1690,94 @@ namespace SurveySolutionsClient.GraphQl
 
         public QuestionnaireItemQueryBuilder ExceptType() => ExceptField("type");
 
+        public QuestionnaireItemQueryBuilder WithVariableType(string? alias = null, SkipDirective? skip = null, IncludeDirective? include = null, StreamDirective? stream = null) => WithScalarField("variableType", alias, new GraphQlDirective?[] { skip, include, stream });
+
+        public QuestionnaireItemQueryBuilder ExceptVariableType() => ExceptField("variableType");
+
         public QuestionnaireItemQueryBuilder WithIdentifying(string? alias = null, SkipDirective? skip = null, IncludeDirective? include = null, StreamDirective? stream = null) => WithScalarField("identifying", alias, new GraphQlDirective?[] { skip, include, stream });
 
         public QuestionnaireItemQueryBuilder ExceptIdentifying() => ExceptField("identifying");
+
+        public QuestionnaireItemQueryBuilder WithIncludedInReportingAtUtc(string? alias = null, SkipDirective? skip = null, IncludeDirective? include = null, StreamDirective? stream = null) => WithScalarField("includedInReportingAtUtc", alias, new GraphQlDirective?[] { skip, include, stream });
+
+        public QuestionnaireItemQueryBuilder ExceptIncludedInReportingAtUtc() => ExceptField("includedInReportingAtUtc");
 
         public QuestionnaireItemQueryBuilder WithOptions(CategoricalOptionQueryBuilder categoricalOptionQueryBuilder, string? alias = null, SkipDirective? skip = null, IncludeDirective? include = null, StreamDirective? stream = null) => WithObjectField("options", alias, categoricalOptionQueryBuilder, new GraphQlDirective?[] { skip, include, stream });
 
         public QuestionnaireItemQueryBuilder ExceptOptions() => ExceptField("options");
     }
 
-    public partial class UserQueryBuilder : GraphQlQueryBuilder<UserQueryBuilder>
+    public partial class ViewerQueryBuilder : GraphQlQueryBuilder<ViewerQueryBuilder>
     {
         private static readonly FieldMetadata[] AllFieldMetadata =
         {
             new FieldMetadata { Name = "id" },
-            new FieldMetadata { Name = "roles", IsComplex = true },
+            new FieldMetadata { Name = "role" },
             new FieldMetadata { Name = "userName" },
             new FieldMetadata { Name = "workspaces", IsComplex = true }
         };
 
-        protected override string TypeName { get; } = "User";
+        protected override string TypeName { get; } = "Viewer";
 
         public override IReadOnlyList<FieldMetadata> AllFields { get; } = AllFieldMetadata;
 
-        public UserQueryBuilder WithId(string? alias = null, SkipDirective? skip = null, IncludeDirective? include = null, StreamDirective? stream = null) => WithScalarField("id", alias, new GraphQlDirective?[] { skip, include, stream });
+        public ViewerQueryBuilder WithId(string? alias = null, SkipDirective? skip = null, IncludeDirective? include = null, StreamDirective? stream = null) => WithScalarField("id", alias, new GraphQlDirective?[] { skip, include, stream });
 
-        public UserQueryBuilder ExceptId() => ExceptField("id");
+        public ViewerQueryBuilder ExceptId() => ExceptField("id");
 
-        public UserQueryBuilder WithRoles(string? alias = null, SkipDirective? skip = null, IncludeDirective? include = null, StreamDirective? stream = null) => WithScalarField("roles", alias, new GraphQlDirective?[] { skip, include, stream });
+        public ViewerQueryBuilder WithRole(string? alias = null, SkipDirective? skip = null, IncludeDirective? include = null, StreamDirective? stream = null) => WithScalarField("role", alias, new GraphQlDirective?[] { skip, include, stream });
 
-        public UserQueryBuilder ExceptRoles() => ExceptField("roles");
+        public ViewerQueryBuilder ExceptRole() => ExceptField("role");
 
-        public UserQueryBuilder WithUserName(string? alias = null, SkipDirective? skip = null, IncludeDirective? include = null, StreamDirective? stream = null) => WithScalarField("userName", alias, new GraphQlDirective?[] { skip, include, stream });
+        public ViewerQueryBuilder WithUserName(string? alias = null, SkipDirective? skip = null, IncludeDirective? include = null, StreamDirective? stream = null) => WithScalarField("userName", alias, new GraphQlDirective?[] { skip, include, stream });
 
-        public UserQueryBuilder ExceptUserName() => ExceptField("userName");
+        public ViewerQueryBuilder ExceptUserName() => ExceptField("userName");
 
-        public UserQueryBuilder WithWorkspaces(string? alias = null, SkipDirective? skip = null, IncludeDirective? include = null, StreamDirective? stream = null) => WithScalarField("workspaces", alias, new GraphQlDirective?[] { skip, include, stream });
+        public ViewerQueryBuilder WithWorkspaces(string? alias = null, SkipDirective? skip = null, IncludeDirective? include = null, StreamDirective? stream = null) => WithScalarField("workspaces", alias, new GraphQlDirective?[] { skip, include, stream });
 
-        public UserQueryBuilder ExceptWorkspaces() => ExceptField("workspaces");
+        public ViewerQueryBuilder ExceptWorkspaces() => ExceptField("workspaces");
+    }
+
+    public partial class UsersQueryBuilder : GraphQlQueryBuilder<UsersQueryBuilder>
+    {
+        private static readonly FieldMetadata[] AllFieldMetadata =
+        {
+            new FieldMetadata { Name = "nodes", IsComplex = true, QueryBuilderType = typeof(UserQueryBuilder) },
+            new FieldMetadata { Name = "totalCount" },
+            new FieldMetadata { Name = "filteredCount" }
+        };
+
+        protected override string TypeName { get; } = "Users";
+
+        public override IReadOnlyList<FieldMetadata> AllFields { get; } = AllFieldMetadata;
+
+        public UsersQueryBuilder WithNodes(UserQueryBuilder userQueryBuilder, string? alias = null, SkipDirective? skip = null, IncludeDirective? include = null, StreamDirective? stream = null) => WithObjectField("nodes", alias, userQueryBuilder, new GraphQlDirective?[] { skip, include, stream });
+
+        public UsersQueryBuilder ExceptNodes() => ExceptField("nodes");
+
+        public UsersQueryBuilder WithTotalCount(string? alias = null, SkipDirective? skip = null, IncludeDirective? include = null, StreamDirective? stream = null) => WithScalarField("totalCount", alias, new GraphQlDirective?[] { skip, include, stream });
+
+        public UsersQueryBuilder ExceptTotalCount() => ExceptField("totalCount");
+
+        public UsersQueryBuilder WithFilteredCount(string? alias = null, SkipDirective? skip = null, IncludeDirective? include = null, StreamDirective? stream = null) => WithScalarField("filteredCount", alias, new GraphQlDirective?[] { skip, include, stream });
+
+        public UsersQueryBuilder ExceptFilteredCount() => ExceptField("filteredCount");
+    }
+
+    public partial class MapReportHolderQueryBuilder : GraphQlQueryBuilder<MapReportHolderQueryBuilder>
+    {
+        private static readonly FieldMetadata[] AllFieldMetadata =
+        {
+            new FieldMetadata { Name = "report", IsComplex = true, QueryBuilderType = typeof(MapReportQueryBuilder) }
+        };
+
+        protected override string TypeName { get; } = "MapReportHolder";
+
+        public override IReadOnlyList<FieldMetadata> AllFields { get; } = AllFieldMetadata;
+
+        public MapReportHolderQueryBuilder WithReport(MapReportQueryBuilder mapReportQueryBuilder, string? alias = null, SkipDirective? skip = null, IncludeDirective? include = null, StreamDirective? stream = null) => WithObjectField("report", alias, mapReportQueryBuilder, new GraphQlDirective?[] { skip, include, stream });
+
+        public MapReportHolderQueryBuilder ExceptReport() => ExceptField("report");
     }
 
     public partial class CalendarEventQueryBuilder : GraphQlQueryBuilder<CalendarEventQueryBuilder>
@@ -1669,7 +1847,7 @@ namespace SurveySolutionsClient.GraphQl
         {
             new FieldMetadata { Name = "fileName" },
             new FieldMetadata { Name = "size" },
-            new FieldMetadata { Name = "importDate" },
+            new FieldMetadata { Name = "importDateUtc" },
             new FieldMetadata { Name = "users", IsComplex = true, QueryBuilderType = typeof(UserMapQueryBuilder) },
             new FieldMetadata { Name = "xMaxVal" },
             new FieldMetadata { Name = "yMaxVal" },
@@ -1692,9 +1870,9 @@ namespace SurveySolutionsClient.GraphQl
 
         public MapQueryBuilder ExceptSize() => ExceptField("size");
 
-        public MapQueryBuilder WithImportDate(string? alias = null, SkipDirective? skip = null, IncludeDirective? include = null, StreamDirective? stream = null) => WithScalarField("importDate", alias, new GraphQlDirective?[] { skip, include, stream });
+        public MapQueryBuilder WithImportDateUtc(string? alias = null, SkipDirective? skip = null, IncludeDirective? include = null, StreamDirective? stream = null) => WithScalarField("importDateUtc", alias, new GraphQlDirective?[] { skip, include, stream });
 
-        public MapQueryBuilder ExceptImportDate() => ExceptField("importDate");
+        public MapQueryBuilder ExceptImportDateUtc() => ExceptField("importDateUtc");
 
         public MapQueryBuilder WithUsers(UserMapQueryBuilder userMapQueryBuilder, string? alias = null, SkipDirective? skip = null, IncludeDirective? include = null, StreamDirective? stream = null) => WithObjectField("users", alias, userMapQueryBuilder, new GraphQlDirective?[] { skip, include, stream });
 
@@ -1740,7 +1918,8 @@ namespace SurveySolutionsClient.GraphQl
             new FieldMetadata { Name = "interviewsNeeded" },
             new FieldMetadata { Name = "receivedByTabletAtUtc" },
             new FieldMetadata { Name = "responsibleId" },
-            new FieldMetadata { Name = "webMode" }
+            new FieldMetadata { Name = "webMode" },
+            new FieldMetadata { Name = "calendarEvent", IsComplex = true, QueryBuilderType = typeof(CalendarEventQueryBuilder) }
         };
 
         protected override string TypeName { get; } = "Assignment";
@@ -1778,6 +1957,10 @@ namespace SurveySolutionsClient.GraphQl
         public AssignmentQueryBuilder WithWebMode(string? alias = null, SkipDirective? skip = null, IncludeDirective? include = null, StreamDirective? stream = null) => WithScalarField("webMode", alias, new GraphQlDirective?[] { skip, include, stream });
 
         public AssignmentQueryBuilder ExceptWebMode() => ExceptField("webMode");
+
+        public AssignmentQueryBuilder WithCalendarEvent(CalendarEventQueryBuilder calendarEventQueryBuilder, string? alias = null, SkipDirective? skip = null, IncludeDirective? include = null, StreamDirective? stream = null) => WithObjectField("calendarEvent", alias, calendarEventQueryBuilder, new GraphQlDirective?[] { skip, include, stream });
+
+        public AssignmentQueryBuilder ExceptCalendarEvent() => ExceptField("calendarEvent");
     }
 
     public partial class InterviewQueryBuilder : GraphQlQueryBuilder<InterviewQueryBuilder>
@@ -1788,6 +1971,7 @@ namespace SurveySolutionsClient.GraphQl
             new FieldMetadata { Name = "assignmentId" },
             new FieldMetadata { Name = "id" },
             new FieldMetadata { Name = "status" },
+            new FieldMetadata { Name = "interviewMode" },
             new FieldMetadata { Name = "responsibleName" },
             new FieldMetadata { Name = "responsibleId" },
             new FieldMetadata { Name = "responsibleRole" },
@@ -1804,7 +1988,8 @@ namespace SurveySolutionsClient.GraphQl
             new FieldMetadata { Name = "questionnaireVersion" },
             new FieldMetadata { Name = "identifyingData", IsComplex = true, QueryBuilderType = typeof(IdentifyingEntityQueryBuilder) },
             new FieldMetadata { Name = "notAnsweredCount" },
-            new FieldMetadata { Name = "calendarEvent", IsComplex = true, QueryBuilderType = typeof(CalendarEventQueryBuilder) }
+            new FieldMetadata { Name = "calendarEvent", IsComplex = true, QueryBuilderType = typeof(CalendarEventQueryBuilder) },
+            new FieldMetadata { Name = "cawiLink" }
         };
 
         protected override string TypeName { get; } = "Interview";
@@ -1826,6 +2011,10 @@ namespace SurveySolutionsClient.GraphQl
         public InterviewQueryBuilder WithStatus(string? alias = null, SkipDirective? skip = null, IncludeDirective? include = null, StreamDirective? stream = null) => WithScalarField("status", alias, new GraphQlDirective?[] { skip, include, stream });
 
         public InterviewQueryBuilder ExceptStatus() => ExceptField("status");
+
+        public InterviewQueryBuilder WithInterviewMode(string? alias = null, SkipDirective? skip = null, IncludeDirective? include = null, StreamDirective? stream = null) => WithScalarField("interviewMode", alias, new GraphQlDirective?[] { skip, include, stream });
+
+        public InterviewQueryBuilder ExceptInterviewMode() => ExceptField("interviewMode");
 
         public InterviewQueryBuilder WithResponsibleName(string? alias = null, SkipDirective? skip = null, IncludeDirective? include = null, StreamDirective? stream = null) => WithScalarField("responsibleName", alias, new GraphQlDirective?[] { skip, include, stream });
 
@@ -1894,6 +2083,10 @@ namespace SurveySolutionsClient.GraphQl
         public InterviewQueryBuilder WithCalendarEvent(CalendarEventQueryBuilder calendarEventQueryBuilder, string? alias = null, SkipDirective? skip = null, IncludeDirective? include = null, StreamDirective? stream = null) => WithObjectField("calendarEvent", alias, calendarEventQueryBuilder, new GraphQlDirective?[] { skip, include, stream });
 
         public InterviewQueryBuilder ExceptCalendarEvent() => ExceptField("calendarEvent");
+
+        public InterviewQueryBuilder WithCawiLink(string? alias = null, SkipDirective? skip = null, IncludeDirective? include = null, StreamDirective? stream = null) => WithScalarField("cawiLink", alias, new GraphQlDirective?[] { skip, include, stream });
+
+        public InterviewQueryBuilder ExceptCawiLink() => ExceptField("cawiLink");
     }
 
     public partial class QuestionnaireQueryBuilder : GraphQlQueryBuilder<QuestionnaireQueryBuilder>
@@ -1968,6 +2161,93 @@ namespace SurveySolutionsClient.GraphQl
         public CategoricalOptionQueryBuilder ExceptValue() => ExceptField("value");
     }
 
+    public partial class UserQueryBuilder : GraphQlQueryBuilder<UserQueryBuilder>
+    {
+        private static readonly FieldMetadata[] AllFieldMetadata =
+        {
+            new FieldMetadata { Name = "id" },
+            new FieldMetadata { Name = "role" },
+            new FieldMetadata { Name = "userName" },
+            new FieldMetadata { Name = "fullName" },
+            new FieldMetadata { Name = "email" },
+            new FieldMetadata { Name = "phoneNumber" },
+            new FieldMetadata { Name = "creationDate", IsComplex = true },
+            new FieldMetadata { Name = "isLocked" },
+            new FieldMetadata { Name = "isArchived" },
+            new FieldMetadata { Name = "workspaces", IsComplex = true }
+        };
+
+        protected override string TypeName { get; } = "User";
+
+        public override IReadOnlyList<FieldMetadata> AllFields { get; } = AllFieldMetadata;
+
+        public UserQueryBuilder WithId(string? alias = null, SkipDirective? skip = null, IncludeDirective? include = null, StreamDirective? stream = null) => WithScalarField("id", alias, new GraphQlDirective?[] { skip, include, stream });
+
+        public UserQueryBuilder ExceptId() => ExceptField("id");
+
+        public UserQueryBuilder WithRole(string? alias = null, SkipDirective? skip = null, IncludeDirective? include = null, StreamDirective? stream = null) => WithScalarField("role", alias, new GraphQlDirective?[] { skip, include, stream });
+
+        public UserQueryBuilder ExceptRole() => ExceptField("role");
+
+        public UserQueryBuilder WithUserName(string? alias = null, SkipDirective? skip = null, IncludeDirective? include = null, StreamDirective? stream = null) => WithScalarField("userName", alias, new GraphQlDirective?[] { skip, include, stream });
+
+        public UserQueryBuilder ExceptUserName() => ExceptField("userName");
+
+        public UserQueryBuilder WithFullName(string? alias = null, SkipDirective? skip = null, IncludeDirective? include = null, StreamDirective? stream = null) => WithScalarField("fullName", alias, new GraphQlDirective?[] { skip, include, stream });
+
+        public UserQueryBuilder ExceptFullName() => ExceptField("fullName");
+
+        public UserQueryBuilder WithEmail(string? alias = null, SkipDirective? skip = null, IncludeDirective? include = null, StreamDirective? stream = null) => WithScalarField("email", alias, new GraphQlDirective?[] { skip, include, stream });
+
+        public UserQueryBuilder ExceptEmail() => ExceptField("email");
+
+        public UserQueryBuilder WithPhoneNumber(string? alias = null, SkipDirective? skip = null, IncludeDirective? include = null, StreamDirective? stream = null) => WithScalarField("phoneNumber", alias, new GraphQlDirective?[] { skip, include, stream });
+
+        public UserQueryBuilder ExceptPhoneNumber() => ExceptField("phoneNumber");
+
+        public UserQueryBuilder WithCreationDate(string? alias = null, SkipDirective? skip = null, IncludeDirective? include = null, StreamDirective? stream = null) => WithScalarField("creationDate", alias, new GraphQlDirective?[] { skip, include, stream });
+
+        public UserQueryBuilder ExceptCreationDate() => ExceptField("creationDate");
+
+        public UserQueryBuilder WithIsLocked(string? alias = null, SkipDirective? skip = null, IncludeDirective? include = null, StreamDirective? stream = null) => WithScalarField("isLocked", alias, new GraphQlDirective?[] { skip, include, stream });
+
+        public UserQueryBuilder ExceptIsLocked() => ExceptField("isLocked");
+
+        public UserQueryBuilder WithIsArchived(string? alias = null, SkipDirective? skip = null, IncludeDirective? include = null, StreamDirective? stream = null) => WithScalarField("isArchived", alias, new GraphQlDirective?[] { skip, include, stream });
+
+        public UserQueryBuilder ExceptIsArchived() => ExceptField("isArchived");
+
+        public UserQueryBuilder WithWorkspaces(string? alias = null, SkipDirective? skip = null, IncludeDirective? include = null, StreamDirective? stream = null) => WithScalarField("workspaces", alias, new GraphQlDirective?[] { skip, include, stream });
+
+        public UserQueryBuilder ExceptWorkspaces() => ExceptField("workspaces");
+    }
+
+    public partial class MapReportQueryBuilder : GraphQlQueryBuilder<MapReportQueryBuilder>
+    {
+        private static readonly FieldMetadata[] AllFieldMetadata =
+        {
+            new FieldMetadata { Name = "totalPoint" },
+            new FieldMetadata { Name = "initialBounds", IsComplex = true, QueryBuilderType = typeof(GeoBoundsQueryBuilder) },
+            new FieldMetadata { Name = "featureCollection", IsComplex = true, QueryBuilderType = typeof(FeatureCollectionQueryBuilder) }
+        };
+
+        protected override string TypeName { get; } = "MapReport";
+
+        public override IReadOnlyList<FieldMetadata> AllFields { get; } = AllFieldMetadata;
+
+        public MapReportQueryBuilder WithTotalPoint(string? alias = null, SkipDirective? skip = null, IncludeDirective? include = null, StreamDirective? stream = null) => WithScalarField("totalPoint", alias, new GraphQlDirective?[] { skip, include, stream });
+
+        public MapReportQueryBuilder ExceptTotalPoint() => ExceptField("totalPoint");
+
+        public MapReportQueryBuilder WithInitialBounds(GeoBoundsQueryBuilder geoBoundsQueryBuilder, string? alias = null, SkipDirective? skip = null, IncludeDirective? include = null, StreamDirective? stream = null) => WithObjectField("initialBounds", alias, geoBoundsQueryBuilder, new GraphQlDirective?[] { skip, include, stream });
+
+        public MapReportQueryBuilder ExceptInitialBounds() => ExceptField("initialBounds");
+
+        public MapReportQueryBuilder WithFeatureCollection(FeatureCollectionQueryBuilder featureCollectionQueryBuilder, string? alias = null, SkipDirective? skip = null, IncludeDirective? include = null, StreamDirective? stream = null) => WithObjectField("featureCollection", alias, featureCollectionQueryBuilder, new GraphQlDirective?[] { skip, include, stream });
+
+        public MapReportQueryBuilder ExceptFeatureCollection() => ExceptField("featureCollection");
+    }
+
     public partial class UserMapQueryBuilder : GraphQlQueryBuilder<UserMapQueryBuilder>
     {
         private static readonly FieldMetadata[] AllFieldMetadata =
@@ -1990,7 +2270,12 @@ namespace SurveySolutionsClient.GraphQl
         {
             new FieldMetadata { Name = "answerValue" },
             new FieldMetadata { Name = "entity", IsComplex = true, QueryBuilderType = typeof(EntityQueryBuilder) },
-            new FieldMetadata { Name = "value" }
+            new FieldMetadata { Name = "value" },
+            new FieldMetadata { Name = "valueBool" },
+            new FieldMetadata { Name = "valueDate" },
+            new FieldMetadata { Name = "valueLong" },
+            new FieldMetadata { Name = "valueDouble" },
+            new FieldMetadata { Name = "isEnabled" }
         };
 
         protected override string TypeName { get; } = "IdentifyingEntity";
@@ -2008,6 +2293,26 @@ namespace SurveySolutionsClient.GraphQl
         public IdentifyingEntityQueryBuilder WithValue(string? alias = null, SkipDirective? skip = null, IncludeDirective? include = null, StreamDirective? stream = null) => WithScalarField("value", alias, new GraphQlDirective?[] { skip, include, stream });
 
         public IdentifyingEntityQueryBuilder ExceptValue() => ExceptField("value");
+
+        public IdentifyingEntityQueryBuilder WithValueBool(string? alias = null, SkipDirective? skip = null, IncludeDirective? include = null, StreamDirective? stream = null) => WithScalarField("valueBool", alias, new GraphQlDirective?[] { skip, include, stream });
+
+        public IdentifyingEntityQueryBuilder ExceptValueBool() => ExceptField("valueBool");
+
+        public IdentifyingEntityQueryBuilder WithValueDate(string? alias = null, SkipDirective? skip = null, IncludeDirective? include = null, StreamDirective? stream = null) => WithScalarField("valueDate", alias, new GraphQlDirective?[] { skip, include, stream });
+
+        public IdentifyingEntityQueryBuilder ExceptValueDate() => ExceptField("valueDate");
+
+        public IdentifyingEntityQueryBuilder WithValueLong(string? alias = null, SkipDirective? skip = null, IncludeDirective? include = null, StreamDirective? stream = null) => WithScalarField("valueLong", alias, new GraphQlDirective?[] { skip, include, stream });
+
+        public IdentifyingEntityQueryBuilder ExceptValueLong() => ExceptField("valueLong");
+
+        public IdentifyingEntityQueryBuilder WithValueDouble(string? alias = null, SkipDirective? skip = null, IncludeDirective? include = null, StreamDirective? stream = null) => WithScalarField("valueDouble", alias, new GraphQlDirective?[] { skip, include, stream });
+
+        public IdentifyingEntityQueryBuilder ExceptValueDouble() => ExceptField("valueDouble");
+
+        public IdentifyingEntityQueryBuilder WithIsEnabled(string? alias = null, SkipDirective? skip = null, IncludeDirective? include = null, StreamDirective? stream = null) => WithScalarField("isEnabled", alias, new GraphQlDirective?[] { skip, include, stream });
+
+        public IdentifyingEntityQueryBuilder ExceptIsEnabled() => ExceptField("isEnabled");
     }
 
     public partial class TranslationQueryBuilder : GraphQlQueryBuilder<TranslationQueryBuilder>
@@ -2029,6 +2334,89 @@ namespace SurveySolutionsClient.GraphQl
         public TranslationQueryBuilder WithName(string? alias = null, SkipDirective? skip = null, IncludeDirective? include = null, StreamDirective? stream = null) => WithScalarField("name", alias, new GraphQlDirective?[] { skip, include, stream });
 
         public TranslationQueryBuilder ExceptName() => ExceptField("name");
+    }
+
+    public partial class GeoBoundsQueryBuilder : GraphQlQueryBuilder<GeoBoundsQueryBuilder>
+    {
+        private static readonly FieldMetadata[] AllFieldMetadata =
+        {
+            new FieldMetadata { Name = "north" },
+            new FieldMetadata { Name = "south" },
+            new FieldMetadata { Name = "east" },
+            new FieldMetadata { Name = "west" }
+        };
+
+        protected override string TypeName { get; } = "GeoBounds";
+
+        public override IReadOnlyList<FieldMetadata> AllFields { get; } = AllFieldMetadata;
+
+        public GeoBoundsQueryBuilder WithNorth(string? alias = null, SkipDirective? skip = null, IncludeDirective? include = null, StreamDirective? stream = null) => WithScalarField("north", alias, new GraphQlDirective?[] { skip, include, stream });
+
+        public GeoBoundsQueryBuilder ExceptNorth() => ExceptField("north");
+
+        public GeoBoundsQueryBuilder WithSouth(string? alias = null, SkipDirective? skip = null, IncludeDirective? include = null, StreamDirective? stream = null) => WithScalarField("south", alias, new GraphQlDirective?[] { skip, include, stream });
+
+        public GeoBoundsQueryBuilder ExceptSouth() => ExceptField("south");
+
+        public GeoBoundsQueryBuilder WithEast(string? alias = null, SkipDirective? skip = null, IncludeDirective? include = null, StreamDirective? stream = null) => WithScalarField("east", alias, new GraphQlDirective?[] { skip, include, stream });
+
+        public GeoBoundsQueryBuilder ExceptEast() => ExceptField("east");
+
+        public GeoBoundsQueryBuilder WithWest(string? alias = null, SkipDirective? skip = null, IncludeDirective? include = null, StreamDirective? stream = null) => WithScalarField("west", alias, new GraphQlDirective?[] { skip, include, stream });
+
+        public GeoBoundsQueryBuilder ExceptWest() => ExceptField("west");
+    }
+
+    public partial class FeatureCollectionQueryBuilder : GraphQlQueryBuilder<FeatureCollectionQueryBuilder>
+    {
+        private static readonly FieldMetadata[] AllFieldMetadata =
+        {
+            new FieldMetadata { Name = "features", IsComplex = true, QueryBuilderType = typeof(FeatureQueryBuilder) },
+            new FieldMetadata { Name = "type" }
+        };
+
+        protected override string TypeName { get; } = "FeatureCollection";
+
+        public override IReadOnlyList<FieldMetadata> AllFields { get; } = AllFieldMetadata;
+
+        public FeatureCollectionQueryBuilder WithFeatures(FeatureQueryBuilder featureQueryBuilder, string? alias = null, SkipDirective? skip = null, IncludeDirective? include = null, StreamDirective? stream = null) => WithObjectField("features", alias, featureQueryBuilder, new GraphQlDirective?[] { skip, include, stream });
+
+        public FeatureCollectionQueryBuilder ExceptFeatures() => ExceptField("features");
+
+        public FeatureCollectionQueryBuilder WithType(string? alias = null, SkipDirective? skip = null, IncludeDirective? include = null, StreamDirective? stream = null) => WithScalarField("type", alias, new GraphQlDirective?[] { skip, include, stream });
+
+        public FeatureCollectionQueryBuilder ExceptType() => ExceptField("type");
+    }
+
+    public partial class FeatureQueryBuilder : GraphQlQueryBuilder<FeatureQueryBuilder>
+    {
+        private static readonly FieldMetadata[] AllFieldMetadata =
+        {
+            new FieldMetadata { Name = "type" },
+            new FieldMetadata { Name = "id" },
+            new FieldMetadata { Name = "geometry", IsComplex = true },
+            new FieldMetadata { Name = "properties", IsComplex = true }
+        };
+
+        protected override string TypeName { get; } = "Feature";
+
+        public override IReadOnlyList<FieldMetadata> AllFields { get; } = AllFieldMetadata;
+
+        public FeatureQueryBuilder WithType(string? alias = null, SkipDirective? skip = null, IncludeDirective? include = null, StreamDirective? stream = null) => WithScalarField("type", alias, new GraphQlDirective?[] { skip, include, stream });
+
+        public FeatureQueryBuilder ExceptType() => ExceptField("type");
+
+        public FeatureQueryBuilder WithId(string? alias = null, SkipDirective? skip = null, IncludeDirective? include = null, StreamDirective? stream = null) => WithScalarField("id", alias, new GraphQlDirective?[] { skip, include, stream });
+
+        public FeatureQueryBuilder ExceptId() => ExceptField("id");
+
+        public FeatureQueryBuilder WithGeometry(string? alias = null, SkipDirective? skip = null, IncludeDirective? include = null, StreamDirective? stream = null) => WithScalarField("geometry", alias, new GraphQlDirective?[] { skip, include, stream });
+
+        public FeatureQueryBuilder ExceptGeometry() => ExceptField("geometry");
+
+        public FeatureQueryBuilder WithProperties(string? alias = null, SkipDirective? skip = null, IncludeDirective? include = null, StreamDirective? stream = null) => WithScalarField("properties", alias, new GraphQlDirective?[] { skip, include, stream });
+
+        public FeatureQueryBuilder ExceptProperties() => ExceptField("properties");
     }
     #endregion
 
@@ -2159,6 +2547,11 @@ namespace SurveySolutionsClient.GraphQl
         private InputPropertyInfo _value;
         private InputPropertyInfo _valueLowerCase;
         private InputPropertyInfo _entity;
+        private InputPropertyInfo _valueBool;
+        private InputPropertyInfo _valueDate;
+        private InputPropertyInfo _valueDouble;
+        private InputPropertyInfo _valueLong;
+        private InputPropertyInfo _isEnabled;
 
         #if !GRAPHQL_GENERATOR_DISABLE_NEWTONSOFT_JSON
         [JsonConverter(typeof(QueryBuilderParameterConverter<ICollection<IdentifyEntityValueFilter>?>))]
@@ -2214,6 +2607,51 @@ namespace SurveySolutionsClient.GraphQl
             set => _entity = new InputPropertyInfo { Name = "entity", Value = value };
         }
 
+        #if !GRAPHQL_GENERATOR_DISABLE_NEWTONSOFT_JSON
+        [JsonConverter(typeof(QueryBuilderParameterConverter<BooleanOperationFilterInput?>))]
+        #endif
+        public QueryBuilderParameter<BooleanOperationFilterInput?>? ValueBool
+        {
+            get => (QueryBuilderParameter<BooleanOperationFilterInput?>?)_valueBool.Value;
+            set => _valueBool = new InputPropertyInfo { Name = "valueBool", Value = value };
+        }
+
+        #if !GRAPHQL_GENERATOR_DISABLE_NEWTONSOFT_JSON
+        [JsonConverter(typeof(QueryBuilderParameterConverter<ComparableNullableOfDateTimeOperationFilterInput?>))]
+        #endif
+        public QueryBuilderParameter<ComparableNullableOfDateTimeOperationFilterInput?>? ValueDate
+        {
+            get => (QueryBuilderParameter<ComparableNullableOfDateTimeOperationFilterInput?>?)_valueDate.Value;
+            set => _valueDate = new InputPropertyInfo { Name = "valueDate", Value = value };
+        }
+
+        #if !GRAPHQL_GENERATOR_DISABLE_NEWTONSOFT_JSON
+        [JsonConverter(typeof(QueryBuilderParameterConverter<ComparableNullableOfDoubleOperationFilterInput?>))]
+        #endif
+        public QueryBuilderParameter<ComparableNullableOfDoubleOperationFilterInput?>? ValueDouble
+        {
+            get => (QueryBuilderParameter<ComparableNullableOfDoubleOperationFilterInput?>?)_valueDouble.Value;
+            set => _valueDouble = new InputPropertyInfo { Name = "valueDouble", Value = value };
+        }
+
+        #if !GRAPHQL_GENERATOR_DISABLE_NEWTONSOFT_JSON
+        [JsonConverter(typeof(QueryBuilderParameterConverter<ComparableNullableOfInt64OperationFilterInput?>))]
+        #endif
+        public QueryBuilderParameter<ComparableNullableOfInt64OperationFilterInput?>? ValueLong
+        {
+            get => (QueryBuilderParameter<ComparableNullableOfInt64OperationFilterInput?>?)_valueLong.Value;
+            set => _valueLong = new InputPropertyInfo { Name = "valueLong", Value = value };
+        }
+
+        #if !GRAPHQL_GENERATOR_DISABLE_NEWTONSOFT_JSON
+        [JsonConverter(typeof(QueryBuilderParameterConverter<BooleanOperationFilterInput?>))]
+        #endif
+        public QueryBuilderParameter<BooleanOperationFilterInput?>? IsEnabled
+        {
+            get => (QueryBuilderParameter<BooleanOperationFilterInput?>?)_isEnabled.Value;
+            set => _isEnabled = new InputPropertyInfo { Name = "isEnabled", Value = value };
+        }
+
         IEnumerable<InputPropertyInfo> IGraphQlInputObject.GetPropertyValues()
         {
             if (_and.Name != null) yield return _and;
@@ -2222,6 +2660,11 @@ namespace SurveySolutionsClient.GraphQl
             if (_value.Name != null) yield return _value;
             if (_valueLowerCase.Name != null) yield return _valueLowerCase;
             if (_entity.Name != null) yield return _entity;
+            if (_valueBool.Name != null) yield return _valueBool;
+            if (_valueDate.Name != null) yield return _valueDate;
+            if (_valueDouble.Name != null) yield return _valueDouble;
+            if (_valueLong.Name != null) yield return _valueLong;
+            if (_isEnabled.Name != null) yield return _isEnabled;
         }
     }
 
@@ -2233,6 +2676,7 @@ namespace SurveySolutionsClient.GraphQl
         private InputPropertyInfo _variable;
         private InputPropertyInfo _scope;
         private InputPropertyInfo _identifying;
+        private InputPropertyInfo _includedInReportingAtUtc;
 
         #if !GRAPHQL_GENERATOR_DISABLE_NEWTONSOFT_JSON
         [JsonConverter(typeof(QueryBuilderParameterConverter<ICollection<QuestionnaireItemsFilter>?>))]
@@ -2288,6 +2732,15 @@ namespace SurveySolutionsClient.GraphQl
             set => _identifying = new InputPropertyInfo { Name = "identifying", Value = value };
         }
 
+        #if !GRAPHQL_GENERATOR_DISABLE_NEWTONSOFT_JSON
+        [JsonConverter(typeof(QueryBuilderParameterConverter<ComparableNullableOfDateTimeOperationFilterInput?>))]
+        #endif
+        public QueryBuilderParameter<ComparableNullableOfDateTimeOperationFilterInput?>? IncludedInReportingAtUtc
+        {
+            get => (QueryBuilderParameter<ComparableNullableOfDateTimeOperationFilterInput?>?)_includedInReportingAtUtc.Value;
+            set => _includedInReportingAtUtc = new InputPropertyInfo { Name = "includedInReportingAtUtc", Value = value };
+        }
+
         IEnumerable<InputPropertyInfo> IGraphQlInputObject.GetPropertyValues()
         {
             if (_and.Name != null) yield return _and;
@@ -2296,6 +2749,7 @@ namespace SurveySolutionsClient.GraphQl
             if (_variable.Name != null) yield return _variable;
             if (_scope.Name != null) yield return _scope;
             if (_identifying.Name != null) yield return _identifying;
+            if (_includedInReportingAtUtc.Name != null) yield return _includedInReportingAtUtc;
         }
     }
 
@@ -2579,6 +3033,456 @@ namespace SurveySolutionsClient.GraphQl
         }
     }
 
+    public partial class BooleanOperationFilterInput : IGraphQlInputObject
+    {
+        private InputPropertyInfo _eq;
+        private InputPropertyInfo _neq;
+
+        #if !GRAPHQL_GENERATOR_DISABLE_NEWTONSOFT_JSON
+        [JsonConverter(typeof(QueryBuilderParameterConverter<bool?>))]
+        #endif
+        public QueryBuilderParameter<bool?>? Eq
+        {
+            get => (QueryBuilderParameter<bool?>?)_eq.Value;
+            set => _eq = new InputPropertyInfo { Name = "eq", Value = value };
+        }
+
+        #if !GRAPHQL_GENERATOR_DISABLE_NEWTONSOFT_JSON
+        [JsonConverter(typeof(QueryBuilderParameterConverter<bool?>))]
+        #endif
+        public QueryBuilderParameter<bool?>? Neq
+        {
+            get => (QueryBuilderParameter<bool?>?)_neq.Value;
+            set => _neq = new InputPropertyInfo { Name = "neq", Value = value };
+        }
+
+        IEnumerable<InputPropertyInfo> IGraphQlInputObject.GetPropertyValues()
+        {
+            if (_eq.Name != null) yield return _eq;
+            if (_neq.Name != null) yield return _neq;
+        }
+    }
+
+    public partial class ComparableNullableOfDateTimeOperationFilterInput : IGraphQlInputObject
+    {
+        private InputPropertyInfo _eq;
+        private InputPropertyInfo _neq;
+        private InputPropertyInfo _in;
+        private InputPropertyInfo _nin;
+        private InputPropertyInfo _gt;
+        private InputPropertyInfo _ngt;
+        private InputPropertyInfo _gte;
+        private InputPropertyInfo _ngte;
+        private InputPropertyInfo _lt;
+        private InputPropertyInfo _nlt;
+        private InputPropertyInfo _lte;
+        private InputPropertyInfo _nlte;
+
+        #if !GRAPHQL_GENERATOR_DISABLE_NEWTONSOFT_JSON
+        [JsonConverter(typeof(QueryBuilderParameterConverter<DateTime?>))]
+        #endif
+        public QueryBuilderParameter<DateTime?>? Eq
+        {
+            get => (QueryBuilderParameter<DateTime?>?)_eq.Value;
+            set => _eq = new InputPropertyInfo { Name = "eq", Value = value };
+        }
+
+        #if !GRAPHQL_GENERATOR_DISABLE_NEWTONSOFT_JSON
+        [JsonConverter(typeof(QueryBuilderParameterConverter<DateTime?>))]
+        #endif
+        public QueryBuilderParameter<DateTime?>? Neq
+        {
+            get => (QueryBuilderParameter<DateTime?>?)_neq.Value;
+            set => _neq = new InputPropertyInfo { Name = "neq", Value = value };
+        }
+
+        #if !GRAPHQL_GENERATOR_DISABLE_NEWTONSOFT_JSON
+        [JsonConverter(typeof(QueryBuilderParameterConverter<ICollection<DateTime?>?>))]
+        #endif
+        public QueryBuilderParameter<ICollection<DateTime?>?>? In
+        {
+            get => (QueryBuilderParameter<ICollection<DateTime?>?>?)_in.Value;
+            set => _in = new InputPropertyInfo { Name = "in", Value = value };
+        }
+
+        #if !GRAPHQL_GENERATOR_DISABLE_NEWTONSOFT_JSON
+        [JsonConverter(typeof(QueryBuilderParameterConverter<ICollection<DateTime?>?>))]
+        #endif
+        public QueryBuilderParameter<ICollection<DateTime?>?>? Nin
+        {
+            get => (QueryBuilderParameter<ICollection<DateTime?>?>?)_nin.Value;
+            set => _nin = new InputPropertyInfo { Name = "nin", Value = value };
+        }
+
+        #if !GRAPHQL_GENERATOR_DISABLE_NEWTONSOFT_JSON
+        [JsonConverter(typeof(QueryBuilderParameterConverter<DateTime?>))]
+        #endif
+        public QueryBuilderParameter<DateTime?>? Gt
+        {
+            get => (QueryBuilderParameter<DateTime?>?)_gt.Value;
+            set => _gt = new InputPropertyInfo { Name = "gt", Value = value };
+        }
+
+        #if !GRAPHQL_GENERATOR_DISABLE_NEWTONSOFT_JSON
+        [JsonConverter(typeof(QueryBuilderParameterConverter<DateTime?>))]
+        #endif
+        public QueryBuilderParameter<DateTime?>? Ngt
+        {
+            get => (QueryBuilderParameter<DateTime?>?)_ngt.Value;
+            set => _ngt = new InputPropertyInfo { Name = "ngt", Value = value };
+        }
+
+        #if !GRAPHQL_GENERATOR_DISABLE_NEWTONSOFT_JSON
+        [JsonConverter(typeof(QueryBuilderParameterConverter<DateTime?>))]
+        #endif
+        public QueryBuilderParameter<DateTime?>? Gte
+        {
+            get => (QueryBuilderParameter<DateTime?>?)_gte.Value;
+            set => _gte = new InputPropertyInfo { Name = "gte", Value = value };
+        }
+
+        #if !GRAPHQL_GENERATOR_DISABLE_NEWTONSOFT_JSON
+        [JsonConverter(typeof(QueryBuilderParameterConverter<DateTime?>))]
+        #endif
+        public QueryBuilderParameter<DateTime?>? Ngte
+        {
+            get => (QueryBuilderParameter<DateTime?>?)_ngte.Value;
+            set => _ngte = new InputPropertyInfo { Name = "ngte", Value = value };
+        }
+
+        #if !GRAPHQL_GENERATOR_DISABLE_NEWTONSOFT_JSON
+        [JsonConverter(typeof(QueryBuilderParameterConverter<DateTime?>))]
+        #endif
+        public QueryBuilderParameter<DateTime?>? Lt
+        {
+            get => (QueryBuilderParameter<DateTime?>?)_lt.Value;
+            set => _lt = new InputPropertyInfo { Name = "lt", Value = value };
+        }
+
+        #if !GRAPHQL_GENERATOR_DISABLE_NEWTONSOFT_JSON
+        [JsonConverter(typeof(QueryBuilderParameterConverter<DateTime?>))]
+        #endif
+        public QueryBuilderParameter<DateTime?>? Nlt
+        {
+            get => (QueryBuilderParameter<DateTime?>?)_nlt.Value;
+            set => _nlt = new InputPropertyInfo { Name = "nlt", Value = value };
+        }
+
+        #if !GRAPHQL_GENERATOR_DISABLE_NEWTONSOFT_JSON
+        [JsonConverter(typeof(QueryBuilderParameterConverter<DateTime?>))]
+        #endif
+        public QueryBuilderParameter<DateTime?>? Lte
+        {
+            get => (QueryBuilderParameter<DateTime?>?)_lte.Value;
+            set => _lte = new InputPropertyInfo { Name = "lte", Value = value };
+        }
+
+        #if !GRAPHQL_GENERATOR_DISABLE_NEWTONSOFT_JSON
+        [JsonConverter(typeof(QueryBuilderParameterConverter<DateTime?>))]
+        #endif
+        public QueryBuilderParameter<DateTime?>? Nlte
+        {
+            get => (QueryBuilderParameter<DateTime?>?)_nlte.Value;
+            set => _nlte = new InputPropertyInfo { Name = "nlte", Value = value };
+        }
+
+        IEnumerable<InputPropertyInfo> IGraphQlInputObject.GetPropertyValues()
+        {
+            if (_eq.Name != null) yield return _eq;
+            if (_neq.Name != null) yield return _neq;
+            if (_in.Name != null) yield return _in;
+            if (_nin.Name != null) yield return _nin;
+            if (_gt.Name != null) yield return _gt;
+            if (_ngt.Name != null) yield return _ngt;
+            if (_gte.Name != null) yield return _gte;
+            if (_ngte.Name != null) yield return _ngte;
+            if (_lt.Name != null) yield return _lt;
+            if (_nlt.Name != null) yield return _nlt;
+            if (_lte.Name != null) yield return _lte;
+            if (_nlte.Name != null) yield return _nlte;
+        }
+    }
+
+    public partial class ComparableNullableOfDoubleOperationFilterInput : IGraphQlInputObject
+    {
+        private InputPropertyInfo _eq;
+        private InputPropertyInfo _neq;
+        private InputPropertyInfo _in;
+        private InputPropertyInfo _nin;
+        private InputPropertyInfo _gt;
+        private InputPropertyInfo _ngt;
+        private InputPropertyInfo _gte;
+        private InputPropertyInfo _ngte;
+        private InputPropertyInfo _lt;
+        private InputPropertyInfo _nlt;
+        private InputPropertyInfo _lte;
+        private InputPropertyInfo _nlte;
+
+        #if !GRAPHQL_GENERATOR_DISABLE_NEWTONSOFT_JSON
+        [JsonConverter(typeof(QueryBuilderParameterConverter<double?>))]
+        #endif
+        public QueryBuilderParameter<double?>? Eq
+        {
+            get => (QueryBuilderParameter<double?>?)_eq.Value;
+            set => _eq = new InputPropertyInfo { Name = "eq", Value = value };
+        }
+
+        #if !GRAPHQL_GENERATOR_DISABLE_NEWTONSOFT_JSON
+        [JsonConverter(typeof(QueryBuilderParameterConverter<double?>))]
+        #endif
+        public QueryBuilderParameter<double?>? Neq
+        {
+            get => (QueryBuilderParameter<double?>?)_neq.Value;
+            set => _neq = new InputPropertyInfo { Name = "neq", Value = value };
+        }
+
+        #if !GRAPHQL_GENERATOR_DISABLE_NEWTONSOFT_JSON
+        [JsonConverter(typeof(QueryBuilderParameterConverter<ICollection<double?>?>))]
+        #endif
+        public QueryBuilderParameter<ICollection<double?>?>? In
+        {
+            get => (QueryBuilderParameter<ICollection<double?>?>?)_in.Value;
+            set => _in = new InputPropertyInfo { Name = "in", Value = value };
+        }
+
+        #if !GRAPHQL_GENERATOR_DISABLE_NEWTONSOFT_JSON
+        [JsonConverter(typeof(QueryBuilderParameterConverter<ICollection<double?>?>))]
+        #endif
+        public QueryBuilderParameter<ICollection<double?>?>? Nin
+        {
+            get => (QueryBuilderParameter<ICollection<double?>?>?)_nin.Value;
+            set => _nin = new InputPropertyInfo { Name = "nin", Value = value };
+        }
+
+        #if !GRAPHQL_GENERATOR_DISABLE_NEWTONSOFT_JSON
+        [JsonConverter(typeof(QueryBuilderParameterConverter<double?>))]
+        #endif
+        public QueryBuilderParameter<double?>? Gt
+        {
+            get => (QueryBuilderParameter<double?>?)_gt.Value;
+            set => _gt = new InputPropertyInfo { Name = "gt", Value = value };
+        }
+
+        #if !GRAPHQL_GENERATOR_DISABLE_NEWTONSOFT_JSON
+        [JsonConverter(typeof(QueryBuilderParameterConverter<double?>))]
+        #endif
+        public QueryBuilderParameter<double?>? Ngt
+        {
+            get => (QueryBuilderParameter<double?>?)_ngt.Value;
+            set => _ngt = new InputPropertyInfo { Name = "ngt", Value = value };
+        }
+
+        #if !GRAPHQL_GENERATOR_DISABLE_NEWTONSOFT_JSON
+        [JsonConverter(typeof(QueryBuilderParameterConverter<double?>))]
+        #endif
+        public QueryBuilderParameter<double?>? Gte
+        {
+            get => (QueryBuilderParameter<double?>?)_gte.Value;
+            set => _gte = new InputPropertyInfo { Name = "gte", Value = value };
+        }
+
+        #if !GRAPHQL_GENERATOR_DISABLE_NEWTONSOFT_JSON
+        [JsonConverter(typeof(QueryBuilderParameterConverter<double?>))]
+        #endif
+        public QueryBuilderParameter<double?>? Ngte
+        {
+            get => (QueryBuilderParameter<double?>?)_ngte.Value;
+            set => _ngte = new InputPropertyInfo { Name = "ngte", Value = value };
+        }
+
+        #if !GRAPHQL_GENERATOR_DISABLE_NEWTONSOFT_JSON
+        [JsonConverter(typeof(QueryBuilderParameterConverter<double?>))]
+        #endif
+        public QueryBuilderParameter<double?>? Lt
+        {
+            get => (QueryBuilderParameter<double?>?)_lt.Value;
+            set => _lt = new InputPropertyInfo { Name = "lt", Value = value };
+        }
+
+        #if !GRAPHQL_GENERATOR_DISABLE_NEWTONSOFT_JSON
+        [JsonConverter(typeof(QueryBuilderParameterConverter<double?>))]
+        #endif
+        public QueryBuilderParameter<double?>? Nlt
+        {
+            get => (QueryBuilderParameter<double?>?)_nlt.Value;
+            set => _nlt = new InputPropertyInfo { Name = "nlt", Value = value };
+        }
+
+        #if !GRAPHQL_GENERATOR_DISABLE_NEWTONSOFT_JSON
+        [JsonConverter(typeof(QueryBuilderParameterConverter<double?>))]
+        #endif
+        public QueryBuilderParameter<double?>? Lte
+        {
+            get => (QueryBuilderParameter<double?>?)_lte.Value;
+            set => _lte = new InputPropertyInfo { Name = "lte", Value = value };
+        }
+
+        #if !GRAPHQL_GENERATOR_DISABLE_NEWTONSOFT_JSON
+        [JsonConverter(typeof(QueryBuilderParameterConverter<double?>))]
+        #endif
+        public QueryBuilderParameter<double?>? Nlte
+        {
+            get => (QueryBuilderParameter<double?>?)_nlte.Value;
+            set => _nlte = new InputPropertyInfo { Name = "nlte", Value = value };
+        }
+
+        IEnumerable<InputPropertyInfo> IGraphQlInputObject.GetPropertyValues()
+        {
+            if (_eq.Name != null) yield return _eq;
+            if (_neq.Name != null) yield return _neq;
+            if (_in.Name != null) yield return _in;
+            if (_nin.Name != null) yield return _nin;
+            if (_gt.Name != null) yield return _gt;
+            if (_ngt.Name != null) yield return _ngt;
+            if (_gte.Name != null) yield return _gte;
+            if (_ngte.Name != null) yield return _ngte;
+            if (_lt.Name != null) yield return _lt;
+            if (_nlt.Name != null) yield return _nlt;
+            if (_lte.Name != null) yield return _lte;
+            if (_nlte.Name != null) yield return _nlte;
+        }
+    }
+
+    public partial class ComparableNullableOfInt64OperationFilterInput : IGraphQlInputObject
+    {
+        private InputPropertyInfo _eq;
+        private InputPropertyInfo _neq;
+        private InputPropertyInfo _in;
+        private InputPropertyInfo _nin;
+        private InputPropertyInfo _gt;
+        private InputPropertyInfo _ngt;
+        private InputPropertyInfo _gte;
+        private InputPropertyInfo _ngte;
+        private InputPropertyInfo _lt;
+        private InputPropertyInfo _nlt;
+        private InputPropertyInfo _lte;
+        private InputPropertyInfo _nlte;
+
+        #if !GRAPHQL_GENERATOR_DISABLE_NEWTONSOFT_JSON
+        [JsonConverter(typeof(QueryBuilderParameterConverter<long?>))]
+        #endif
+        public QueryBuilderParameter<long?>? Eq
+        {
+            get => (QueryBuilderParameter<long?>?)_eq.Value;
+            set => _eq = new InputPropertyInfo { Name = "eq", Value = value };
+        }
+
+        #if !GRAPHQL_GENERATOR_DISABLE_NEWTONSOFT_JSON
+        [JsonConverter(typeof(QueryBuilderParameterConverter<long?>))]
+        #endif
+        public QueryBuilderParameter<long?>? Neq
+        {
+            get => (QueryBuilderParameter<long?>?)_neq.Value;
+            set => _neq = new InputPropertyInfo { Name = "neq", Value = value };
+        }
+
+        #if !GRAPHQL_GENERATOR_DISABLE_NEWTONSOFT_JSON
+        [JsonConverter(typeof(QueryBuilderParameterConverter<ICollection<long?>?>))]
+        #endif
+        public QueryBuilderParameter<ICollection<long?>?>? In
+        {
+            get => (QueryBuilderParameter<ICollection<long?>?>?)_in.Value;
+            set => _in = new InputPropertyInfo { Name = "in", Value = value };
+        }
+
+        #if !GRAPHQL_GENERATOR_DISABLE_NEWTONSOFT_JSON
+        [JsonConverter(typeof(QueryBuilderParameterConverter<ICollection<long?>?>))]
+        #endif
+        public QueryBuilderParameter<ICollection<long?>?>? Nin
+        {
+            get => (QueryBuilderParameter<ICollection<long?>?>?)_nin.Value;
+            set => _nin = new InputPropertyInfo { Name = "nin", Value = value };
+        }
+
+        #if !GRAPHQL_GENERATOR_DISABLE_NEWTONSOFT_JSON
+        [JsonConverter(typeof(QueryBuilderParameterConverter<long?>))]
+        #endif
+        public QueryBuilderParameter<long?>? Gt
+        {
+            get => (QueryBuilderParameter<long?>?)_gt.Value;
+            set => _gt = new InputPropertyInfo { Name = "gt", Value = value };
+        }
+
+        #if !GRAPHQL_GENERATOR_DISABLE_NEWTONSOFT_JSON
+        [JsonConverter(typeof(QueryBuilderParameterConverter<long?>))]
+        #endif
+        public QueryBuilderParameter<long?>? Ngt
+        {
+            get => (QueryBuilderParameter<long?>?)_ngt.Value;
+            set => _ngt = new InputPropertyInfo { Name = "ngt", Value = value };
+        }
+
+        #if !GRAPHQL_GENERATOR_DISABLE_NEWTONSOFT_JSON
+        [JsonConverter(typeof(QueryBuilderParameterConverter<long?>))]
+        #endif
+        public QueryBuilderParameter<long?>? Gte
+        {
+            get => (QueryBuilderParameter<long?>?)_gte.Value;
+            set => _gte = new InputPropertyInfo { Name = "gte", Value = value };
+        }
+
+        #if !GRAPHQL_GENERATOR_DISABLE_NEWTONSOFT_JSON
+        [JsonConverter(typeof(QueryBuilderParameterConverter<long?>))]
+        #endif
+        public QueryBuilderParameter<long?>? Ngte
+        {
+            get => (QueryBuilderParameter<long?>?)_ngte.Value;
+            set => _ngte = new InputPropertyInfo { Name = "ngte", Value = value };
+        }
+
+        #if !GRAPHQL_GENERATOR_DISABLE_NEWTONSOFT_JSON
+        [JsonConverter(typeof(QueryBuilderParameterConverter<long?>))]
+        #endif
+        public QueryBuilderParameter<long?>? Lt
+        {
+            get => (QueryBuilderParameter<long?>?)_lt.Value;
+            set => _lt = new InputPropertyInfo { Name = "lt", Value = value };
+        }
+
+        #if !GRAPHQL_GENERATOR_DISABLE_NEWTONSOFT_JSON
+        [JsonConverter(typeof(QueryBuilderParameterConverter<long?>))]
+        #endif
+        public QueryBuilderParameter<long?>? Nlt
+        {
+            get => (QueryBuilderParameter<long?>?)_nlt.Value;
+            set => _nlt = new InputPropertyInfo { Name = "nlt", Value = value };
+        }
+
+        #if !GRAPHQL_GENERATOR_DISABLE_NEWTONSOFT_JSON
+        [JsonConverter(typeof(QueryBuilderParameterConverter<long?>))]
+        #endif
+        public QueryBuilderParameter<long?>? Lte
+        {
+            get => (QueryBuilderParameter<long?>?)_lte.Value;
+            set => _lte = new InputPropertyInfo { Name = "lte", Value = value };
+        }
+
+        #if !GRAPHQL_GENERATOR_DISABLE_NEWTONSOFT_JSON
+        [JsonConverter(typeof(QueryBuilderParameterConverter<long?>))]
+        #endif
+        public QueryBuilderParameter<long?>? Nlte
+        {
+            get => (QueryBuilderParameter<long?>?)_nlte.Value;
+            set => _nlte = new InputPropertyInfo { Name = "nlte", Value = value };
+        }
+
+        IEnumerable<InputPropertyInfo> IGraphQlInputObject.GetPropertyValues()
+        {
+            if (_eq.Name != null) yield return _eq;
+            if (_neq.Name != null) yield return _neq;
+            if (_in.Name != null) yield return _in;
+            if (_nin.Name != null) yield return _nin;
+            if (_gt.Name != null) yield return _gt;
+            if (_ngt.Name != null) yield return _ngt;
+            if (_gte.Name != null) yield return _gte;
+            if (_ngte.Name != null) yield return _ngte;
+            if (_lt.Name != null) yield return _lt;
+            if (_nlt.Name != null) yield return _nlt;
+            if (_lte.Name != null) yield return _lte;
+            if (_nlte.Name != null) yield return _nlte;
+        }
+    }
+
     public partial class NullableOfQuestionScopeOperationFilterInput : IGraphQlInputObject
     {
         private InputPropertyInfo _eq;
@@ -2628,36 +3532,6 @@ namespace SurveySolutionsClient.GraphQl
             if (_neq.Name != null) yield return _neq;
             if (_in.Name != null) yield return _in;
             if (_nin.Name != null) yield return _nin;
-        }
-    }
-
-    public partial class BooleanOperationFilterInput : IGraphQlInputObject
-    {
-        private InputPropertyInfo _eq;
-        private InputPropertyInfo _neq;
-
-        #if !GRAPHQL_GENERATOR_DISABLE_NEWTONSOFT_JSON
-        [JsonConverter(typeof(QueryBuilderParameterConverter<bool?>))]
-        #endif
-        public QueryBuilderParameter<bool?>? Eq
-        {
-            get => (QueryBuilderParameter<bool?>?)_eq.Value;
-            set => _eq = new InputPropertyInfo { Name = "eq", Value = value };
-        }
-
-        #if !GRAPHQL_GENERATOR_DISABLE_NEWTONSOFT_JSON
-        [JsonConverter(typeof(QueryBuilderParameterConverter<bool?>))]
-        #endif
-        public QueryBuilderParameter<bool?>? Neq
-        {
-            get => (QueryBuilderParameter<bool?>?)_neq.Value;
-            set => _neq = new InputPropertyInfo { Name = "neq", Value = value };
-        }
-
-        IEnumerable<InputPropertyInfo> IGraphQlInputObject.GetPropertyValues()
-        {
-            if (_eq.Name != null) yield return _eq;
-            if (_neq.Name != null) yield return _neq;
         }
     }
 
@@ -2762,6 +3636,7 @@ namespace SurveySolutionsClient.GraphQl
         private InputPropertyInfo _and;
         private InputPropertyInfo _or;
         private InputPropertyInfo _status;
+        private InputPropertyInfo _interviewMode;
         private InputPropertyInfo _questionnaireId;
         private InputPropertyInfo _questionnaireVariable;
         private InputPropertyInfo _questionnaireVersion;
@@ -2805,6 +3680,15 @@ namespace SurveySolutionsClient.GraphQl
         {
             get => (QueryBuilderParameter<InterviewStatusOperationFilterInput?>?)_status.Value;
             set => _status = new InputPropertyInfo { Name = "status", Value = value };
+        }
+
+        #if !GRAPHQL_GENERATOR_DISABLE_NEWTONSOFT_JSON
+        [JsonConverter(typeof(QueryBuilderParameterConverter<InterviewModeOperationFilterInput?>))]
+        #endif
+        public QueryBuilderParameter<InterviewModeOperationFilterInput?>? InterviewMode
+        {
+            get => (QueryBuilderParameter<InterviewModeOperationFilterInput?>?)_interviewMode.Value;
+            set => _interviewMode = new InputPropertyInfo { Name = "interviewMode", Value = value };
         }
 
         #if !GRAPHQL_GENERATOR_DISABLE_NEWTONSOFT_JSON
@@ -2965,6 +3849,7 @@ namespace SurveySolutionsClient.GraphQl
             if (_and.Name != null) yield return _and;
             if (_or.Name != null) yield return _or;
             if (_status.Name != null) yield return _status;
+            if (_interviewMode.Name != null) yield return _interviewMode;
             if (_questionnaireId.Name != null) yield return _questionnaireId;
             if (_questionnaireVariable.Name != null) yield return _questionnaireVariable;
             if (_questionnaireVersion.Name != null) yield return _questionnaireVersion;
@@ -3314,6 +4199,272 @@ namespace SurveySolutionsClient.GraphQl
         }
     }
 
+    public partial class UsersSortInput : IGraphQlInputObject
+    {
+        private InputPropertyInfo _userName;
+        private InputPropertyInfo _creationDate;
+        private InputPropertyInfo _fullName;
+        private InputPropertyInfo _role;
+        private InputPropertyInfo _email;
+        private InputPropertyInfo _phoneNumber;
+        private InputPropertyInfo _isLocked;
+        private InputPropertyInfo _isArchived;
+
+        #if !GRAPHQL_GENERATOR_DISABLE_NEWTONSOFT_JSON
+        [JsonConverter(typeof(QueryBuilderParameterConverter<SortEnumType?>))]
+        #endif
+        public QueryBuilderParameter<SortEnumType?>? UserName
+        {
+            get => (QueryBuilderParameter<SortEnumType?>?)_userName.Value;
+            set => _userName = new InputPropertyInfo { Name = "userName", Value = value };
+        }
+
+        #if !GRAPHQL_GENERATOR_DISABLE_NEWTONSOFT_JSON
+        [JsonConverter(typeof(QueryBuilderParameterConverter<SortEnumType?>))]
+        #endif
+        public QueryBuilderParameter<SortEnumType?>? CreationDate
+        {
+            get => (QueryBuilderParameter<SortEnumType?>?)_creationDate.Value;
+            set => _creationDate = new InputPropertyInfo { Name = "creationDate", Value = value };
+        }
+
+        #if !GRAPHQL_GENERATOR_DISABLE_NEWTONSOFT_JSON
+        [JsonConverter(typeof(QueryBuilderParameterConverter<SortEnumType?>))]
+        #endif
+        public QueryBuilderParameter<SortEnumType?>? FullName
+        {
+            get => (QueryBuilderParameter<SortEnumType?>?)_fullName.Value;
+            set => _fullName = new InputPropertyInfo { Name = "fullName", Value = value };
+        }
+
+        #if !GRAPHQL_GENERATOR_DISABLE_NEWTONSOFT_JSON
+        [JsonConverter(typeof(QueryBuilderParameterConverter<SortEnumType?>))]
+        #endif
+        public QueryBuilderParameter<SortEnumType?>? Role
+        {
+            get => (QueryBuilderParameter<SortEnumType?>?)_role.Value;
+            set => _role = new InputPropertyInfo { Name = "role", Value = value };
+        }
+
+        #if !GRAPHQL_GENERATOR_DISABLE_NEWTONSOFT_JSON
+        [JsonConverter(typeof(QueryBuilderParameterConverter<SortEnumType?>))]
+        #endif
+        public QueryBuilderParameter<SortEnumType?>? Email
+        {
+            get => (QueryBuilderParameter<SortEnumType?>?)_email.Value;
+            set => _email = new InputPropertyInfo { Name = "email", Value = value };
+        }
+
+        #if !GRAPHQL_GENERATOR_DISABLE_NEWTONSOFT_JSON
+        [JsonConverter(typeof(QueryBuilderParameterConverter<SortEnumType?>))]
+        #endif
+        public QueryBuilderParameter<SortEnumType?>? PhoneNumber
+        {
+            get => (QueryBuilderParameter<SortEnumType?>?)_phoneNumber.Value;
+            set => _phoneNumber = new InputPropertyInfo { Name = "phoneNumber", Value = value };
+        }
+
+        #if !GRAPHQL_GENERATOR_DISABLE_NEWTONSOFT_JSON
+        [JsonConverter(typeof(QueryBuilderParameterConverter<SortEnumType?>))]
+        #endif
+        public QueryBuilderParameter<SortEnumType?>? IsLocked
+        {
+            get => (QueryBuilderParameter<SortEnumType?>?)_isLocked.Value;
+            set => _isLocked = new InputPropertyInfo { Name = "isLocked", Value = value };
+        }
+
+        #if !GRAPHQL_GENERATOR_DISABLE_NEWTONSOFT_JSON
+        [JsonConverter(typeof(QueryBuilderParameterConverter<SortEnumType?>))]
+        #endif
+        public QueryBuilderParameter<SortEnumType?>? IsArchived
+        {
+            get => (QueryBuilderParameter<SortEnumType?>?)_isArchived.Value;
+            set => _isArchived = new InputPropertyInfo { Name = "isArchived", Value = value };
+        }
+
+        IEnumerable<InputPropertyInfo> IGraphQlInputObject.GetPropertyValues()
+        {
+            if (_userName.Name != null) yield return _userName;
+            if (_creationDate.Name != null) yield return _creationDate;
+            if (_fullName.Name != null) yield return _fullName;
+            if (_role.Name != null) yield return _role;
+            if (_email.Name != null) yield return _email;
+            if (_phoneNumber.Name != null) yield return _phoneNumber;
+            if (_isLocked.Name != null) yield return _isLocked;
+            if (_isArchived.Name != null) yield return _isArchived;
+        }
+    }
+
+    public partial class UsersFilterInput : IGraphQlInputObject
+    {
+        private InputPropertyInfo _and;
+        private InputPropertyInfo _or;
+        private InputPropertyInfo _userName;
+        private InputPropertyInfo _fullName;
+        private InputPropertyInfo _isArchived;
+        private InputPropertyInfo _isLocked;
+        private InputPropertyInfo _creationDate;
+        private InputPropertyInfo _email;
+        private InputPropertyInfo _phoneNumber;
+        private InputPropertyInfo _id;
+        private InputPropertyInfo _role;
+
+        #if !GRAPHQL_GENERATOR_DISABLE_NEWTONSOFT_JSON
+        [JsonConverter(typeof(QueryBuilderParameterConverter<ICollection<UsersFilterInput>?>))]
+        #endif
+        public QueryBuilderParameter<ICollection<UsersFilterInput>?>? And
+        {
+            get => (QueryBuilderParameter<ICollection<UsersFilterInput>?>?)_and.Value;
+            set => _and = new InputPropertyInfo { Name = "and", Value = value };
+        }
+
+        #if !GRAPHQL_GENERATOR_DISABLE_NEWTONSOFT_JSON
+        [JsonConverter(typeof(QueryBuilderParameterConverter<ICollection<UsersFilterInput>?>))]
+        #endif
+        public QueryBuilderParameter<ICollection<UsersFilterInput>?>? Or
+        {
+            get => (QueryBuilderParameter<ICollection<UsersFilterInput>?>?)_or.Value;
+            set => _or = new InputPropertyInfo { Name = "or", Value = value };
+        }
+
+        #if !GRAPHQL_GENERATOR_DISABLE_NEWTONSOFT_JSON
+        [JsonConverter(typeof(QueryBuilderParameterConverter<StringOperationFilterInput?>))]
+        #endif
+        public QueryBuilderParameter<StringOperationFilterInput?>? UserName
+        {
+            get => (QueryBuilderParameter<StringOperationFilterInput?>?)_userName.Value;
+            set => _userName = new InputPropertyInfo { Name = "userName", Value = value };
+        }
+
+        #if !GRAPHQL_GENERATOR_DISABLE_NEWTONSOFT_JSON
+        [JsonConverter(typeof(QueryBuilderParameterConverter<StringOperationFilterInput?>))]
+        #endif
+        public QueryBuilderParameter<StringOperationFilterInput?>? FullName
+        {
+            get => (QueryBuilderParameter<StringOperationFilterInput?>?)_fullName.Value;
+            set => _fullName = new InputPropertyInfo { Name = "fullName", Value = value };
+        }
+
+        #if !GRAPHQL_GENERATOR_DISABLE_NEWTONSOFT_JSON
+        [JsonConverter(typeof(QueryBuilderParameterConverter<BooleanOperationFilterInput?>))]
+        #endif
+        public QueryBuilderParameter<BooleanOperationFilterInput?>? IsArchived
+        {
+            get => (QueryBuilderParameter<BooleanOperationFilterInput?>?)_isArchived.Value;
+            set => _isArchived = new InputPropertyInfo { Name = "isArchived", Value = value };
+        }
+
+        #if !GRAPHQL_GENERATOR_DISABLE_NEWTONSOFT_JSON
+        [JsonConverter(typeof(QueryBuilderParameterConverter<BooleanOperationFilterInput?>))]
+        #endif
+        public QueryBuilderParameter<BooleanOperationFilterInput?>? IsLocked
+        {
+            get => (QueryBuilderParameter<BooleanOperationFilterInput?>?)_isLocked.Value;
+            set => _isLocked = new InputPropertyInfo { Name = "isLocked", Value = value };
+        }
+
+        #if !GRAPHQL_GENERATOR_DISABLE_NEWTONSOFT_JSON
+        [JsonConverter(typeof(QueryBuilderParameterConverter<ComparableDateTimeOperationFilterInput?>))]
+        #endif
+        public QueryBuilderParameter<ComparableDateTimeOperationFilterInput?>? CreationDate
+        {
+            get => (QueryBuilderParameter<ComparableDateTimeOperationFilterInput?>?)_creationDate.Value;
+            set => _creationDate = new InputPropertyInfo { Name = "creationDate", Value = value };
+        }
+
+        #if !GRAPHQL_GENERATOR_DISABLE_NEWTONSOFT_JSON
+        [JsonConverter(typeof(QueryBuilderParameterConverter<StringOperationFilterInput?>))]
+        #endif
+        public QueryBuilderParameter<StringOperationFilterInput?>? Email
+        {
+            get => (QueryBuilderParameter<StringOperationFilterInput?>?)_email.Value;
+            set => _email = new InputPropertyInfo { Name = "email", Value = value };
+        }
+
+        #if !GRAPHQL_GENERATOR_DISABLE_NEWTONSOFT_JSON
+        [JsonConverter(typeof(QueryBuilderParameterConverter<StringOperationFilterInput?>))]
+        #endif
+        public QueryBuilderParameter<StringOperationFilterInput?>? PhoneNumber
+        {
+            get => (QueryBuilderParameter<StringOperationFilterInput?>?)_phoneNumber.Value;
+            set => _phoneNumber = new InputPropertyInfo { Name = "phoneNumber", Value = value };
+        }
+
+        #if !GRAPHQL_GENERATOR_DISABLE_NEWTONSOFT_JSON
+        [JsonConverter(typeof(QueryBuilderParameterConverter<ComparableGuidOperationFilterInput?>))]
+        #endif
+        public QueryBuilderParameter<ComparableGuidOperationFilterInput?>? Id
+        {
+            get => (QueryBuilderParameter<ComparableGuidOperationFilterInput?>?)_id.Value;
+            set => _id = new InputPropertyInfo { Name = "id", Value = value };
+        }
+
+        #if !GRAPHQL_GENERATOR_DISABLE_NEWTONSOFT_JSON
+        [JsonConverter(typeof(QueryBuilderParameterConverter<RoleFilterInput?>))]
+        #endif
+        public QueryBuilderParameter<RoleFilterInput?>? Role
+        {
+            get => (QueryBuilderParameter<RoleFilterInput?>?)_role.Value;
+            set => _role = new InputPropertyInfo { Name = "role", Value = value };
+        }
+
+        IEnumerable<InputPropertyInfo> IGraphQlInputObject.GetPropertyValues()
+        {
+            if (_and.Name != null) yield return _and;
+            if (_or.Name != null) yield return _or;
+            if (_userName.Name != null) yield return _userName;
+            if (_fullName.Name != null) yield return _fullName;
+            if (_isArchived.Name != null) yield return _isArchived;
+            if (_isLocked.Name != null) yield return _isLocked;
+            if (_creationDate.Name != null) yield return _creationDate;
+            if (_email.Name != null) yield return _email;
+            if (_phoneNumber.Name != null) yield return _phoneNumber;
+            if (_id.Name != null) yield return _id;
+            if (_role.Name != null) yield return _role;
+        }
+    }
+
+    public partial class MapReportFilter : IGraphQlInputObject
+    {
+        private InputPropertyInfo _and;
+        private InputPropertyInfo _or;
+        private InputPropertyInfo _interviewFilter;
+
+        #if !GRAPHQL_GENERATOR_DISABLE_NEWTONSOFT_JSON
+        [JsonConverter(typeof(QueryBuilderParameterConverter<ICollection<MapReportFilter>?>))]
+        #endif
+        public QueryBuilderParameter<ICollection<MapReportFilter>?>? And
+        {
+            get => (QueryBuilderParameter<ICollection<MapReportFilter>?>?)_and.Value;
+            set => _and = new InputPropertyInfo { Name = "and", Value = value };
+        }
+
+        #if !GRAPHQL_GENERATOR_DISABLE_NEWTONSOFT_JSON
+        [JsonConverter(typeof(QueryBuilderParameterConverter<ICollection<MapReportFilter>?>))]
+        #endif
+        public QueryBuilderParameter<ICollection<MapReportFilter>?>? Or
+        {
+            get => (QueryBuilderParameter<ICollection<MapReportFilter>?>?)_or.Value;
+            set => _or = new InputPropertyInfo { Name = "or", Value = value };
+        }
+
+        #if !GRAPHQL_GENERATOR_DISABLE_NEWTONSOFT_JSON
+        [JsonConverter(typeof(QueryBuilderParameterConverter<InterviewsFilter?>))]
+        #endif
+        public QueryBuilderParameter<InterviewsFilter?>? InterviewFilter
+        {
+            get => (QueryBuilderParameter<InterviewsFilter?>?)_interviewFilter.Value;
+            set => _interviewFilter = new InputPropertyInfo { Name = "interviewFilter", Value = value };
+        }
+
+        IEnumerable<InputPropertyInfo> IGraphQlInputObject.GetPropertyValues()
+        {
+            if (_and.Name != null) yield return _and;
+            if (_or.Name != null) yield return _or;
+            if (_interviewFilter.Name != null) yield return _interviewFilter;
+        }
+    }
+
     public partial class ComparableInt32OperationFilterInput : IGraphQlInputObject
     {
         private InputPropertyInfo _eq;
@@ -3646,146 +4797,6 @@ namespace SurveySolutionsClient.GraphQl
         }
     }
 
-    public partial class ComparableNullableOfDateTimeOperationFilterInput : IGraphQlInputObject
-    {
-        private InputPropertyInfo _eq;
-        private InputPropertyInfo _neq;
-        private InputPropertyInfo _in;
-        private InputPropertyInfo _nin;
-        private InputPropertyInfo _gt;
-        private InputPropertyInfo _ngt;
-        private InputPropertyInfo _gte;
-        private InputPropertyInfo _ngte;
-        private InputPropertyInfo _lt;
-        private InputPropertyInfo _nlt;
-        private InputPropertyInfo _lte;
-        private InputPropertyInfo _nlte;
-
-        #if !GRAPHQL_GENERATOR_DISABLE_NEWTONSOFT_JSON
-        [JsonConverter(typeof(QueryBuilderParameterConverter<DateTime?>))]
-        #endif
-        public QueryBuilderParameter<DateTime?>? Eq
-        {
-            get => (QueryBuilderParameter<DateTime?>?)_eq.Value;
-            set => _eq = new InputPropertyInfo { Name = "eq", Value = value };
-        }
-
-        #if !GRAPHQL_GENERATOR_DISABLE_NEWTONSOFT_JSON
-        [JsonConverter(typeof(QueryBuilderParameterConverter<DateTime?>))]
-        #endif
-        public QueryBuilderParameter<DateTime?>? Neq
-        {
-            get => (QueryBuilderParameter<DateTime?>?)_neq.Value;
-            set => _neq = new InputPropertyInfo { Name = "neq", Value = value };
-        }
-
-        #if !GRAPHQL_GENERATOR_DISABLE_NEWTONSOFT_JSON
-        [JsonConverter(typeof(QueryBuilderParameterConverter<ICollection<DateTime?>?>))]
-        #endif
-        public QueryBuilderParameter<ICollection<DateTime?>?>? In
-        {
-            get => (QueryBuilderParameter<ICollection<DateTime?>?>?)_in.Value;
-            set => _in = new InputPropertyInfo { Name = "in", Value = value };
-        }
-
-        #if !GRAPHQL_GENERATOR_DISABLE_NEWTONSOFT_JSON
-        [JsonConverter(typeof(QueryBuilderParameterConverter<ICollection<DateTime?>?>))]
-        #endif
-        public QueryBuilderParameter<ICollection<DateTime?>?>? Nin
-        {
-            get => (QueryBuilderParameter<ICollection<DateTime?>?>?)_nin.Value;
-            set => _nin = new InputPropertyInfo { Name = "nin", Value = value };
-        }
-
-        #if !GRAPHQL_GENERATOR_DISABLE_NEWTONSOFT_JSON
-        [JsonConverter(typeof(QueryBuilderParameterConverter<DateTime?>))]
-        #endif
-        public QueryBuilderParameter<DateTime?>? Gt
-        {
-            get => (QueryBuilderParameter<DateTime?>?)_gt.Value;
-            set => _gt = new InputPropertyInfo { Name = "gt", Value = value };
-        }
-
-        #if !GRAPHQL_GENERATOR_DISABLE_NEWTONSOFT_JSON
-        [JsonConverter(typeof(QueryBuilderParameterConverter<DateTime?>))]
-        #endif
-        public QueryBuilderParameter<DateTime?>? Ngt
-        {
-            get => (QueryBuilderParameter<DateTime?>?)_ngt.Value;
-            set => _ngt = new InputPropertyInfo { Name = "ngt", Value = value };
-        }
-
-        #if !GRAPHQL_GENERATOR_DISABLE_NEWTONSOFT_JSON
-        [JsonConverter(typeof(QueryBuilderParameterConverter<DateTime?>))]
-        #endif
-        public QueryBuilderParameter<DateTime?>? Gte
-        {
-            get => (QueryBuilderParameter<DateTime?>?)_gte.Value;
-            set => _gte = new InputPropertyInfo { Name = "gte", Value = value };
-        }
-
-        #if !GRAPHQL_GENERATOR_DISABLE_NEWTONSOFT_JSON
-        [JsonConverter(typeof(QueryBuilderParameterConverter<DateTime?>))]
-        #endif
-        public QueryBuilderParameter<DateTime?>? Ngte
-        {
-            get => (QueryBuilderParameter<DateTime?>?)_ngte.Value;
-            set => _ngte = new InputPropertyInfo { Name = "ngte", Value = value };
-        }
-
-        #if !GRAPHQL_GENERATOR_DISABLE_NEWTONSOFT_JSON
-        [JsonConverter(typeof(QueryBuilderParameterConverter<DateTime?>))]
-        #endif
-        public QueryBuilderParameter<DateTime?>? Lt
-        {
-            get => (QueryBuilderParameter<DateTime?>?)_lt.Value;
-            set => _lt = new InputPropertyInfo { Name = "lt", Value = value };
-        }
-
-        #if !GRAPHQL_GENERATOR_DISABLE_NEWTONSOFT_JSON
-        [JsonConverter(typeof(QueryBuilderParameterConverter<DateTime?>))]
-        #endif
-        public QueryBuilderParameter<DateTime?>? Nlt
-        {
-            get => (QueryBuilderParameter<DateTime?>?)_nlt.Value;
-            set => _nlt = new InputPropertyInfo { Name = "nlt", Value = value };
-        }
-
-        #if !GRAPHQL_GENERATOR_DISABLE_NEWTONSOFT_JSON
-        [JsonConverter(typeof(QueryBuilderParameterConverter<DateTime?>))]
-        #endif
-        public QueryBuilderParameter<DateTime?>? Lte
-        {
-            get => (QueryBuilderParameter<DateTime?>?)_lte.Value;
-            set => _lte = new InputPropertyInfo { Name = "lte", Value = value };
-        }
-
-        #if !GRAPHQL_GENERATOR_DISABLE_NEWTONSOFT_JSON
-        [JsonConverter(typeof(QueryBuilderParameterConverter<DateTime?>))]
-        #endif
-        public QueryBuilderParameter<DateTime?>? Nlte
-        {
-            get => (QueryBuilderParameter<DateTime?>?)_nlte.Value;
-            set => _nlte = new InputPropertyInfo { Name = "nlte", Value = value };
-        }
-
-        IEnumerable<InputPropertyInfo> IGraphQlInputObject.GetPropertyValues()
-        {
-            if (_eq.Name != null) yield return _eq;
-            if (_neq.Name != null) yield return _neq;
-            if (_in.Name != null) yield return _in;
-            if (_nin.Name != null) yield return _nin;
-            if (_gt.Name != null) yield return _gt;
-            if (_ngt.Name != null) yield return _ngt;
-            if (_gte.Name != null) yield return _gte;
-            if (_ngte.Name != null) yield return _ngte;
-            if (_lt.Name != null) yield return _lt;
-            if (_nlt.Name != null) yield return _nlt;
-            if (_lte.Name != null) yield return _lte;
-            if (_nlte.Name != null) yield return _nlte;
-        }
-    }
-
     public partial class InterviewStatusOperationFilterInput : IGraphQlInputObject
     {
         private InputPropertyInfo _eq;
@@ -3826,6 +4837,58 @@ namespace SurveySolutionsClient.GraphQl
         public QueryBuilderParameter<ICollection<InterviewStatus>?>? Nin
         {
             get => (QueryBuilderParameter<ICollection<InterviewStatus>?>?)_nin.Value;
+            set => _nin = new InputPropertyInfo { Name = "nin", Value = value };
+        }
+
+        IEnumerable<InputPropertyInfo> IGraphQlInputObject.GetPropertyValues()
+        {
+            if (_eq.Name != null) yield return _eq;
+            if (_neq.Name != null) yield return _neq;
+            if (_in.Name != null) yield return _in;
+            if (_nin.Name != null) yield return _nin;
+        }
+    }
+
+    public partial class InterviewModeOperationFilterInput : IGraphQlInputObject
+    {
+        private InputPropertyInfo _eq;
+        private InputPropertyInfo _neq;
+        private InputPropertyInfo _in;
+        private InputPropertyInfo _nin;
+
+        #if !GRAPHQL_GENERATOR_DISABLE_NEWTONSOFT_JSON
+        [JsonConverter(typeof(QueryBuilderParameterConverter<InterviewMode?>))]
+        #endif
+        public QueryBuilderParameter<InterviewMode?>? Eq
+        {
+            get => (QueryBuilderParameter<InterviewMode?>?)_eq.Value;
+            set => _eq = new InputPropertyInfo { Name = "eq", Value = value };
+        }
+
+        #if !GRAPHQL_GENERATOR_DISABLE_NEWTONSOFT_JSON
+        [JsonConverter(typeof(QueryBuilderParameterConverter<InterviewMode?>))]
+        #endif
+        public QueryBuilderParameter<InterviewMode?>? Neq
+        {
+            get => (QueryBuilderParameter<InterviewMode?>?)_neq.Value;
+            set => _neq = new InputPropertyInfo { Name = "neq", Value = value };
+        }
+
+        #if !GRAPHQL_GENERATOR_DISABLE_NEWTONSOFT_JSON
+        [JsonConverter(typeof(QueryBuilderParameterConverter<ICollection<InterviewMode>?>))]
+        #endif
+        public QueryBuilderParameter<ICollection<InterviewMode>?>? In
+        {
+            get => (QueryBuilderParameter<ICollection<InterviewMode>?>?)_in.Value;
+            set => _in = new InputPropertyInfo { Name = "in", Value = value };
+        }
+
+        #if !GRAPHQL_GENERATOR_DISABLE_NEWTONSOFT_JSON
+        [JsonConverter(typeof(QueryBuilderParameterConverter<ICollection<InterviewMode>?>))]
+        #endif
+        public QueryBuilderParameter<ICollection<InterviewMode>?>? Nin
+        {
+            get => (QueryBuilderParameter<ICollection<InterviewMode>?>?)_nin.Value;
             set => _nin = new InputPropertyInfo { Name = "nin", Value = value };
         }
 
@@ -4414,6 +5477,47 @@ namespace SurveySolutionsClient.GraphQl
         }
     }
 
+    public partial class RoleFilterInput : IGraphQlInputObject
+    {
+        private InputPropertyInfo _and;
+        private InputPropertyInfo _or;
+        private InputPropertyInfo _eq;
+
+        #if !GRAPHQL_GENERATOR_DISABLE_NEWTONSOFT_JSON
+        [JsonConverter(typeof(QueryBuilderParameterConverter<ICollection<RoleFilterInput>?>))]
+        #endif
+        public QueryBuilderParameter<ICollection<RoleFilterInput>?>? And
+        {
+            get => (QueryBuilderParameter<ICollection<RoleFilterInput>?>?)_and.Value;
+            set => _and = new InputPropertyInfo { Name = "and", Value = value };
+        }
+
+        #if !GRAPHQL_GENERATOR_DISABLE_NEWTONSOFT_JSON
+        [JsonConverter(typeof(QueryBuilderParameterConverter<ICollection<RoleFilterInput>?>))]
+        #endif
+        public QueryBuilderParameter<ICollection<RoleFilterInput>?>? Or
+        {
+            get => (QueryBuilderParameter<ICollection<RoleFilterInput>?>?)_or.Value;
+            set => _or = new InputPropertyInfo { Name = "or", Value = value };
+        }
+
+        #if !GRAPHQL_GENERATOR_DISABLE_NEWTONSOFT_JSON
+        [JsonConverter(typeof(QueryBuilderParameterConverter<UserRoles?>))]
+        #endif
+        public QueryBuilderParameter<UserRoles?>? Eq
+        {
+            get => (QueryBuilderParameter<UserRoles?>?)_eq.Value;
+            set => _eq = new InputPropertyInfo { Name = "eq", Value = value };
+        }
+
+        IEnumerable<InputPropertyInfo> IGraphQlInputObject.GetPropertyValues()
+        {
+            if (_and.Name != null) yield return _and;
+            if (_or.Name != null) yield return _or;
+            if (_eq.Name != null) yield return _eq;
+        }
+    }
+
     public partial class UserMapFilterInput : IGraphQlInputObject
     {
         private InputPropertyInfo _and;
@@ -4487,13 +5591,17 @@ namespace SurveySolutionsClient.GraphQl
         public IPagedConnectionOfQuestionnaire? Questionnaires { get; set; }
         public ICollection<Entity?>? Questions { get; set; }
         public ICollection<QuestionnaireItem?>? QuestionnaireItems { get; set; }
-        public User? Viewer { get; set; }
+        public Viewer? Viewer { get; set; }
+        public Users? Users { get; set; }
+        public MapReportHolder? MapReport { get; set; }
     }
 
     public partial class HeadquartersMutation
     {
-        public CalendarEvent? AddOrUpdateCalendarEvent { get; set; }
+        public CalendarEvent? UpdateCalendarEvent { get; set; }
         public CalendarEvent? DeleteCalendarEvent { get; set; }
+        public CalendarEvent? AddAssignmentCalendarEvent { get; set; }
+        public CalendarEvent? AddInterviewCalendarEvent { get; set; }
         public Map? DeleteMap { get; set; }
         public Map? DeleteUserFromMap { get; set; }
         public Map? AddUserToMap { get; set; }
@@ -4536,6 +5644,7 @@ namespace SurveySolutionsClient.GraphQl
         public QuestionScope? Scope { get; set; }
         public QuestionType? Type { get; set; }
         public string? Variable { get; set; }
+        public VariableType? VariableType { get; set; }
     }
 
     public partial class QuestionnaireItem
@@ -4546,16 +5655,30 @@ namespace SurveySolutionsClient.GraphQl
         public QuestionScope? Scope { get; set; }
         public string? Label { get; set; }
         public QuestionType? Type { get; set; }
+        public VariableType? VariableType { get; set; }
         public bool? Identifying { get; set; }
+        public DateTime? IncludedInReportingAtUtc { get; set; }
         public ICollection<CategoricalOption>? Options { get; set; }
     }
 
-    public partial class User
+    public partial class Viewer
     {
         public string? Id { get; set; }
-        public ICollection<UserRoles>? Roles { get; set; }
+        public UserRoles? Role { get; set; }
         public string? UserName { get; set; }
         public ICollection<string>? Workspaces { get; set; }
+    }
+
+    public partial class Users
+    {
+        public ICollection<User?>? Nodes { get; set; }
+        public int? TotalCount { get; set; }
+        public int? FilteredCount { get; set; }
+    }
+
+    public partial class MapReportHolder
+    {
+        public MapReport? Report { get; set; }
     }
 
     public partial class CalendarEvent
@@ -4576,7 +5699,7 @@ namespace SurveySolutionsClient.GraphQl
     {
         public string? FileName { get; set; }
         public long? Size { get; set; }
-        public DateTime? ImportDate { get; set; }
+        public DateTime? ImportDateUtc { get; set; }
         public ICollection<UserMap?>? Users { get; set; }
         public double? XMaxVal { get; set; }
         public double? YMaxVal { get; set; }
@@ -4597,6 +5720,7 @@ namespace SurveySolutionsClient.GraphQl
         public DateTime? ReceivedByTabletAtUtc { get; set; }
         public Guid? ResponsibleId { get; set; }
         public bool? WebMode { get; set; }
+        public CalendarEvent? CalendarEvent { get; set; }
     }
 
     public partial class Interview
@@ -4605,6 +5729,7 @@ namespace SurveySolutionsClient.GraphQl
         public int? AssignmentId { get; set; }
         public string? Id { get; set; }
         public InterviewStatus? Status { get; set; }
+        public InterviewMode? InterviewMode { get; set; }
         public string? ResponsibleName { get; set; }
         public Guid? ResponsibleId { get; set; }
         public UserRoles? ResponsibleRole { get; set; }
@@ -4622,6 +5747,7 @@ namespace SurveySolutionsClient.GraphQl
         public ICollection<IdentifyingEntity?>? IdentifyingData { get; set; }
         public int? NotAnsweredCount { get; set; }
         public CalendarEvent? CalendarEvent { get; set; }
+        public string? CawiLink { get; set; }
     }
 
     public partial class Questionnaire
@@ -4642,6 +5768,27 @@ namespace SurveySolutionsClient.GraphQl
         public int? Value { get; set; }
     }
 
+    public partial class User
+    {
+        public string? Id { get; set; }
+        public UserRoles? Role { get; set; }
+        public string? UserName { get; set; }
+        public string? FullName { get; set; }
+        public string? Email { get; set; }
+        public string? PhoneNumber { get; set; }
+        public object? CreationDate { get; set; }
+        public bool? IsLocked { get; set; }
+        public bool? IsArchived { get; set; }
+        public ICollection<string>? Workspaces { get; set; }
+    }
+
+    public partial class MapReport
+    {
+        public int? TotalPoint { get; set; }
+        public GeoBounds? InitialBounds { get; set; }
+        public FeatureCollection? FeatureCollection { get; set; }
+    }
+
     public partial class UserMap
     {
         public string? UserName { get; set; }
@@ -4652,12 +5799,39 @@ namespace SurveySolutionsClient.GraphQl
         public int? AnswerValue { get; set; }
         public Entity? Entity { get; set; }
         public string? Value { get; set; }
+        public bool? ValueBool { get; set; }
+        public DateTime? ValueDate { get; set; }
+        public long? ValueLong { get; set; }
+        public double? ValueDouble { get; set; }
+        public bool? IsEnabled { get; set; }
     }
 
     public partial class Translation
     {
         public Guid? Id { get; set; }
         public string? Name { get; set; }
+    }
+
+    public partial class GeoBounds
+    {
+        public double? North { get; set; }
+        public double? South { get; set; }
+        public double? East { get; set; }
+        public double? West { get; set; }
+    }
+
+    public partial class FeatureCollection
+    {
+        public ICollection<Feature?>? Features { get; set; }
+        public GeoJsonObjectType? Type { get; set; }
+    }
+
+    public partial class Feature
+    {
+        public GeoJsonObjectType? Type { get; set; }
+        public string? Id { get; set; }
+        public object? Geometry { get; set; }
+        public object? Properties { get; set; }
     }
     #endregion
 #nullable restore
