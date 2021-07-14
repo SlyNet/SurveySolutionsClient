@@ -70,7 +70,12 @@ namespace SurveySolutionsClient.Tests
             {
                 UserIds = new Guid[] {Guid.Parse("26fb2fcf-e0ad-4e78-b9ba-cd85171d8f48")},
                 Mode = AssignWorkspacesMode.Add,
-                Workspaces = new[] {"test1"}
+                Workspaces = new[] {
+                    new AssignWorkspaceInfo()
+                    { 
+                        Workspace = "test1"
+                    } 
+                }
             });
         }
 
