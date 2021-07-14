@@ -6,12 +6,12 @@ namespace SurveySolutionsClient.Models
     {
         public AssignWorkspacesToUserRequest()
         {
-            Workspaces = Array.Empty<string>();
+            Workspaces = Array.Empty<AssignWorkspaceInfo>();
         }
 
         public Guid[] UserIds { get; set; }
 
-        public string[] Workspaces { get; set; }
+        public AssignWorkspaceInfo[] Workspaces { get; set; }
 
         public AssignWorkspacesMode Mode { get; set; } = AssignWorkspacesMode.Assign;
     }
