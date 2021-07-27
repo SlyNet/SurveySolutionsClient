@@ -3,7 +3,8 @@
     /// <summary>
     /// Represents single answer
     /// </summary>
-    public abstract class AbstractAnswer
+    public class Answer
     {
+        public string Value { get; set; }
     }
 }
