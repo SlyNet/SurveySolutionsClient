@@ -8,11 +8,10 @@
         <LangVersion>latest</LangVersion>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <AssemblyVersion>1.0.0.0</AssemblyVersion>
-        <Version>2.0.0.1</Version>
+        <Version>2.0.1.0</Version>
         <Authors>Andrii Kozhyn</Authors>
-        <Company></Company>
         <PackageProjectUrl>https://docs.mysurvey.solutions/headquarters/api/survey-solutions-api/</PackageProjectUrl>
-        <PackageReleaseNotes>Support for new api added in Survey Solutions 21.05</PackageReleaseNotes>
+        <PackageReleaseNotes>Fixed issue with getting assignment details and ability to assign workspace for existing user</PackageReleaseNotes>
         <Description>Client for survey solutions application</Description>
         <NoWarn>1701;1702;1591;8618</NoWarn>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
