@@ -1,9 +1,12 @@
 [![NuGet package](https://img.shields.io/nuget/v/SurveySolutionsClient)](https://www.nuget.org/packages/SurveySolutionsClient/)
 
-# SurveySolutionsClient
+# Survey Solutions Client
 C# client library to access Survey Solutions public api.
 
-To get started using api create a new api user as described [here](https://docs.mysurvey.solutions/headquarters/api/survey-solutions-api/). Then create a api client with following code sample:
+## To get started using api:
+1. create a new api user as described [here](https://docs.mysurvey.solutions/headquarters/api/survey-solutions-api/). 
+2. Install [nuget package](https://img.shields.io/nuget/v/SurveySolutionsClient)
+3. Then create a api client with following code sample:
 
 ``` C#
 Credentials creds = new Credentials("apiUser", "apiPassword");
