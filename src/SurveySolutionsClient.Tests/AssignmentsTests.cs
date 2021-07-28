@@ -10,6 +10,26 @@ using SurveySolutionsClient.Models;
 
 namespace SurveySolutionsClient.Tests
 {
+    public class AssignmentsReadonlyTests
+    {
+        private HttpClient httpClient;
+        private SurveySolutionsApi service;
+
+        [OneTimeSetUp]
+        public void OneTimeSetup()
+        {
+            httpClient = new HttpClient();
+            service = new SurveySolutionsApi(httpClient, ClientSettings.GetConfiguration());
+        }
+        
+        [Test]
+        public async Task can_get_assignment_details()
+        {
+            var response = await service.Assignments.DetailsAsync(4);
+            Assert.That(response, Is.Not.Null);
+        }
+    }
+
     public class AssignmentsTests
     {
         private HttpClient httpClient;
@@ -31,13 +51,6 @@ namespace SurveySolutionsClient.Tests
                 Responsible = "inter",
             });
             this.assignmentId = creationResult.Assignment.Id;
-        }
-
-        [Test]
-        public async Task can_get_assignment_details()
-        {
-            var response = await service.Assignments.DetailsAsync(1);
-            Assert.That(response, Is.Not.Null);
         }
 
         [Test]
