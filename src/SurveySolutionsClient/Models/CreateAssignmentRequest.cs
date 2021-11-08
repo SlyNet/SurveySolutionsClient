@@ -17,7 +17,7 @@ namespace SurveySolutionsClient.Models
         /// <summary>
         /// Maximum number of allowed to create assignments.
         /// </summary>
-        public int Quantity { get; set; }
+        public int? Quantity { get; set; }
 
         /// <summary>
         /// QuestionnaireId for assignment

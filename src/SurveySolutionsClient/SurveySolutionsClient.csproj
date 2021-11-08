@@ -8,10 +8,10 @@
         <LangVersion>latest</LangVersion>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <AssemblyVersion>1.0.0.0</AssemblyVersion>
-        <Version>3.0.0.0</Version>
+        <Version>3.1.0.0</Version>
         <Authors>Andrii Kozhyn</Authors>
         <PackageProjectUrl>https://docs.mysurvey.solutions/headquarters/api/survey-solutions-api/</PackageProjectUrl>
-        <PackageReleaseNotes>Extended support for more answer types in Assignments.DetailsAsync method.</PackageReleaseNotes>
+        <PackageReleaseNotes>Support for creation of unlimited assignments.</PackageReleaseNotes>
         <Description>Client for survey solutions application</Description>
         <NoWarn>1701;1702;1591;8618</NoWarn>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>

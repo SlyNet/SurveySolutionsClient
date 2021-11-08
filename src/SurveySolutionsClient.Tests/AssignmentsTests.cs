@@ -94,7 +94,7 @@ namespace SurveySolutionsClient.Tests
         }
 
         [Test]
-        public async Task can_change_quanity()
+        public async Task can_change_quantity()
         {
             var archiveAsync = await this.service.Assignments.ChangeQuantityAsync(this.assignmentId, 10);
 
@@ -191,6 +191,19 @@ namespace SurveySolutionsClient.Tests
                         Answer = JsonSerializer.Serialize(new [] { "20 -> yes", "30 -> no" })
                     }
                 }
+            });
+
+            Assert.That(creationResult.Assignment, Is.Not.Null);
+        }
+
+        [Test]
+        public async Task should_be_able_to_create_unlimited_assignment()
+        {  
+            var creationResult = await this.service.Assignments.CreateAsync(new CreateAssignmentRequest
+            {
+                QuestionnaireId = questionnaireIdentity,
+                Quantity = null,
+                Responsible = "inter",
             });
 
             Assert.That(creationResult.Assignment, Is.Not.Null);
