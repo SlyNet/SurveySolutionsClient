@@ -16,12 +16,19 @@ jobs:
       with:
         dotnet-version: 5.0.x
     - name: Build
-      run: dotnet build -c Release
-      working-directory: ./src/SurveySolutionsClient
+      run: dotnet build -c Release src
     - name: Publish
       id: publish_nuget
       uses: rohith/publish-nuget@v2
       with:
           PROJECT_FILE_PATH: src/SurveySolutionsClient/SurveySolutionsClient.csproj
+          NUGET_KEY: ${{secrets.NUGET_KEY}}
+          #INCLUDE_SYMBOLS: true
+
+    - name: Publish
+      id: publish_nuget_di
+      uses: rohith/publish-nuget@v2
+      with:
+          PROJECT_FILE_PATH: src/SurveySolutionsClient.DependencyInjection/SurveySolutionsClient.DependencyInjection.csproj
           NUGET_KEY: ${{secrets.NUGET_KEY}}
           #INCLUDE_SYMBOLS: true
