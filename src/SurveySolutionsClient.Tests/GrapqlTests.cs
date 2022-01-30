@@ -54,6 +54,29 @@ namespace SurveySolutionsClient.Tests
             Assert.That(result, Is.Not.Null);
             Assert.That(result.Data.Assignments.Nodes, Is.Not.Empty);
         }
+        
+        [Test]
+        public async Task should_be_to_get_list_of_interviews_by_status()
+        {
+            var builder = new HeadquartersQueryQueryBuilder()
+                .WithInterviews(
+                    new IPagedConnectionOfInterviewQueryBuilder()
+                        .WithNodes(new InterviewQueryBuilder().WithAllScalarFields())
+                        .WithFilteredCount()
+                        .WithTotalCount(),
+                    workspace: "primary",
+                    where: new InterviewsFilter()
+                    {
+                        Status = new InterviewStatusOperationFilterInput
+                        {
+                            Eq = InterviewStatus.Completed
+                        }
+                    });
+
+            var result = await this.service.GraphQl.ExecuteAsync<GraphQlResponse>(builder);
+
+            Assert.That(result, Is.Not.Null);
+        }
 
         [Test]
         public async Task should_be_able_to_execute_mutation()
