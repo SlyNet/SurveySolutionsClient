@@ -18,10 +18,7 @@ jobs:
     - name: Build
       run: dotnet build -c Release
       working-directory: ./src/SurveySolutionsClient
+    - name: Package
+      run: dotnet pack -c Release -o . src/SurveySolutionsClient/SurveySolutionsClient.csproj
     - name: Publish
-      id: publish_nuget
-      uses: brandedoutcast/publish-nuget@v2
-      with:
-          PROJECT_FILE_PATH: src/SurveySolutionsClient/SurveySolutionsClient.csproj
-          NUGET_KEY: ${{secrets.NUGET_KEY}}
-          #INCLUDE_SYMBOLS: true
+      run: dotnet nuget push *.nupkg -k ${{ secrets.NUGET_KEY }} -s https://api.nuget.org/v3/index.json
