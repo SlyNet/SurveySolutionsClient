@@ -112,8 +112,21 @@ namespace SurveySolutionsClient.Apis
                 if ("text/json".Equals(response.Content.Headers.ContentType.MediaType, StringComparison.OrdinalIgnoreCase) ||
                     "application/json".Equals(response.Content.Headers.ContentType.MediaType, StringComparison.OrdinalIgnoreCase))
                 {
-                    var createAssignmentResult = JsonSerializer.Deserialize<CreateAssignmentResult>(responseBody);
-                    throw new AssignmentCreationException("Assignment was not created", createAssignmentResult);
+                    try
+                    {
+                        var createAssignmentResult = JsonSerializer.Deserialize<CreateAssignmentResult>(responseBody);
+                        throw new AssignmentCreationException("Assignment was not created", createAssignmentResult);
+                    }
+                    catch (JsonException)
+                    {
+                        var stringError = JsonSerializer.Deserialize<string>(responseBody);
+                        throw new AssignmentCreationException("Assignment was not created", 
+                            new CreateAssignmentResult
+                        {
+                            ValidationErrorMessage = stringError
+                        }, new ApiCallException(stringError ?? "Http call exception", responseBody, response))
+                        ;
+                    }
                 }
             }
 
