@@ -22,7 +22,9 @@ namespace SurveySolutionsClient.Exceptions
         /// </summary>
         /// <param name="message">The text message.</param>
         /// <param name="creationResult">The creation result details.</param>
-        public AssignmentCreationException(string message, CreateAssignmentResult? creationResult) : base(message)
+        /// <param name="innerException">Inner exception</param>
+        public AssignmentCreationException(string message, CreateAssignmentResult? creationResult, Exception? innerException = null)
+            : base(message, innerException)
         {
             CreationResult = creationResult;
         }

@@ -114,9 +114,17 @@ namespace SurveySolutionsClient.Helpers
                 Method = new HttpMethod(httpMethod)
             };
 
-            string base64String =
-                Convert.ToBase64String(Encoding.UTF8.GetBytes($"{credentials.UserName}:{credentials.Password}"));
-            request.Headers.Authorization = new AuthenticationHeaderValue("Basic", base64String);
+            if (credentials.UserName != null)
+            {
+                string base64String =
+                    Convert.ToBase64String(Encoding.UTF8.GetBytes($"{credentials.UserName}:{credentials.Password}"));
+                request.Headers.Authorization = new AuthenticationHeaderValue("Basic", base64String);
+            }
+            else if (credentials.AuthToken != null)
+            {
+                request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", credentials.AuthToken);
+            }
+
             request.Headers.Accept.Add(MediaTypeWithQualityHeaderValue.Parse("text/json"));
 
             if (jsonBody is GraphQlQueryBuilder queryBuilder)

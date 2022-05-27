@@ -7,5 +7,7 @@
         public ImportDataVerificationState? VerificationStatus { get; set; }
 
         public string? WebInterviewLink { get; set; }
+        
+        public string? ValidationErrorMessage { get; set; }
     }
 }

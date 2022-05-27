@@ -10,6 +10,15 @@ namespace SurveySolutionsClient
         /// <summary>
         /// Initializes a new instance of the <see cref="Credentials"/> class.
         /// </summary>
+        /// <param name="authToken">Authentication token.</param>
+        public Credentials(string authToken)
+        {
+            AuthToken = authToken;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Credentials"/> class.
+        /// </summary>
         /// <param name="userName">Name of the user.</param>
         /// <param name="password">The password.</param>
         public Credentials(string userName, string password)
@@ -24,7 +33,7 @@ namespace SurveySolutionsClient
         /// <value>
         /// The name of the user.
         /// </value>
-        public string UserName { get; }
+        public string? UserName { get; }
 
         /// <summary>
         /// Gets the password.
@@ -32,6 +41,11 @@ namespace SurveySolutionsClient
         /// <value>
         /// The password.
         /// </value>
-        public string Password { get; }
+        public string? Password { get; }
+        
+        /// <summary>
+        /// Authentication token
+        /// </summary>
+        public string? AuthToken { get; }
     }
 }

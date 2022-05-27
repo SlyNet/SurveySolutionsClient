@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  hq:
+    image: 'surveysolutions/surveysolutions'
+    ports:
+     - "9700:80"
+    depends_on:
+     - db
+    environment: 
+      HQ_ConnectionStrings__DefaultConnection: 'Server=db;Port=5432;User Id=postgres;Password=pg_password;Database=hq'
+      HQ_Headquarters__BaseUrl: http://localhost:9700
+      HQ_JwtBearer__Enabled: "true"
+      HQ_JwtBearer__SecretKey: 2123456789123f4t5y
+    volumes:
+      - ./AppData:/app/AppData
+  db:
+    image: "postgres"
+    environment:
+      POSTGRES_PASSWORD: pg_password
+    volumes:
+      - hq_pg_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+volumes: 
+  hq_pg_data:
