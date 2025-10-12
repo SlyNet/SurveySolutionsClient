@@ -1,6 +1,5 @@
 ﻿using System.IO;
 using System.Net.Http;
-using System.Reflection;
 using System.Threading.Tasks;
 using GraphQlClientGenerator;
 using NUnit.Framework;
@@ -21,12 +20,13 @@ namespace SurveySolutionsClient.Tests
             configuration.ScalarFieldTypeMappingProvider = new SurveySolutionsTypeMappingProvider();
             configuration.FloatTypeMapping = FloatTypeMapping.Double;
             configuration.IntegerTypeMapping = IntegerTypeMapping.Int32;
-            configuration.CSharpVersion = CSharpVersion.NewestWithNullableReferences;
+            configuration.CSharpVersion = CSharpVersion.Compatible;
             configuration.IdTypeMapping = IdTypeMapping.String;
+            configuration.TargetNamespace = "SurveySolutionsClient.GraphQl";
 
 
             var generator = new GraphQlGenerator(configuration);   
-            var csharpCode = generator.GenerateFullClientCSharpFile(schema, "SurveySolutionsClient.GraphQl");
+            var csharpCode = generator.GenerateFullClientCSharpFile(schema);
             File.WriteAllText(@"C:\projects\SuSoClient\Repository\src\SurveySolutionsClient\Graphql.cs", csharpCode);
         }
     }

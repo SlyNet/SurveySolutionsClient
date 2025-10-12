@@ -4,15 +4,12 @@ namespace SurveySolutionsClient.Tests;
 
 class SurveySolutionsTypeMappingProvider : IScalarFieldTypeMappingProvider
 {
-    public ScalarFieldTypeDescription GetCustomScalarFieldType(GraphQlGeneratorConfiguration configuration, 
-        GraphQlType baseType,
-        GraphQlTypeBase valueType, 
-        string valueName)
+    public ScalarFieldTypeDescription GetCustomScalarFieldType(ScalarFieldTypeProviderContext context)
     {
-        valueType = valueType is GraphQlFieldType fieldType ? fieldType.UnwrapIfNonNull() : valueType;
+        // valueType = context.FieldType is GraphQlFieldType fieldType ? fieldType.UnwrapIfNonNull() : valueType;
 
         // DateTime and Byte
-        switch (valueType.Name)
+        switch (context.FieldType.Name)
         {
             case "Uuid": return new ScalarFieldTypeDescription { NetTypeName = "Guid?", FormatMask = "N" };
             case "Uuid!": return new ScalarFieldTypeDescription { NetTypeName = "Guid", FormatMask = "N" };
@@ -22,6 +19,6 @@ class SurveySolutionsTypeMappingProvider : IScalarFieldTypeMappingProvider
         }
 
         // fallback - not needed if all fields and arguments are resolved or the expected type is of "object" type
-        return DefaultScalarFieldTypeMappingProvider.Instance.GetCustomScalarFieldType(configuration, baseType, valueType, valueName);
+        return DefaultScalarFieldTypeMappingProvider.Instance.GetCustomScalarFieldType(context);
     }
 }

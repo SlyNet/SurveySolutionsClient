@@ -8,6 +8,7 @@ services:
     depends_on:
      - db
     environment: 
+      ASPNETCORE_URLS: http://+:80
       HQ_ConnectionStrings__DefaultConnection: 'Server=db;Port=5432;User Id=postgres;Password=pg_password;Database=hq'
       HQ_Headquarters__BaseUrl: http://localhost:9700
       HQ_JwtBearer__Enabled: "true"

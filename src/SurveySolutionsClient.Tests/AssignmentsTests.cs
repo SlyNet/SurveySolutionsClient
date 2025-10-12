@@ -168,22 +168,12 @@ namespace SurveySolutionsClient.Tests
                     new AssignmentIdentifyingDataItem // list question
                     {
                         Answer = JsonSerializer.Serialize(new []{ "one", "two", "three" }),
-                        Variable = "listR1"
+                        Variable = "RMembers"
                     },
                     new AssignmentIdentifyingDataItem // gps question
                     {
                         Variable = "gps",
                         Answer = "48.7630568$30.1807397"
-                    },
-                    new AssignmentIdentifyingDataItem // multiple choice question
-                    {
-                        Variable = "ms16",
-                        Answer =  JsonSerializer.Serialize(new []{ "-2", "3" }),
-                    },
-                    new AssignmentIdentifyingDataItem // question in roster
-                    {
-                        Answer = "test answer inside roster",
-                        Identity = new Identity(Guid.Parse("7cc0482b99db1f48a4aff9e04fbd2f71"), new RosterVector(-2))
                     },
                     new AssignmentIdentifyingDataItem // yes no question
                     {

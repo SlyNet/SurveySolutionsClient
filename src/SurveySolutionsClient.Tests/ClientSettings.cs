@@ -10,6 +10,6 @@ namespace SurveySolutionsClient.Tests
         public static SurveySolutionsApiConfiguration GetConfiguration(string workspace = null) =>
             new(new Credentials("api", "Qwerty1234"), HqUrl, workspace);
 
-        public static QuestionnaireIdentity Questionnaire => new QuestionnaireIdentity(Guid.Parse("1949c957-f891-4b93-be78-37cf41baa0a9"), 1);
+        public static QuestionnaireIdentity Questionnaire => new QuestionnaireIdentity(Guid.Parse("4cbce5d5-6218-46b3-ac9c-7a8e64c43506"), 2);
     }
 }
