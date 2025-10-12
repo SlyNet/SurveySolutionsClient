@@ -14,7 +14,7 @@ namespace SurveySolutionsClient.Tests
     {
         private HttpClient httpClient;
         private ISurveySolutionsApi service;
-        private Guid interviewId = Guid.Parse("be081efeb13547dcb6d300c078844384");
+        private Guid interviewId = Guid.Parse("df7ff092049a48cfa97a1b6142ad2a04");
 
         [OneTimeSetUp]
         public void OneTimeSetup()
@@ -44,7 +44,6 @@ namespace SurveySolutionsClient.Tests
             
         }
 
-
         [Test]
         public async Task able_to_get_history()
         {
@@ -57,10 +56,18 @@ namespace SurveySolutionsClient.Tests
         public async Task able_to_download_pdf()
         {
             var pdf = await this.service.Interviews.GetPdfAsync(this.interviewId);
-            await using var fileStream = File.Open("c:/temp/file.pdf", FileMode.Create);
-            await pdf.CopyToAsync(fileStream);
+            var tempFileName = Path.GetTempFileName();
+            try
+            {
+                await using var fileStream = File.Open(tempFileName, FileMode.Create);
+                await pdf.CopyToAsync(fileStream);
 
-            Assert.That(File.Exists("c:/temp/file.pdf"));
+                Assert.That(File.Exists(tempFileName));
+            }
+            finally
+            {
+                File.Delete(tempFileName);                
+            }
         }
 
         [Test]
@@ -73,13 +80,13 @@ namespace SurveySolutionsClient.Tests
         [Test]
         public async Task should_be_able_to_approve()
         {
-            await this.service.Interviews.ApproveAsync(Guid.Parse("be081efeb13547dcb6d300c078844384"), "my api comment");
+            await this.service.Interviews.ApproveAsync(Guid.Parse("b9ba6cb13d4142bdafbaba223af3bdad"), "my api comment");
         }
 
         [Test]
         public async Task should_be_able_to_assign()
         {
-            await this.service.Interviews.AssignAsync(Guid.Parse("a5f20fd17a4546c4b6ddde9f6570cd03"),
+            await this.service.Interviews.AssignAsync(Guid.Parse("83355765353d4bc6a7223482a8588dd8"),
                 new AssignInterviewRequest(null, "inter1"));
         }
 

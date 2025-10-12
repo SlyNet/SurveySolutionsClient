@@ -125,7 +125,7 @@ namespace SurveySolutionsClient.Helpers
                 request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", credentials.AuthToken);
             }
 
-            request.Headers.Accept.Add(MediaTypeWithQualityHeaderValue.Parse("text/json"));
+            request.Headers.Accept.Add(MediaTypeWithQualityHeaderValue.Parse("application/json"));
 
             if (jsonBody is GraphQlQueryBuilder queryBuilder)
             {

@@ -9,5 +9,7 @@ namespace SurveySolutionsClient.Models
         public string DisplayName { get; set; }
         
         public DateTime? DisabledAtUtc { get; set; }
+        
+        public DateTime? CreatedAtUtc { get; set; }
     }
 }

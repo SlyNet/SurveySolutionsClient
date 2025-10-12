@@ -24,10 +24,9 @@ namespace SurveySolutionsClient.Tests
             configuration.IdTypeMapping = IdTypeMapping.String;
             configuration.TargetNamespace = "SurveySolutionsClient.GraphQl";
 
-
             var generator = new GraphQlGenerator(configuration);   
             var csharpCode = generator.GenerateFullClientCSharpFile(schema);
-            File.WriteAllText(@"C:\projects\SuSoClient\Repository\src\SurveySolutionsClient\Graphql.cs", csharpCode);
+            File.WriteAllText(@"E:\SurveySolutionsClient\src\SurveySolutionsClient\Graphql.cs", csharpCode);
         }
     }
 }

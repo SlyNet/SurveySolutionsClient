@@ -12,7 +12,7 @@ namespace SurveySolutionsClient.Tests
     {
         private HttpClient httpClient;
         private ISurveySolutionsApi service;
-        private Guid interviewerGuid = Guid.Parse("6083f76d-5faa-49a9-9c6d-fba1d920584e");
+        private Guid interviewerGuid = Guid.Parse("fb0ec2e9-3548-40bd-a86c-dbc0a189446e");
 
         [OneTimeSetUp]
         public void OneTimeSetup()
@@ -39,7 +39,7 @@ namespace SurveySolutionsClient.Tests
         [Test]
         public async Task get_supervisor_details()
         {
-            var supervisor = await this.service.Users.GetUserDetailsAsync("sup");
+            var supervisor = await this.service.Users.GetUserDetailsAsync("super");
             Assert.That(supervisor, Is.Not.Null);
         }
 
@@ -77,7 +77,7 @@ namespace SurveySolutionsClient.Tests
                 UserName = "test",
                 Role = Roles.Interviewer,
                 Password = "Pa$$Word1111",
-                Supervisor = "sup"
+                Supervisor = "super"
             });
         }
 
@@ -92,7 +92,7 @@ namespace SurveySolutionsClient.Tests
         [Test]
         public async Task can_get_user_details()
         {
-            var user = await this.service.Users.GetUserDetailsAsync("sup");
+            var user = await this.service.Users.GetUserDetailsAsync("super");
             Assert.That(user.UserName, Is.Not.Null);
         }
 
